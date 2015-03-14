@@ -33,182 +33,207 @@ options {
 }
 
 // Imaginary tokens to create some AST nodes
-
 tokens {
-    LIST_FUNCTIONS; // List of functions (the root of the tree)
-    ASSIGN;     // Assignment instruction
-    PARAMS;     // List of parameters in the declaration of a function
-    FUNCALL;    // Function call
-    ARGLIST;    // List of arguments passed in a function call
-    LIST_INSTR; // Block of instructions
-    BOOLEAN;    // Boolean atom (for Boolean constants "true" or "false")
-    PVALUE;     // Parameter by value in the list of parameters
-    PREF;       // Parameter by reference in the list of parameters
+    LIST_FUNCTIONS;     // List of functions (the root of the tree)
+    ASSIGN;             // Assignment instruction
+    PARAMS;             // List of parameters in the declaration of a function
+    FUNCALL;            // Function call
+    ARGLIST;            // List of arguments passed in a function call
+    LIST_INSTR;         // Block of instructions
+    BOOLEAN;            // Boolean atom (for Boolean constants "true" or "false")
+    PVALUE;             // Parameter by value in the list of parameters
+    PREF;               // Parameter by reference in the list of parameters
+    ARRAYACC;           // Access to Array
+    SIZE;               // Size of Array
 }
 
 @header {
-package parser;
-import interp.AslTree;
+    package parser;
+    import interp.AslTree;
 }
 
 @lexer::header {
-package parser;
+    package parser;
 }
 
 
 // A program is a list of functions
-prog	: func+ EOF -> ^(LIST_FUNCTIONS func+)
+prog    : func+ EOF -> ^(LIST_FUNCTIONS func+)
         ;
             
 // A function has a name, a list of parameters and a block of instructions	
-func	: FUNC^ ID params block_instructions ENDFUNC!
+func    : FUNC^ ID params block_instructions ENDFUNC!
         ;
 
 // The list of parameters grouped in a subtree (it can be empty)
-params	: '(' paramlist? ')' -> ^(PARAMS paramlist?)
+params  : '(' paramlist? ')' -> ^(PARAMS paramlist?)
         ;
 
 // Parameters are separated by commas
-paramlist: param (','! param)*
+paramlist
+        : param (','! param)*
         ;
 
 // Parameters with & as prefix are passed by reference
 // Only one node with the name of the parameter is created
-param   :   '&' id=ID -> ^(PREF[$id,$id.text])
-        |   id=ID -> ^(PVALUE[$id,$id.text])
+param   : '&' id=ID -> ^(PREF[$id,$id.text])
+        | id=ID -> ^(PVALUE[$id,$id.text])
         ;
 
 // A list of instructions, all of them gouped in a subtree
 block_instructions
-        :	 instruction (';' instruction)*
-            -> ^(LIST_INSTR instruction+)
+        : instruction (';' instruction)* -> ^(LIST_INSTR instruction+)
         ;
 
 // The different types of instructions
 instruction
-        :	assign          // Assignment
-        |	ite_stmt        // if-then-else
-        |	while_stmt      // while statement
-        |   funcall         // Call to a procedure (no result produced)
-        |	return_stmt     // Return statement
-        |	read            // Read a variable
-        | 	write           // Write a string or an expression
-        |                   // Nothing
+        : assign        // Assignment
+        | ite_stmt      // if-then-else
+        | while_stmt    // while statement
+        | funcall       // Call to a procedure (no result produced)
+        | return_stmt   // Return statement
+        | read          // Read a variable
+        | write         // Write a string or an expression
+        |               // Nothing
+        | movement      // 
+        | sleep         // 
+        ; 
+        
+movement: (AVANZAR | GIRAR | ACELERAR) '(' num_expr? ')' 
+        | PARAR '(' ')'
+        ;
+        
+sleep   : SLEEP '(' (INT | FLOAT) ')'
         ;
 
 // Assignment
-assign	:	ID eq=EQUAL expr -> ^(ASSIGN[$eq,":="] ID expr)
+assign  : esq eq=EQUAL expr -> ^(ASSIGN[$eq,":="] esq expr)
+        ;
+        
+esq     : ID
+        | ID b='[' expr ']' -> ^(ARRAYACC[$b,"[]"] ID expr)
         ;
 
 // if-then-else (else is optional)
-ite_stmt	:	IF^ expr THEN! block_instructions (ELSE! block_instructions)? ENDIF!
-            ;
+ite_stmt: IF^ expr THEN! block_instructions (ELSE! block_instructions)? ENDIF!
+        ;
 
 // while statement
-while_stmt	:	WHILE^ expr DO! block_instructions ENDWHILE!
-            ;
+while_stmt
+        : WHILE^ expr DO! block_instructions ENDWHILE!
+        ;
 
 // Return statement with an expression
-return_stmt	:	RETURN^ expr?
+return_stmt
+        : RETURN^ expr?
         ;
 
 // Read a variable
-read	:	READ^ ID
+read    : READ^ esq
         ;
 
 // Write an expression or a string
-write	:   WRITE^ (expr | STRING )
+write   : WRITE^ (expr | STRING )
         ;
 
 // Grammar for expressions with boolean, relational and aritmetic operators
-expr    :   boolterm (OR^ boolterm)*
+expr    : boolterm (OR^ boolterm)*
         ;
 
-boolterm:   boolfact (AND^ boolfact)*
+boolterm: boolfact (AND^ boolfact)*
         ;
 
-boolfact:   num_expr ((EQUAL^ | NOT_EQUAL^ | LT^ | LE^ | GT^ | GE^) num_expr)?
+boolfact: num_expr ((EQUAL^ | NOT_EQUAL^ | LT^ | LE^ | GT^ | GE^) num_expr)?
         ;
 
-num_expr:   term ( (PLUS^ | MINUS^) term)*
+num_expr: term ( (PLUS^ | MINUS^) term)*
         ;
 
-term    :   factor ( (MUL^ | DIV^ | MOD^) factor)*
+term    : factor ( (MUL^ | DIV^ | MOD^) factor)*
         ;
 
-factor  :   (NOT^ | PLUS^ | MINUS^)? atom
+factor  : (NOT^ | PLUS^ | MINUS^)? atom
         ;
 
 // Atom of the expressions (variables, integer and boolean literals).
 // An atom can also be a function call or another expression
 // in parenthesis
-atom    :   ID 
-        |   INT
-        |   (b=TRUE | b=FALSE)  -> ^(BOOLEAN[$b,$b.text])
-        |   funcall
-        |   '('! expr ')'!
+atom    : ID 
+        | INT
+        | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
+        | funcall ( -> funcall | b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] funcall expr))
+        | '('! expr ')'!
+        | ID b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] ID expr)
+        | ID b=DOTSIZE -> ^(SIZE[$b, "SIZE"] ID)
+        | (GETCOLOR | GETULTRA | GETTOUCH) '(' ')'
         ;
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
-funcall :   ID '(' expr_list? ')' -> ^(FUNCALL ID ^(ARGLIST expr_list?))
+funcall : ID '(' expr_list? ')' -> ^(FUNCALL ID ^(ARGLIST expr_list?))
         ;
 
 // A list of expressions separated by commas
-expr_list:  expr (','! expr)*
+expr_list: expr (','! expr)*
         ;
 
 // Basic tokens
-EQUAL	: '=' ;
-NOT_EQUAL: '!=' ;
-LT	    : '<' ;
-LE	    : '<=';
-GT	    : '>';
-GE	    : '>=';
-PLUS	: '+' ;
-MINUS	: '-' ;
-MUL	    : '*';
-DIV	    : '/';
-MOD	    : '%' ;
-NOT	    : 'not';
-AND	    : 'and' ;
-OR	    : 'or' ;	
-IF  	: 'if' ;
-THEN	: 'then' ;
-ELSE	: 'else' ;
-ENDIF	: 'endif' ;
-WHILE	: 'while' ;
-DO	    : 'do' ;
-ENDWHILE: 'endwhile' ;
-FUNC	: 'func' ;
-ENDFUNC	: 'endfunc' ;
-RETURN	: 'return' ;
-READ	: 'read' ;
-WRITE	: 'write' ;
-TRUE    : 'true' ;
-FALSE   : 'false';
-ID  	:	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
-INT 	:	'0'..'9'+ ;
+EQUAL           : '=' ;
+NOT_EQUAL       : '!=' ;
+LT              : '<' ;
+LE              : '<=' ;
+GT              : '>' ;
+GE              : '>=' ;
+PLUS            : '+' ;
+MINUS           : '-' ;
+MUL             : '*' ;
+DIV             : '/' ;
+MOD             : '%' ;
+NOT             : 'not' ;
+AND             : 'and' ;
+OR              : 'or' ;
+IF              : 'if' ;
+THEN            : 'then' ;
+ELSE            : 'else' ;
+ENDIF           : 'endif' ;
+WHILE           : 'while' ;
+DO              : 'do' ;
+ENDWHILE        : 'endwhile' ;
+FUNC            : 'func' ;
+ENDFUNC         : 'endfunc' ;
+RETURN          : 'return' ;
+READ            : 'read' ;
+WRITE           : 'write' ;
+TRUE            : 'true' ;
+FALSE           : 'false';
+
+DOTSIZE         : '.size' ;
+
+GETCOLOR        : 'getColor' ;
+GETULTRA        : 'getUltrasonico' ;
+GETTOUCH        : 'getTouch' ;
+AVANZAR         : 'avanzar' ;
+GIRAR           : 'girar' ;
+PARAR           : 'parar' ;
+ACELERAR        : 'acelerar' ;
+SLEEP           : 'sleep' ;
+
+ID              : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
+FLOAT           : '0'..'9'+ '.' '0'..'9'+ ;
+INT             : '0'..'9'+ ;
 
 // C-style comments
-COMMENT	: '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
-    	| '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
-    	;
+COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+        | '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+        ;
 
 // Strings (in quotes) with escape sequences        
-STRING  :  '"' ( ESC_SEQ | ~('\\'|'"') )* '"'
+STRING  : '"' ( ESC_SEQ | ~('\\'|'"') )* '"'
         ;
 
 fragment
-ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-    ;
+ESC_SEQ : '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+        ;
 
 // White spaces
-WS  	: ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {$channel=HIDDEN;}
-    	;
-
-
+WS      : ( ' ' | '\t' | '\r' | '\n' ) {$channel=HIDDEN;}
+        ;
