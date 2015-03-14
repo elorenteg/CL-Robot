@@ -1,0 +1,56 @@
+func reverse(A)
+    N = A.size;
+    i = 0;
+    while i < N/2 do
+        x = A[i];
+        A[i] = A[N-i-1];
+        A[N-i-1] = x;
+        i = i + 1;
+    endwhile;
+endfunc
+
+func reverse(A)
+    N = A.size;
+    i = 0;
+    while i < N/2 do
+        x = A[i];
+        A[i] = A[N-i-1];
+        A[N-i-1] = x;
+        i = i + 1;
+    endwhile;
+    return A;
+endfunc
+
+func main()
+    A[2] = 8; write A;
+    A[5] = 1; write A;
+    A[3] = true; write A;
+    A = 13; write A;
+    A[4] = 6; write A;
+    z = A[4]; write z;
+    // z = A[8]; ---> index out-of-bounds
+    
+    write "---------------";
+    A[0] = 0; A[1] = 1; A[2] = 2; A[3] = 3;
+    A[4] = 4; A[5] = 5; write A;
+    write "SIZE A"; write A.size;
+    write "REVERSE";
+    write reverse(A); write(A);
+    
+    write "---------------";
+    A[0] = 0; A[1] = 1; A[2] = 2; A[3] = 3;
+    A[4] = 4; A[5] = 5; A[6] = 6; write A;
+    write "SIZE A"; write A.size;
+    write "REVERSE";
+    write reverse(A); write(A);
+    
+    
+    write "---------------";
+    A[0] = 0; A[1] = 1; A[2] = 2; A[3] = 3;
+    A[4] = 4; A[5] = 5; A[6] = 6;
+    write "A"; write(A);
+    write "REVERSE"; write reverse(A);
+    A[0] = 0; A[1] = 1; A[2] = 2; A[3] = 3;
+    A[4] = 4; A[5] = 5; A[6] = 6;
+    write "REVERSE(REVERSE)"; write reverse(reverse(A));
+endfunc
