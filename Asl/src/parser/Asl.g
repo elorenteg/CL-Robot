@@ -44,7 +44,9 @@ tokens {
     PVALUE;             // Parameter by value in the list of parameters
     PREF;               // Parameter by reference in the list of parameters
     ARRAYACC;           // Access to Array
-    SIZE;               // Size of Array
+    IMOTOR;
+    ISENSOR;
+    ISLEEP;
 }
 
 @header {
@@ -95,15 +97,18 @@ instruction
         | read          // Read a variable
         | write         // Write a string or an expression
         |               // Nothing
-        | movement      // 
+        | motor      // 
         | sleep         // 
         ; 
+
+motor:  ID'.'b=AVANZAR'('INT?')' -> ^(IMOTOR[$b,$b.text] ID INT?)
+    | ID'.'b=ACELERAR'('INT')' -> ^(IMOTOR[$b,$b.text] ID INT)
+    | ID'.'b=PARAR'('')' -> ^(IMOTOR[$b,$b.text] ID)
+    | ID'.'(b=SETRADIO|b=SETSPEED)'('(c=INT|c=FLOAT)')' -> ^(IMOTOR[$b,$b.text] ID $c)
+    ;
+
         
-movement: (AVANZAR | GIRAR | ACELERAR) '(' num_expr? ')' 
-        | PARAR '(' ')'
-        ;
-        
-sleep   : SLEEP '(' (INT | FLOAT) ')'
+sleep   : b=SLEEP '(' (c=INT | c=FLOAT) ')' -> ^(ISLEEP[$b,"SLEEP"] $c)
         ;
 
 // Assignment
@@ -160,12 +165,14 @@ factor  : (NOT^ | PLUS^ | MINUS^)? atom
 // in parenthesis
 atom    : ID 
         | INT
+        | MOTOR
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
         | funcall ( -> funcall | b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] funcall expr))
         | '('! expr ')'!
         | ID b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] ID expr)
-        | ID b=DOTSIZE -> ^(SIZE[$b, "SIZE"] ID)
-        | (GETCOLOR | GETULTRA | GETTOUCH) '(' ')'
+        | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(ISENSOR[$b,$b.text] INT)// añado el int para indicar cual de los sensores se usa
+                                                    //ya que por ejemplo del touch hay dos y de los demas podria haber mas
+        | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(IMOTOR[$b,$b.text] ID)
         ;
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
@@ -206,17 +213,23 @@ WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
 
-DOTSIZE         : '.size' ;
+
 
 GETCOLOR        : 'getColor' ;
-GETULTRA        : 'getUltrasonico' ;
+GETULTRA        : 'getUltrasonic' ;
 GETTOUCH        : 'getTouch' ;
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
 PARAR           : 'parar' ;
 ACELERAR        : 'acelerar' ;
+SETSPEED        : 'setSpeed';
+SETRADIO        : 'setRadio';
+GETRADIO        : 'getRadio';
+GETSPEED        : 'getSpeed';
 SLEEP           : 'sleep' ;
 
+
+MOTOR           : 'MOTOR';
 ID              : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
 FLOAT           : '0'..'9'+ '.' '0'..'9'+ ;
 INT             : '0'..'9'+ ;
