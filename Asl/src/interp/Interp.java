@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /** Class that implements the interpreter of the language. */
 
@@ -87,7 +90,13 @@ public class Interp {
 
     /** Runs the program by calling the main function without parameters. */
     public void Run() {
+        
+        for (Map.Entry<String, AslTree> funciones : FuncName2Tree.entrySet()) {
+            System.out.println("Key = " + funciones.getKey() + ", Value = " + funciones.getValue());
+        }
         executeFunction ("main", null);
+        
+        
     }
 
     /** Returns the contents of the stack trace */
@@ -104,7 +113,7 @@ public class Interp {
      * Gathers information from the AST and creates the map from
      * function names to the corresponding AST nodes.
      */
-    private void MapFunctions(AslTree T) {
+    private void MapFunctions(AslTree T) { /// ------------------------------------------------- crear cabeceras funciones
         assert T != null && T.getType() == AslLexer.LIST_FUNCTIONS;
         FuncName2Tree = new HashMap<String,AslTree> ();
         int n = T.getChildCount();
@@ -367,6 +376,15 @@ public class Interp {
                     checkBoolean(value);
                     value.setValue(!value.getBooleanValue());
                     break;
+                case AslLexer.GETSPEED:
+                    //checkMotor(value);
+                    value = new Data(1);
+                    break;
+                case AslLexer.GETRADIO:
+                    //checkMotor(value);
+                    //value = new Data(value.getRadioValue());
+                    break;
+                    
                 default: assert false; // Should never happen
             }
             setLineNumber(previous_line);
@@ -409,6 +427,13 @@ public class Interp {
                 checkBoolean(value);
                 value = evaluateBoolean(type, value, t.getChild(1));
                 break;
+            
+            case AslLexer.GMOTOR:
+                checkInteger(value);
+                break;
+            case AslLexer.SMOTOR:
+            case AslLexer.GSENSOR:
+            case AslLexer.SSLEEP:
 
             default: assert false; // Should never happen
         }

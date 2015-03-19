@@ -44,9 +44,10 @@ tokens {
     PVALUE;             // Parameter by value in the list of parameters
     PREF;               // Parameter by reference in the list of parameters
     ARRAYACC;           // Access to Array
-    IMOTOR;
-    ISENSOR;
-    ISLEEP;
+    SMOTOR;
+    GMOTOR;
+    GSENSOR;
+    SSLEEP;
 }
 
 @header {
@@ -97,18 +98,17 @@ instruction
         | read          // Read a variable
         | write         // Write a string or an expression
         |               // Nothing
-        | motor      // 
-        | sleep         // 
+        | motor         // 
+        | sleep         //
         ; 
 
-motor:  ID'.'b=AVANZAR'('INT?')' -> ^(IMOTOR[$b,$b.text] ID INT?)
-    | ID'.'b=ACELERAR'('INT')' -> ^(IMOTOR[$b,$b.text] ID INT)
-    | ID'.'b=PARAR'('')' -> ^(IMOTOR[$b,$b.text] ID)
-    | ID'.'(b=SETRADIO|b=SETSPEED)'('(c=INT|c=FLOAT)')' -> ^(IMOTOR[$b,$b.text] ID $c)
-    ;
-
+motor   : (ID '.')? b=AVANZAR'('INT?')' -> ^(SMOTOR ^(AVANZAR ID?) INT?)
+        | (ID '.')? b=ACELERAR'('INT')' -> ^(SMOTOR ^(ACELERAR ID?) INT)
+        | (ID '.')? b=PARAR'('')' -> ^(SMOTOR ^(PARAR ID?))
+        | ID '.' (b=SETRADIO|b=SETSPEED)'('(c=INT|c=FLOAT)')' -> ^(SMOTOR ^($b ID) $c)
+        ;
         
-sleep   : b=SLEEP '(' (c=INT | c=FLOAT) ')' -> ^(ISLEEP[$b,"SLEEP"] $c)
+sleep   : SLEEP '(' (c=INT | c=FLOAT) ')' -> ^(SSLEEP $c)
         ;
 
 // Assignment
@@ -170,9 +170,9 @@ atom    : ID
         | funcall ( -> funcall | b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] funcall expr))
         | '('! expr ')'!
         | ID b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] ID expr)
-        | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(ISENSOR[$b,$b.text] INT)// añado el int para indicar cual de los sensores se usa
+        | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(GSENSOR $b INT)// añado el int para indicar cual de los sensores se usa
                                                     //ya que por ejemplo del touch hay dos y de los demas podria haber mas
-        | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(IMOTOR[$b,$b.text] ID)
+        | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(GMOTOR ^($b ID))
         ;
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
@@ -212,7 +212,6 @@ READ            : 'read' ;
 WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
-
 
 
 GETCOLOR        : 'getColor' ;

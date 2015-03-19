@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g 2015-03-18 19:10:34
+// $ANTLR 3.4 /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g 2015-03-19 13:19:57
 
     package parser;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class AslLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__65=65;
     public static final int T__66=66;
     public static final int T__67=67;
     public static final int T__68=68;
@@ -19,6 +18,7 @@ public class AslLexer extends Lexer {
     public static final int T__70=70;
     public static final int T__71=71;
     public static final int T__72=72;
+    public static final int T__73=73;
     public static final int ACELERAR=4;
     public static final int AND=5;
     public static final int ARGLIST=6;
@@ -46,40 +46,41 @@ public class AslLexer extends Lexer {
     public static final int GETTOUCH=28;
     public static final int GETULTRA=29;
     public static final int GIRAR=30;
-    public static final int GT=31;
-    public static final int ID=32;
-    public static final int IF=33;
-    public static final int IMOTOR=34;
-    public static final int INT=35;
-    public static final int ISENSOR=36;
-    public static final int ISLEEP=37;
-    public static final int LE=38;
-    public static final int LIST_FUNCTIONS=39;
-    public static final int LIST_INSTR=40;
-    public static final int LT=41;
-    public static final int MINUS=42;
-    public static final int MOD=43;
-    public static final int MOTOR=44;
-    public static final int MUL=45;
-    public static final int NOT=46;
-    public static final int NOT_EQUAL=47;
-    public static final int OR=48;
-    public static final int PARAMS=49;
-    public static final int PARAR=50;
-    public static final int PLUS=51;
-    public static final int PREF=52;
-    public static final int PVALUE=53;
-    public static final int READ=54;
-    public static final int RETURN=55;
-    public static final int SETRADIO=56;
-    public static final int SETSPEED=57;
-    public static final int SLEEP=58;
-    public static final int STRING=59;
-    public static final int THEN=60;
-    public static final int TRUE=61;
-    public static final int WHILE=62;
-    public static final int WRITE=63;
-    public static final int WS=64;
+    public static final int GMOTOR=31;
+    public static final int GSENSOR=32;
+    public static final int GT=33;
+    public static final int ID=34;
+    public static final int IF=35;
+    public static final int INT=36;
+    public static final int LE=37;
+    public static final int LIST_FUNCTIONS=38;
+    public static final int LIST_INSTR=39;
+    public static final int LT=40;
+    public static final int MINUS=41;
+    public static final int MOD=42;
+    public static final int MOTOR=43;
+    public static final int MUL=44;
+    public static final int NOT=45;
+    public static final int NOT_EQUAL=46;
+    public static final int OR=47;
+    public static final int PARAMS=48;
+    public static final int PARAR=49;
+    public static final int PLUS=50;
+    public static final int PREF=51;
+    public static final int PVALUE=52;
+    public static final int READ=53;
+    public static final int RETURN=54;
+    public static final int SETRADIO=55;
+    public static final int SETSPEED=56;
+    public static final int SLEEP=57;
+    public static final int SMOTOR=58;
+    public static final int SSLEEP=59;
+    public static final int STRING=60;
+    public static final int THEN=61;
+    public static final int TRUE=62;
+    public static final int WHILE=63;
+    public static final int WRITE=64;
+    public static final int WS=65;
 
     // delegates
     // delegators
@@ -94,38 +95,17 @@ public class AslLexer extends Lexer {
     public AslLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "/home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g"; }
-
-    // $ANTLR start "T__65"
-    public final void mT__65() throws RecognitionException {
-        try {
-            int _type = T__65;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:6:7: ( '&' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:6:9: '&'
-            {
-            match('&'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__65"
+    public String getGrammarFileName() { return "/home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g"; }
 
     // $ANTLR start "T__66"
     public final void mT__66() throws RecognitionException {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:7:7: ( '(' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:7:9: '('
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:6:7: ( '&' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:6:9: '&'
             {
-            match('('); 
+            match('&'); 
 
             }
 
@@ -143,10 +123,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:8:7: ( ')' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:8:9: ')'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:7:7: ( '(' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:7:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -164,10 +144,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:9:7: ( ',' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:9:9: ','
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:8:7: ( ')' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:8:9: ')'
             {
-            match(','); 
+            match(')'); 
 
             }
 
@@ -185,10 +165,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:10:7: ( '.' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:10:9: '.'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:9:7: ( ',' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:9:9: ','
             {
-            match('.'); 
+            match(','); 
 
             }
 
@@ -206,10 +186,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:11:7: ( ';' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:11:9: ';'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:10:7: ( '.' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:10:9: '.'
             {
-            match(';'); 
+            match('.'); 
 
             }
 
@@ -227,10 +207,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:12:7: ( '[' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:12:9: '['
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:11:7: ( ';' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:11:9: ';'
             {
-            match('['); 
+            match(';'); 
 
             }
 
@@ -248,10 +228,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:13:7: ( ']' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:13:9: ']'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:12:7: ( '[' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:12:9: '['
             {
-            match(']'); 
+            match('['); 
 
             }
 
@@ -264,13 +244,34 @@ public class AslLexer extends Lexer {
     }
     // $ANTLR end "T__72"
 
+    // $ANTLR start "T__73"
+    public final void mT__73() throws RecognitionException {
+        try {
+            int _type = T__73;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:13:7: ( ']' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:13:9: ']'
+            {
+            match(']'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__73"
+
     // $ANTLR start "EQUAL"
     public final void mEQUAL() throws RecognitionException {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:187:17: ( '=' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:187:19: '='
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:187:17: ( '=' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:187:19: '='
             {
             match('='); 
 
@@ -290,8 +291,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = NOT_EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:188:17: ( '!=' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:188:19: '!='
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:188:17: ( '!=' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:188:19: '!='
             {
             match("!="); 
 
@@ -313,8 +314,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:189:17: ( '<' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:189:19: '<'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:189:17: ( '<' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:189:19: '<'
             {
             match('<'); 
 
@@ -334,8 +335,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:190:17: ( '<=' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:190:19: '<='
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:190:17: ( '<=' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:190:19: '<='
             {
             match("<="); 
 
@@ -357,8 +358,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:191:17: ( '>' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:191:19: '>'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:191:17: ( '>' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:191:19: '>'
             {
             match('>'); 
 
@@ -378,8 +379,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:192:17: ( '>=' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:192:19: '>='
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:192:17: ( '>=' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:192:19: '>='
             {
             match(">="); 
 
@@ -401,8 +402,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:193:17: ( '+' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:193:19: '+'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:193:17: ( '+' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:193:19: '+'
             {
             match('+'); 
 
@@ -422,8 +423,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:194:17: ( '-' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:194:19: '-'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:194:17: ( '-' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:194:19: '-'
             {
             match('-'); 
 
@@ -443,8 +444,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:195:17: ( '*' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:195:19: '*'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:195:17: ( '*' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:195:19: '*'
             {
             match('*'); 
 
@@ -464,8 +465,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:196:17: ( '/' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:196:19: '/'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:196:17: ( '/' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:196:19: '/'
             {
             match('/'); 
 
@@ -485,8 +486,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:197:17: ( '%' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:197:19: '%'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:197:17: ( '%' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:197:19: '%'
             {
             match('%'); 
 
@@ -506,8 +507,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:198:17: ( 'not' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:198:19: 'not'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:198:17: ( 'not' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:198:19: 'not'
             {
             match("not"); 
 
@@ -529,8 +530,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:199:17: ( 'and' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:199:19: 'and'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:199:17: ( 'and' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:199:19: 'and'
             {
             match("and"); 
 
@@ -552,8 +553,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:200:17: ( 'or' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:200:19: 'or'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:200:17: ( 'or' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:200:19: 'or'
             {
             match("or"); 
 
@@ -575,8 +576,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:201:17: ( 'if' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:201:19: 'if'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:201:17: ( 'if' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:201:19: 'if'
             {
             match("if"); 
 
@@ -598,8 +599,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = THEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:202:17: ( 'then' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:202:19: 'then'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:202:17: ( 'then' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:202:19: 'then'
             {
             match("then"); 
 
@@ -621,8 +622,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:203:17: ( 'else' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:203:19: 'else'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:203:17: ( 'else' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:203:19: 'else'
             {
             match("else"); 
 
@@ -644,8 +645,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ENDIF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:204:17: ( 'endif' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:204:19: 'endif'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:204:17: ( 'endif' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:204:19: 'endif'
             {
             match("endif"); 
 
@@ -667,8 +668,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = WHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:205:17: ( 'while' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:205:19: 'while'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:205:17: ( 'while' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:205:19: 'while'
             {
             match("while"); 
 
@@ -690,8 +691,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = DO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:206:17: ( 'do' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:206:19: 'do'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:206:17: ( 'do' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:206:19: 'do'
             {
             match("do"); 
 
@@ -713,8 +714,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ENDWHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:207:17: ( 'endwhile' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:207:19: 'endwhile'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:207:17: ( 'endwhile' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:207:19: 'endwhile'
             {
             match("endwhile"); 
 
@@ -736,8 +737,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = FUNC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:208:17: ( 'func' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:208:19: 'func'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:208:17: ( 'func' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:208:19: 'func'
             {
             match("func"); 
 
@@ -759,8 +760,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ENDFUNC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:209:17: ( 'endfunc' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:209:19: 'endfunc'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:209:17: ( 'endfunc' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:209:19: 'endfunc'
             {
             match("endfunc"); 
 
@@ -782,8 +783,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:210:17: ( 'return' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:210:19: 'return'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:210:17: ( 'return' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:210:19: 'return'
             {
             match("return"); 
 
@@ -805,8 +806,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = READ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:211:17: ( 'read' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:211:19: 'read'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:211:17: ( 'read' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:211:19: 'read'
             {
             match("read"); 
 
@@ -828,8 +829,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = WRITE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:212:17: ( 'write' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:212:19: 'write'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:212:17: ( 'write' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:212:19: 'write'
             {
             match("write"); 
 
@@ -851,8 +852,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:213:17: ( 'true' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:213:19: 'true'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:213:17: ( 'true' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:213:19: 'true'
             {
             match("true"); 
 
@@ -874,8 +875,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:214:17: ( 'false' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:214:19: 'false'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:214:17: ( 'false' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:214:19: 'false'
             {
             match("false"); 
 
@@ -897,8 +898,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GETCOLOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:218:17: ( 'getColor' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:218:19: 'getColor'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:217:17: ( 'getColor' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:217:19: 'getColor'
             {
             match("getColor"); 
 
@@ -920,8 +921,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GETULTRA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:219:17: ( 'getUltrasonic' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:219:19: 'getUltrasonic'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:218:17: ( 'getUltrasonic' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:218:19: 'getUltrasonic'
             {
             match("getUltrasonic"); 
 
@@ -943,8 +944,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GETTOUCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:220:17: ( 'getTouch' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:220:19: 'getTouch'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:219:17: ( 'getTouch' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:219:19: 'getTouch'
             {
             match("getTouch"); 
 
@@ -966,8 +967,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = AVANZAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:221:17: ( 'avanzar' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:221:19: 'avanzar'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:220:17: ( 'avanzar' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:220:19: 'avanzar'
             {
             match("avanzar"); 
 
@@ -989,8 +990,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GIRAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:222:17: ( 'girar' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:222:19: 'girar'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:221:17: ( 'girar' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:221:19: 'girar'
             {
             match("girar"); 
 
@@ -1012,8 +1013,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = PARAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:223:17: ( 'parar' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:223:19: 'parar'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:222:17: ( 'parar' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:222:19: 'parar'
             {
             match("parar"); 
 
@@ -1035,8 +1036,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ACELERAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:224:17: ( 'acelerar' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:224:19: 'acelerar'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:223:17: ( 'acelerar' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:223:19: 'acelerar'
             {
             match("acelerar"); 
 
@@ -1058,8 +1059,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = SETSPEED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:225:17: ( 'setSpeed' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:225:19: 'setSpeed'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:224:17: ( 'setSpeed' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:224:19: 'setSpeed'
             {
             match("setSpeed"); 
 
@@ -1081,8 +1082,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = SETRADIO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:226:17: ( 'setRadio' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:226:19: 'setRadio'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:225:17: ( 'setRadio' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:225:19: 'setRadio'
             {
             match("setRadio"); 
 
@@ -1104,8 +1105,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GETRADIO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:227:17: ( 'getRadio' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:227:19: 'getRadio'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:226:17: ( 'getRadio' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:226:19: 'getRadio'
             {
             match("getRadio"); 
 
@@ -1127,8 +1128,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = GETSPEED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:228:17: ( 'getSpeed' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:228:19: 'getSpeed'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:227:17: ( 'getSpeed' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:227:19: 'getSpeed'
             {
             match("getSpeed"); 
 
@@ -1150,8 +1151,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = SLEEP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:229:17: ( 'sleep' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:229:19: 'sleep'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:228:17: ( 'sleep' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:228:19: 'sleep'
             {
             match("sleep"); 
 
@@ -1173,8 +1174,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = MOTOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:232:17: ( 'MOTOR' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:232:19: 'MOTOR'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:231:17: ( 'MOTOR' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:231:19: 'MOTOR'
             {
             match("MOTOR"); 
 
@@ -1196,8 +1197,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:233:17: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:233:19: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:232:17: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:232:19: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -1209,7 +1210,7 @@ public class AslLexer extends Lexer {
             }
 
 
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:233:43: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:232:43: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop1:
             do {
                 int alt1=2;
@@ -1222,7 +1223,7 @@ public class AslLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
@@ -1259,10 +1260,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:234:17: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:234:19: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:233:17: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:233:19: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
             {
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:234:19: ( '0' .. '9' )+
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:233:19: ( '0' .. '9' )+
             int cnt2=0;
             loop2:
             do {
@@ -1276,7 +1277,7 @@ public class AslLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -1303,7 +1304,7 @@ public class AslLexer extends Lexer {
 
             match('.'); 
 
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:234:33: ( '0' .. '9' )+
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:233:33: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -1317,7 +1318,7 @@ public class AslLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -1358,10 +1359,10 @@ public class AslLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:235:17: ( ( '0' .. '9' )+ )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:235:19: ( '0' .. '9' )+
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:234:17: ( ( '0' .. '9' )+ )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:234:19: ( '0' .. '9' )+
             {
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:235:19: ( '0' .. '9' )+
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:234:19: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -1375,7 +1376,7 @@ public class AslLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -1416,7 +1417,7 @@ public class AslLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:238:9: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:237:9: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1446,13 +1447,13 @@ public class AslLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:238:11: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+                    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:237:11: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                     {
                     match("//"); 
 
 
 
-                    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:238:16: (~ ( '\\n' | '\\r' ) )*
+                    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:237:16: (~ ( '\\n' | '\\r' ) )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1465,7 +1466,7 @@ public class AslLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:
+                    	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:
                     	    {
                     	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
                     	        input.consume();
@@ -1486,7 +1487,7 @@ public class AslLexer extends Lexer {
                     } while (true);
 
 
-                    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:238:30: ( '\\r' )?
+                    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:237:30: ( '\\r' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -1495,7 +1496,7 @@ public class AslLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:238:30: '\\r'
+                            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:237:30: '\\r'
                             {
                             match('\r'); 
 
@@ -1512,13 +1513,13 @@ public class AslLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:239:11: '/*' ( options {greedy=false; } : . )* '*/'
+                    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:238:11: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:239:16: ( options {greedy=false; } : . )*
+                    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:238:16: ( options {greedy=false; } : . )*
                     loop7:
                     do {
                         int alt7=2;
@@ -1543,7 +1544,7 @@ public class AslLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:239:44: .
+                    	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:238:44: .
                     	    {
                     	    matchAny(); 
 
@@ -1580,12 +1581,12 @@ public class AslLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:243:9: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:243:11: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:242:9: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:242:11: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:243:15: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:242:15: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
             loop9:
             do {
                 int alt9=3;
@@ -1601,7 +1602,7 @@ public class AslLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:243:17: ESC_SEQ
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:242:17: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
@@ -1609,7 +1610,7 @@ public class AslLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:243:27: ~ ( '\\\\' | '\"' )
+            	    // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:242:27: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1646,8 +1647,8 @@ public class AslLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:248:9: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:248:11: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:247:9: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:247:11: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
             {
             match('\\'); 
 
@@ -1676,8 +1677,8 @@ public class AslLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:251:9: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:251:11: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:250:9: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:250:11: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -1703,76 +1704,76 @@ public class AslLexer extends Lexer {
     // $ANTLR end "WS"
 
     public void mTokens() throws RecognitionException {
-        // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:8: ( T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | EQUAL | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | NOT | AND | OR | IF | THEN | ELSE | ENDIF | WHILE | DO | ENDWHILE | FUNC | ENDFUNC | RETURN | READ | WRITE | TRUE | FALSE | GETCOLOR | GETULTRA | GETTOUCH | AVANZAR | GIRAR | PARAR | ACELERAR | SETSPEED | SETRADIO | GETRADIO | GETSPEED | SLEEP | MOTOR | ID | FLOAT | INT | COMMENT | STRING | WS )
+        // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:8: ( T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | EQUAL | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | NOT | AND | OR | IF | THEN | ELSE | ENDIF | WHILE | DO | ENDWHILE | FUNC | ENDFUNC | RETURN | READ | WRITE | TRUE | FALSE | GETCOLOR | GETULTRA | GETTOUCH | AVANZAR | GIRAR | PARAR | ACELERAR | SETSPEED | SETRADIO | GETRADIO | GETSPEED | SLEEP | MOTOR | ID | FLOAT | INT | COMMENT | STRING | WS )
         int alt10=55;
         alt10 = dfa10.predict(input);
         switch (alt10) {
             case 1 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:10: T__65
-                {
-                mT__65(); 
-
-
-                }
-                break;
-            case 2 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:16: T__66
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:10: T__66
                 {
                 mT__66(); 
 
 
                 }
                 break;
-            case 3 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:22: T__67
+            case 2 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:16: T__67
                 {
                 mT__67(); 
 
 
                 }
                 break;
-            case 4 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:28: T__68
+            case 3 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:22: T__68
                 {
                 mT__68(); 
 
 
                 }
                 break;
-            case 5 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:34: T__69
+            case 4 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:28: T__69
                 {
                 mT__69(); 
 
 
                 }
                 break;
-            case 6 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:40: T__70
+            case 5 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:34: T__70
                 {
                 mT__70(); 
 
 
                 }
                 break;
-            case 7 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:46: T__71
+            case 6 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:40: T__71
                 {
                 mT__71(); 
 
 
                 }
                 break;
-            case 8 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:52: T__72
+            case 7 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:46: T__72
                 {
                 mT__72(); 
 
 
                 }
                 break;
+            case 8 :
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:52: T__73
+                {
+                mT__73(); 
+
+
+                }
+                break;
             case 9 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:58: EQUAL
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:58: EQUAL
                 {
                 mEQUAL(); 
 
@@ -1780,7 +1781,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:64: NOT_EQUAL
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:64: NOT_EQUAL
                 {
                 mNOT_EQUAL(); 
 
@@ -1788,7 +1789,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:74: LT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:74: LT
                 {
                 mLT(); 
 
@@ -1796,7 +1797,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:77: LE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:77: LE
                 {
                 mLE(); 
 
@@ -1804,7 +1805,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:80: GT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:80: GT
                 {
                 mGT(); 
 
@@ -1812,7 +1813,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:83: GE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:83: GE
                 {
                 mGE(); 
 
@@ -1820,7 +1821,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:86: PLUS
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:86: PLUS
                 {
                 mPLUS(); 
 
@@ -1828,7 +1829,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:91: MINUS
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:91: MINUS
                 {
                 mMINUS(); 
 
@@ -1836,7 +1837,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:97: MUL
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:97: MUL
                 {
                 mMUL(); 
 
@@ -1844,7 +1845,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:101: DIV
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:101: DIV
                 {
                 mDIV(); 
 
@@ -1852,7 +1853,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:105: MOD
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:105: MOD
                 {
                 mMOD(); 
 
@@ -1860,7 +1861,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:109: NOT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:109: NOT
                 {
                 mNOT(); 
 
@@ -1868,7 +1869,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:113: AND
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:113: AND
                 {
                 mAND(); 
 
@@ -1876,7 +1877,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:117: OR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:117: OR
                 {
                 mOR(); 
 
@@ -1884,7 +1885,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 23 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:120: IF
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:120: IF
                 {
                 mIF(); 
 
@@ -1892,7 +1893,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 24 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:123: THEN
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:123: THEN
                 {
                 mTHEN(); 
 
@@ -1900,7 +1901,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 25 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:128: ELSE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:128: ELSE
                 {
                 mELSE(); 
 
@@ -1908,7 +1909,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 26 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:133: ENDIF
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:133: ENDIF
                 {
                 mENDIF(); 
 
@@ -1916,7 +1917,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 27 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:139: WHILE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:139: WHILE
                 {
                 mWHILE(); 
 
@@ -1924,7 +1925,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 28 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:145: DO
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:145: DO
                 {
                 mDO(); 
 
@@ -1932,7 +1933,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 29 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:148: ENDWHILE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:148: ENDWHILE
                 {
                 mENDWHILE(); 
 
@@ -1940,7 +1941,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 30 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:157: FUNC
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:157: FUNC
                 {
                 mFUNC(); 
 
@@ -1948,7 +1949,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 31 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:162: ENDFUNC
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:162: ENDFUNC
                 {
                 mENDFUNC(); 
 
@@ -1956,7 +1957,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 32 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:170: RETURN
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:170: RETURN
                 {
                 mRETURN(); 
 
@@ -1964,7 +1965,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 33 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:177: READ
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:177: READ
                 {
                 mREAD(); 
 
@@ -1972,7 +1973,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 34 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:182: WRITE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:182: WRITE
                 {
                 mWRITE(); 
 
@@ -1980,7 +1981,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:188: TRUE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:188: TRUE
                 {
                 mTRUE(); 
 
@@ -1988,7 +1989,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 36 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:193: FALSE
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:193: FALSE
                 {
                 mFALSE(); 
 
@@ -1996,7 +1997,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 37 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:199: GETCOLOR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:199: GETCOLOR
                 {
                 mGETCOLOR(); 
 
@@ -2004,7 +2005,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 38 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:208: GETULTRA
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:208: GETULTRA
                 {
                 mGETULTRA(); 
 
@@ -2012,7 +2013,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 39 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:217: GETTOUCH
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:217: GETTOUCH
                 {
                 mGETTOUCH(); 
 
@@ -2020,7 +2021,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 40 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:226: AVANZAR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:226: AVANZAR
                 {
                 mAVANZAR(); 
 
@@ -2028,7 +2029,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 41 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:234: GIRAR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:234: GIRAR
                 {
                 mGIRAR(); 
 
@@ -2036,7 +2037,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 42 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:240: PARAR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:240: PARAR
                 {
                 mPARAR(); 
 
@@ -2044,7 +2045,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 43 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:246: ACELERAR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:246: ACELERAR
                 {
                 mACELERAR(); 
 
@@ -2052,7 +2053,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 44 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:255: SETSPEED
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:255: SETSPEED
                 {
                 mSETSPEED(); 
 
@@ -2060,7 +2061,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 45 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:264: SETRADIO
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:264: SETRADIO
                 {
                 mSETRADIO(); 
 
@@ -2068,7 +2069,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 46 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:273: GETRADIO
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:273: GETRADIO
                 {
                 mGETRADIO(); 
 
@@ -2076,7 +2077,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 47 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:282: GETSPEED
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:282: GETSPEED
                 {
                 mGETSPEED(); 
 
@@ -2084,7 +2085,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 48 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:291: SLEEP
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:291: SLEEP
                 {
                 mSLEEP(); 
 
@@ -2092,7 +2093,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 49 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:297: MOTOR
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:297: MOTOR
                 {
                 mMOTOR(); 
 
@@ -2100,7 +2101,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 50 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:303: ID
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:303: ID
                 {
                 mID(); 
 
@@ -2108,7 +2109,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 51 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:306: FLOAT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:306: FLOAT
                 {
                 mFLOAT(); 
 
@@ -2116,7 +2117,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 52 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:312: INT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:312: INT
                 {
                 mINT(); 
 
@@ -2124,7 +2125,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 53 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:316: COMMENT
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:316: COMMENT
                 {
                 mCOMMENT(); 
 
@@ -2132,7 +2133,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 54 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:324: STRING
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:324: STRING
                 {
                 mSTRING(); 
 
@@ -2140,7 +2141,7 @@ public class AslLexer extends Lexer {
                 }
                 break;
             case 55 :
-                // /home/jacknoddy/FIB/CL/robot-cl/Asl/src/parser/Asl.g:1:331: WS
+                // /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g:1:331: WS
                 {
                 mWS(); 
 
@@ -2441,7 +2442,7 @@ public class AslLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | EQUAL | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | NOT | AND | OR | IF | THEN | ELSE | ENDIF | WHILE | DO | ENDWHILE | FUNC | ENDFUNC | RETURN | READ | WRITE | TRUE | FALSE | GETCOLOR | GETULTRA | GETTOUCH | AVANZAR | GIRAR | PARAR | ACELERAR | SETSPEED | SETRADIO | GETRADIO | GETSPEED | SLEEP | MOTOR | ID | FLOAT | INT | COMMENT | STRING | WS );";
+            return "1:1: Tokens : ( T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | EQUAL | NOT_EQUAL | LT | LE | GT | GE | PLUS | MINUS | MUL | DIV | MOD | NOT | AND | OR | IF | THEN | ELSE | ENDIF | WHILE | DO | ENDWHILE | FUNC | ENDFUNC | RETURN | READ | WRITE | TRUE | FALSE | GETCOLOR | GETULTRA | GETTOUCH | AVANZAR | GIRAR | PARAR | ACELERAR | SETSPEED | SETRADIO | GETRADIO | GETSPEED | SLEEP | MOTOR | ID | FLOAT | INT | COMMENT | STRING | WS );";
         }
     }
  

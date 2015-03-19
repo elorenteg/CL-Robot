@@ -9,133 +9,324 @@ digraph {
   n0 [label="LIST_FUNCTIONS"];
   n1 [label="func"];
   n1 [label="func"];
-  n2 [label="main"];
+  n2 [label="hola"];
   n3 [label="PARAMS"];
-  n4 [label="LIST_INSTR"];
-  n4 [label="LIST_INSTR"];
-  n5 [label=":="];
-  n5 [label=":="];
-  n6 [label="m1"];
-  n7 [label="MOTOR"];
-  n8 [label=":="];
-  n8 [label=":="];
-  n9 [label="a"];
-  n10 [label="getSpeed"];
-  n10 [label="getSpeed"];
-  n11 [label="m1"];
-  n12 [label=":="];
-  n12 [label=":="];
-  n13 [label="a"];
-  n14 [label="getRadio"];
-  n14 [label="getRadio"];
-  n15 [label="m1"];
-  n16 [label=":="];
-  n16 [label=":="];
-  n17 [label="a"];
-  n18 [label="getTouch"];
-  n18 [label="getTouch"];
-  n19 [label="1"];
-  n20 [label=":="];
-  n20 [label=":="];
-  n21 [label="a"];
-  n22 [label="getUltrasonic"];
-  n22 [label="getUltrasonic"];
-  n23 [label="2"];
-  n24 [label=":="];
-  n24 [label=":="];
-  n25 [label="a"];
-  n26 [label="getColor"];
-  n26 [label="getColor"];
-  n27 [label="0"];
-  n28 [label="avanzar"];
-  n28 [label="avanzar"];
-  n29 [label="m1"];
-  n30 [label="avanzar"];
-  n30 [label="avanzar"];
-  n31 [label="m1"];
-  n32 [label="10"];
-  n33 [label="parar"];
-  n33 [label="parar"];
-  n34 [label="m1"];
-  n35 [label="setSpeed"];
-  n35 [label="setSpeed"];
-  n36 [label="m1"];
-  n37 [label="10"];
-  n38 [label="setRadio"];
-  n38 [label="setRadio"];
-  n39 [label="m1"];
-  n40 [label="10"];
-  n41 [label="acelerar"];
-  n41 [label="acelerar"];
-  n42 [label="m1"];
-  n43 [label="100"];
-  n44 [label="setSpeed"];
-  n44 [label="setSpeed"];
-  n45 [label="m1"];
-  n46 [label="10.5"];
-  n47 [label="setRadio"];
-  n47 [label="setRadio"];
-  n48 [label="m1"];
-  n49 [label="10.6"];
-  n50 [label="SLEEP"];
-  n50 [label="SLEEP"];
-  n51 [label="100"];
-  n52 [label="SLEEP"];
-  n52 [label="SLEEP"];
-  n53 [label="5.5"];
+  n3 [label="PARAMS"];
+  n4 [label="n"];
+  n5 [label="LIST_INSTR"];
+  n5 [label="LIST_INSTR"];
+  n6 [label=":="];
+  n6 [label=":="];
+  n7 [label="a"];
+  n8 [label="1"];
+  n9 [label="func"];
+  n9 [label="func"];
+  n10 [label="adios"];
+  n11 [label="PARAMS"];
+  n11 [label="PARAMS"];
+  n12 [label="n"];
+  n13 [label="LIST_INSTR"];
+  n13 [label="LIST_INSTR"];
+  n14 [label=":="];
+  n14 [label=":="];
+  n15 [label="n"];
+  n16 [label="1"];
+  n17 [label="func"];
+  n17 [label="func"];
+  n18 [label="asdf"];
+  n19 [label="PARAMS"];
+  n19 [label="PARAMS"];
+  n20 [label="n"];
+  n21 [label="LIST_INSTR"];
+  n21 [label="LIST_INSTR"];
+  n22 [label=":="];
+  n22 [label=":="];
+  n23 [label="i"];
+  n24 [label="5"];
+  n25 [label="func"];
+  n25 [label="func"];
+  n26 [label="quepasa"];
+  n27 [label="PARAMS"];
+  n27 [label="PARAMS"];
+  n28 [label="n"];
+  n29 [label="LIST_INSTR"];
+  n29 [label="LIST_INSTR"];
+  n30 [label=":="];
+  n30 [label=":="];
+  n31 [label="a"];
+  n32 [label="7"];
+  n33 [label="func"];
+  n33 [label="func"];
+  n34 [label="main"];
+  n35 [label="PARAMS"];
+  n36 [label="LIST_INSTR"];
+  n36 [label="LIST_INSTR"];
+  n37 [label=":="];
+  n37 [label=":="];
+  n38 [label="m1"];
+  n39 [label="MOTOR"];
+  n40 [label=":="];
+  n40 [label=":="];
+  n41 [label="a"];
+  n42 [label="GMOTOR"];
+  n42 [label="GMOTOR"];
+  n43 [label="getSpeed"];
+  n43 [label="getSpeed"];
+  n44 [label="m1"];
+  n45 [label=":="];
+  n45 [label=":="];
+  n46 [label="a"];
+  n47 [label="GMOTOR"];
+  n47 [label="GMOTOR"];
+  n48 [label="getRadio"];
+  n48 [label="getRadio"];
+  n49 [label="m1"];
+  n50 [label=":="];
+  n50 [label=":="];
+  n51 [label="a"];
+  n52 [label="GSENSOR"];
+  n52 [label="GSENSOR"];
+  n53 [label="getTouch"];
+  n54 [label="1"];
+  n55 [label=":="];
+  n55 [label=":="];
+  n56 [label="a"];
+  n57 [label="GSENSOR"];
+  n57 [label="GSENSOR"];
+  n58 [label="getUltrasonic"];
+  n59 [label="2"];
+  n60 [label=":="];
+  n60 [label=":="];
+  n61 [label="a"];
+  n62 [label="GSENSOR"];
+  n62 [label="GSENSOR"];
+  n63 [label="getColor"];
+  n64 [label="0"];
+  n65 [label="while"];
+  n65 [label="while"];
+  n66 [label="="];
+  n66 [label="="];
+  n67 [label="GSENSOR"];
+  n67 [label="GSENSOR"];
+  n68 [label="getColor"];
+  n69 [label="9"];
+  n70 [label="4"];
+  n71 [label="LIST_INSTR"];
+  n71 [label="LIST_INSTR"];
+  n72 [label="SMOTOR"];
+  n72 [label="SMOTOR"];
+  n73 [label="avanzar"];
+  n74 [label="10"];
+  n75 [label="SMOTOR"];
+  n75 [label="SMOTOR"];
+  n76 [label="avanzar"];
+  n77 [label="10"];
+  n78 [label="SMOTOR"];
+  n78 [label="SMOTOR"];
+  n79 [label="avanzar"];
+  n79 [label="avanzar"];
+  n80 [label="m1"];
+  n81 [label="SMOTOR"];
+  n81 [label="SMOTOR"];
+  n82 [label="avanzar"];
+  n82 [label="avanzar"];
+  n83 [label="m1"];
+  n84 [label="200"];
+  n85 [label="SMOTOR"];
+  n85 [label="SMOTOR"];
+  n86 [label="avanzar"];
+  n87 [label="SMOTOR"];
+  n87 [label="SMOTOR"];
+  n88 [label="avanzar"];
+  n88 [label="avanzar"];
+  n89 [label="m1"];
+  n90 [label="SMOTOR"];
+  n90 [label="SMOTOR"];
+  n91 [label="avanzar"];
+  n91 [label="avanzar"];
+  n92 [label="m1"];
+  n93 [label="10"];
+  n94 [label="SMOTOR"];
+  n94 [label="SMOTOR"];
+  n95 [label="parar"];
+  n95 [label="parar"];
+  n96 [label="m1"];
+  n97 [label="SMOTOR"];
+  n97 [label="SMOTOR"];
+  n98 [label="setSpeed"];
+  n98 [label="setSpeed"];
+  n99 [label="m1"];
+  n100 [label="10"];
+  n101 [label="SMOTOR"];
+  n101 [label="SMOTOR"];
+  n102 [label="setRadio"];
+  n102 [label="setRadio"];
+  n103 [label="m1"];
+  n104 [label="10"];
+  n105 [label="SMOTOR"];
+  n105 [label="SMOTOR"];
+  n106 [label="acelerar"];
+  n106 [label="acelerar"];
+  n107 [label="m1"];
+  n108 [label="100"];
+  n109 [label="SMOTOR"];
+  n109 [label="SMOTOR"];
+  n110 [label="setSpeed"];
+  n110 [label="setSpeed"];
+  n111 [label="m1"];
+  n112 [label="10.5"];
+  n113 [label="SMOTOR"];
+  n113 [label="SMOTOR"];
+  n114 [label="setRadio"];
+  n114 [label="setRadio"];
+  n115 [label="m1"];
+  n116 [label="10.6"];
+  n117 [label="SSLEEP"];
+  n117 [label="SSLEEP"];
+  n118 [label="100"];
+  n119 [label="SSLEEP"];
+  n119 [label="SSLEEP"];
+  n120 [label="5.5"];
+  n121 [label="func"];
+  n121 [label="func"];
+  n122 [label="despues"];
+  n123 [label="PARAMS"];
+  n123 [label="PARAMS"];
+  n124 [label="n"];
+  n125 [label="LIST_INSTR"];
+  n125 [label="LIST_INSTR"];
+  n126 [label=":="];
+  n126 [label=":="];
+  n127 [label="m1"];
+  n128 [label="12"];
 
   n0 -> n1 // "LIST_FUNCTIONS" -> "func"
-  n1 -> n2 // "func" -> "main"
+  n1 -> n2 // "func" -> "hola"
   n1 -> n3 // "func" -> "PARAMS"
-  n1 -> n4 // "func" -> "LIST_INSTR"
-  n4 -> n5 // "LIST_INSTR" -> ":="
-  n5 -> n6 // ":=" -> "m1"
-  n5 -> n7 // ":=" -> "MOTOR"
-  n4 -> n8 // "LIST_INSTR" -> ":="
-  n8 -> n9 // ":=" -> "a"
-  n8 -> n10 // ":=" -> "getSpeed"
-  n10 -> n11 // "getSpeed" -> "m1"
-  n4 -> n12 // "LIST_INSTR" -> ":="
-  n12 -> n13 // ":=" -> "a"
-  n12 -> n14 // ":=" -> "getRadio"
-  n14 -> n15 // "getRadio" -> "m1"
-  n4 -> n16 // "LIST_INSTR" -> ":="
-  n16 -> n17 // ":=" -> "a"
-  n16 -> n18 // ":=" -> "getTouch"
-  n18 -> n19 // "getTouch" -> "1"
-  n4 -> n20 // "LIST_INSTR" -> ":="
-  n20 -> n21 // ":=" -> "a"
-  n20 -> n22 // ":=" -> "getUltrasonic"
-  n22 -> n23 // "getUltrasonic" -> "2"
-  n4 -> n24 // "LIST_INSTR" -> ":="
-  n24 -> n25 // ":=" -> "a"
-  n24 -> n26 // ":=" -> "getColor"
-  n26 -> n27 // "getColor" -> "0"
-  n4 -> n28 // "LIST_INSTR" -> "avanzar"
-  n28 -> n29 // "avanzar" -> "m1"
-  n4 -> n30 // "LIST_INSTR" -> "avanzar"
-  n30 -> n31 // "avanzar" -> "m1"
-  n30 -> n32 // "avanzar" -> "10"
-  n4 -> n33 // "LIST_INSTR" -> "parar"
-  n33 -> n34 // "parar" -> "m1"
-  n4 -> n35 // "LIST_INSTR" -> "setSpeed"
-  n35 -> n36 // "setSpeed" -> "m1"
-  n35 -> n37 // "setSpeed" -> "10"
-  n4 -> n38 // "LIST_INSTR" -> "setRadio"
-  n38 -> n39 // "setRadio" -> "m1"
-  n38 -> n40 // "setRadio" -> "10"
-  n4 -> n41 // "LIST_INSTR" -> "acelerar"
-  n41 -> n42 // "acelerar" -> "m1"
-  n41 -> n43 // "acelerar" -> "100"
-  n4 -> n44 // "LIST_INSTR" -> "setSpeed"
-  n44 -> n45 // "setSpeed" -> "m1"
-  n44 -> n46 // "setSpeed" -> "10.5"
-  n4 -> n47 // "LIST_INSTR" -> "setRadio"
-  n47 -> n48 // "setRadio" -> "m1"
-  n47 -> n49 // "setRadio" -> "10.6"
-  n4 -> n50 // "LIST_INSTR" -> "SLEEP"
-  n50 -> n51 // "SLEEP" -> "100"
-  n4 -> n52 // "LIST_INSTR" -> "SLEEP"
-  n52 -> n53 // "SLEEP" -> "5.5"
+  n3 -> n4 // "PARAMS" -> "n"
+  n1 -> n5 // "func" -> "LIST_INSTR"
+  n5 -> n6 // "LIST_INSTR" -> ":="
+  n6 -> n7 // ":=" -> "a"
+  n6 -> n8 // ":=" -> "1"
+  n0 -> n9 // "LIST_FUNCTIONS" -> "func"
+  n9 -> n10 // "func" -> "adios"
+  n9 -> n11 // "func" -> "PARAMS"
+  n11 -> n12 // "PARAMS" -> "n"
+  n9 -> n13 // "func" -> "LIST_INSTR"
+  n13 -> n14 // "LIST_INSTR" -> ":="
+  n14 -> n15 // ":=" -> "n"
+  n14 -> n16 // ":=" -> "1"
+  n0 -> n17 // "LIST_FUNCTIONS" -> "func"
+  n17 -> n18 // "func" -> "asdf"
+  n17 -> n19 // "func" -> "PARAMS"
+  n19 -> n20 // "PARAMS" -> "n"
+  n17 -> n21 // "func" -> "LIST_INSTR"
+  n21 -> n22 // "LIST_INSTR" -> ":="
+  n22 -> n23 // ":=" -> "i"
+  n22 -> n24 // ":=" -> "5"
+  n0 -> n25 // "LIST_FUNCTIONS" -> "func"
+  n25 -> n26 // "func" -> "quepasa"
+  n25 -> n27 // "func" -> "PARAMS"
+  n27 -> n28 // "PARAMS" -> "n"
+  n25 -> n29 // "func" -> "LIST_INSTR"
+  n29 -> n30 // "LIST_INSTR" -> ":="
+  n30 -> n31 // ":=" -> "a"
+  n30 -> n32 // ":=" -> "7"
+  n0 -> n33 // "LIST_FUNCTIONS" -> "func"
+  n33 -> n34 // "func" -> "main"
+  n33 -> n35 // "func" -> "PARAMS"
+  n33 -> n36 // "func" -> "LIST_INSTR"
+  n36 -> n37 // "LIST_INSTR" -> ":="
+  n37 -> n38 // ":=" -> "m1"
+  n37 -> n39 // ":=" -> "MOTOR"
+  n36 -> n40 // "LIST_INSTR" -> ":="
+  n40 -> n41 // ":=" -> "a"
+  n40 -> n42 // ":=" -> "GMOTOR"
+  n42 -> n43 // "GMOTOR" -> "getSpeed"
+  n43 -> n44 // "getSpeed" -> "m1"
+  n36 -> n45 // "LIST_INSTR" -> ":="
+  n45 -> n46 // ":=" -> "a"
+  n45 -> n47 // ":=" -> "GMOTOR"
+  n47 -> n48 // "GMOTOR" -> "getRadio"
+  n48 -> n49 // "getRadio" -> "m1"
+  n36 -> n50 // "LIST_INSTR" -> ":="
+  n50 -> n51 // ":=" -> "a"
+  n50 -> n52 // ":=" -> "GSENSOR"
+  n52 -> n53 // "GSENSOR" -> "getTouch"
+  n52 -> n54 // "GSENSOR" -> "1"
+  n36 -> n55 // "LIST_INSTR" -> ":="
+  n55 -> n56 // ":=" -> "a"
+  n55 -> n57 // ":=" -> "GSENSOR"
+  n57 -> n58 // "GSENSOR" -> "getUltrasonic"
+  n57 -> n59 // "GSENSOR" -> "2"
+  n36 -> n60 // "LIST_INSTR" -> ":="
+  n60 -> n61 // ":=" -> "a"
+  n60 -> n62 // ":=" -> "GSENSOR"
+  n62 -> n63 // "GSENSOR" -> "getColor"
+  n62 -> n64 // "GSENSOR" -> "0"
+  n36 -> n65 // "LIST_INSTR" -> "while"
+  n65 -> n66 // "while" -> "="
+  n66 -> n67 // "=" -> "GSENSOR"
+  n67 -> n68 // "GSENSOR" -> "getColor"
+  n67 -> n69 // "GSENSOR" -> "9"
+  n66 -> n70 // "=" -> "4"
+  n65 -> n71 // "while" -> "LIST_INSTR"
+  n71 -> n72 // "LIST_INSTR" -> "SMOTOR"
+  n72 -> n73 // "SMOTOR" -> "avanzar"
+  n72 -> n74 // "SMOTOR" -> "10"
+  n36 -> n75 // "LIST_INSTR" -> "SMOTOR"
+  n75 -> n76 // "SMOTOR" -> "avanzar"
+  n75 -> n77 // "SMOTOR" -> "10"
+  n36 -> n78 // "LIST_INSTR" -> "SMOTOR"
+  n78 -> n79 // "SMOTOR" -> "avanzar"
+  n79 -> n80 // "avanzar" -> "m1"
+  n36 -> n81 // "LIST_INSTR" -> "SMOTOR"
+  n81 -> n82 // "SMOTOR" -> "avanzar"
+  n82 -> n83 // "avanzar" -> "m1"
+  n81 -> n84 // "SMOTOR" -> "200"
+  n36 -> n85 // "LIST_INSTR" -> "SMOTOR"
+  n85 -> n86 // "SMOTOR" -> "avanzar"
+  n36 -> n87 // "LIST_INSTR" -> "SMOTOR"
+  n87 -> n88 // "SMOTOR" -> "avanzar"
+  n88 -> n89 // "avanzar" -> "m1"
+  n36 -> n90 // "LIST_INSTR" -> "SMOTOR"
+  n90 -> n91 // "SMOTOR" -> "avanzar"
+  n91 -> n92 // "avanzar" -> "m1"
+  n90 -> n93 // "SMOTOR" -> "10"
+  n36 -> n94 // "LIST_INSTR" -> "SMOTOR"
+  n94 -> n95 // "SMOTOR" -> "parar"
+  n95 -> n96 // "parar" -> "m1"
+  n36 -> n97 // "LIST_INSTR" -> "SMOTOR"
+  n97 -> n98 // "SMOTOR" -> "setSpeed"
+  n98 -> n99 // "setSpeed" -> "m1"
+  n97 -> n100 // "SMOTOR" -> "10"
+  n36 -> n101 // "LIST_INSTR" -> "SMOTOR"
+  n101 -> n102 // "SMOTOR" -> "setRadio"
+  n102 -> n103 // "setRadio" -> "m1"
+  n101 -> n104 // "SMOTOR" -> "10"
+  n36 -> n105 // "LIST_INSTR" -> "SMOTOR"
+  n105 -> n106 // "SMOTOR" -> "acelerar"
+  n106 -> n107 // "acelerar" -> "m1"
+  n105 -> n108 // "SMOTOR" -> "100"
+  n36 -> n109 // "LIST_INSTR" -> "SMOTOR"
+  n109 -> n110 // "SMOTOR" -> "setSpeed"
+  n110 -> n111 // "setSpeed" -> "m1"
+  n109 -> n112 // "SMOTOR" -> "10.5"
+  n36 -> n113 // "LIST_INSTR" -> "SMOTOR"
+  n113 -> n114 // "SMOTOR" -> "setRadio"
+  n114 -> n115 // "setRadio" -> "m1"
+  n113 -> n116 // "SMOTOR" -> "10.6"
+  n36 -> n117 // "LIST_INSTR" -> "SSLEEP"
+  n117 -> n118 // "SSLEEP" -> "100"
+  n36 -> n119 // "LIST_INSTR" -> "SSLEEP"
+  n119 -> n120 // "SSLEEP" -> "5.5"
+  n0 -> n121 // "LIST_FUNCTIONS" -> "func"
+  n121 -> n122 // "func" -> "despues"
+  n121 -> n123 // "func" -> "PARAMS"
+  n123 -> n124 // "PARAMS" -> "n"
+  n121 -> n125 // "func" -> "LIST_INSTR"
+  n125 -> n126 // "LIST_INSTR" -> ":="
+  n126 -> n127 // ":=" -> "m1"
+  n126 -> n128 // ":=" -> "12"
 
 }
