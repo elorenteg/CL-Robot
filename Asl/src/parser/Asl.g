@@ -43,7 +43,6 @@ tokens {
     BOOLEAN;            // Boolean atom (for Boolean constants "true" or "false")
     PVALUE;             // Parameter by value in the list of parameters
     PREF;               // Parameter by reference in the list of parameters
-    ARRAYACC;           // Access to Array
     SMOTOR;
     GMOTOR;
     GSENSOR;
@@ -102,9 +101,9 @@ instruction
         | sleep         //
         ; 
 
-motor   : (ID '.')? b=AVANZAR'('INT?')' -> ^(SMOTOR ^(AVANZAR ID?) INT?)
-        | (ID '.')? b=ACELERAR'('INT')' -> ^(SMOTOR ^(ACELERAR ID?) INT)
-        | (ID '.')? b=PARAR'('')' -> ^(SMOTOR ^(PARAR ID?))
+motor   : (ID '.') b=AVANZAR'('INT?')' -> ^(SMOTOR ^(AVANZAR ID?) INT?)
+        | (ID '.') b=ACELERAR'('INT')' -> ^(SMOTOR ^(ACELERAR ID?) INT)
+        | (ID '.') b=PARAR'('')' -> ^(SMOTOR ^(PARAR ID?))
         | ID '.' (b=SETRADIO|b=SETSPEED)'('(c=INT|c=FLOAT)')' -> ^(SMOTOR ^($b ID) $c)
         ;
         
@@ -116,7 +115,6 @@ assign  : esq eq=EQUAL expr -> ^(ASSIGN[$eq,":="] esq expr)
         ;
         
 esq     : ID
-        | ID b='[' expr ']' -> ^(ARRAYACC[$b,"[]"] ID expr)
         ;
 
 // if-then-else (else is optional)
@@ -165,11 +163,10 @@ factor  : (NOT^ | PLUS^ | MINUS^)? atom
 // in parenthesis
 atom    : ID 
         | INT
-        | MOTOR
+        | m=MOTOR '(' b=INT ')' -> ^(GMOTOR[m, "MOTOR"+$b.text])
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
-        | funcall ( -> funcall | b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] funcall expr))
+        | funcall
         | '('! expr ')'!
-        | ID b='[' expr ']' -> ^(ARRAYACC[$b, "[]"] ID expr)
         | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(GSENSOR $b INT)// añado el int para indicar cual de los sensores se usa
                                                     //ya que por ejemplo del touch hay dos y de los demas podria haber mas
         | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(GMOTOR ^($b ID))
@@ -214,24 +211,24 @@ TRUE            : 'true' ;
 FALSE           : 'false';
 
 
-GETCOLOR        : 'getColor' ;
-GETULTRA        : 'getUltrasonic' ;
-GETTOUCH        : 'getTouch' ;
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
 PARAR           : 'parar' ;
 ACELERAR        : 'acelerar' ;
-SETSPEED        : 'setSpeed';
-SETRADIO        : 'setRadio';
 GETRADIO        : 'getRadio';
+SETRADIO        : 'setRadio';
 GETSPEED        : 'getSpeed';
+SETSPEED        : 'setSpeed';
+GETCOLOR        : 'getColor' ;
+GETULTRA        : 'getUltrasonic' ;
+GETTOUCH        : 'getTouch' ;
+MOTOR           : 'MOTOR';
 SLEEP           : 'sleep' ;
 
 
-MOTOR           : 'MOTOR';
 ID              : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
-FLOAT           : '0'..'9'+ '.' '0'..'9'+ ;
-INT             : '0'..'9'+ ;
+FLOAT           : '-'? '0'..'9'+ '.' '0'..'9'+ ;
+INT             : '-'? '0'..'9'+ ;
 
 // C-style comments
 COMMENT : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
