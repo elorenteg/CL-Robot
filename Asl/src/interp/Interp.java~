@@ -164,12 +164,6 @@ public class Interp {
      * @param args The AST node representing the list of arguments of the caller.
      * @return The data returned by the function.
      */
-
-	
-	private Data translateFunction(String funcname){
-
-		AslTree f = FuncName2Tree.get(getname);
-		
     private Data executeFunction (String funcname, AslTree args) {
         // Get the AST of the function
         AslTree f = FuncName2Tree.get(funcname);
@@ -261,12 +255,9 @@ public class Interp {
             case AslLexer.IF:
                 value = evaluateExpression(t.getChild(0));
                 checkBoolean(value);
-                Data v1 = executeListInstructions(t.getChild(1));
-				Data v2 = null;
+                if (value.getBooleanValue()) return executeListInstructions(t.getChild(1));
                 // Is there else statement ?
-                if (t.getChildCount() == 3) v2= executeListInstructions(t.getChild(2));ç
-				
-				if (t.getChildCount() == 3) if v1!=null 
+                if (t.getChildCount() == 3) return executeListInstructions(t.getChild(2));
                 return null;
 
             // While
@@ -293,7 +284,7 @@ public class Interp {
                 Data val = new Data(0);;
                 try {
                     token = stdin.next();
-                    val.setValue(Integer.parseInt(token)); 
+                    //val.setValue(Integer.parseInt(token)); 
                 } catch (NumberFormatException ex) {
                     throw new RuntimeException ("Format error when reading a number: " + token);
                 }

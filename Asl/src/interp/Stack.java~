@@ -93,9 +93,7 @@ public class Stack {
     public void defineVariable(String name, Data value) {
         Data d = CurrentAR.get(name);
         if (d == null) CurrentAR.put(name, value); // New definition
-        else if(d.getType() != value.getType()){
-		throw new RuntimeException ("Change variable type not permited");
-	} 
+        else d.setData(value); // Use the previous data 
     }
 
     /** Gets the value of the variable. The value is represented as

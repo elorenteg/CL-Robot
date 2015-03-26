@@ -76,4 +76,46 @@ public class Data {
     /** Copies the value from another data */
     public void setData(Data d) { type = d.type; }
     
+    
+    
+
+    /**
+     * Evaluation of arithmetic expressions. The evaluation is done
+     * "in place", returning the result on the same data.
+     * @param op Type of operator (token).
+     * @param d Second operand.
+     */
+     
+    public void evaluateArithmetic (int op, Data d) {
+        assert type == d.type && (type == Type.INTEGER || type == Type.FLOAT);
+		switch (op) {
+            case AslLexer.PLUS:
+            case AslLexer.MINUS:
+            case AslLexer.MUL:
+            case AslLexer.DIV: break;
+            case AslLexer.MOD: assert type == Type.INTEGER; break;
+            default: assert false;
+		}
+    }
+
+    /**
+     * Evaluation of expressions with relational operators.
+     * @param op Type of operator (token).
+     * @param d Second operand.
+     * @return A Boolean data with the value of the expression.
+     */
+    public Data evaluateRelational (int op, Data d) {
+        assert type != Type.VOID && type != Type.MOTOR && type == d.type;
+        switch (op) {
+            case AslLexer.EQUAL:
+            case AslLexer.NOT_EQUAL:
+            case AslLexer.LT:
+            case AslLexer.LE:
+            case AslLexer.GT:
+            case AslLexer.GE:
+				return new Data(Type.BOOLEAN);
+            default: assert false; 
+        }
+        return null;
+    }
 }

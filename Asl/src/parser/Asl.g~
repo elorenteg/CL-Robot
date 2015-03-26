@@ -65,7 +65,7 @@ prog    : func+ EOF -> ^(LIST_FUNCTIONS func+)
         ;
             
 // A function has a name, a list of parameters and a block of instructions	
-func    : (TIPO|VOID) FUNC^ ID params block_instructions  ENDFUNC!
+func    : FUNC^ ID params block_instructions ENDFUNC!
         ;
 
 // The list of parameters grouped in a subtree (it can be empty)
@@ -211,7 +211,7 @@ READ            : 'read' ;
 WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
-VOID			: 'void';
+
 TIPO			: ('int'|'float'|'bool'|'motor');
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
