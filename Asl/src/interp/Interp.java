@@ -354,18 +354,23 @@ public class Interp {
             case AslLexer.BOOLEAN:
                 value = new Data(Data.Type.BOOLEAN);
                 break;
-			case AslLexer.FLOAT:
-				value = new Data(Data.Type.FLOAT);
-				break;
-			case AslLexer.DMOTOR:
-				value = new Data(Data.Type.MOTOR);
-				break;
-				
+            case AslLexer.FLOAT:
+                    value = new Data(Data.Type.FLOAT);
+                    break;
+            case AslLexer.DMOTOR:
+                    value = new Data(Data.Type.MOTOR);
+                    break;
+                            
             // A function call. Checks that the function returns a result.
             case AslLexer.FUNCALL:
-
-				//hacer comprobacion de tipos y numeros de params
-                value = executeFunction(t.getChild(0).getText(), t.getChild(1));
+                //hacer comprobacion de tipos y numeros de params
+                String nombre = t.getChild(0).getText();
+                AslTree func = null;
+                checkFunctionExists(func,nombre);
+                assert func == null;
+                checkTypeParams(func.getChild(2),t.getChild(1));
+                value = new Data(func.getChild(0).getText());
+                
                 assert value != null;
                 if (value.isVoid()) {
                     throw new RuntimeException ("function expected to return a value");
@@ -514,21 +519,43 @@ public class Interp {
         }
     }
 
-	private void checkFloat (Data b) {
+    private void checkFloat (Data b) {
         if (!b.isFloat()) {
             throw new RuntimeException ("Expecting float numerical expression");
         }
     }
 
-	private void checkNumerical (Data b) {
+    private void checkNumerical (Data b) {
         if (!b.isInteger() && !b.isFloat()) {
             throw new RuntimeException ("Expecting numerical expression");
         }
     }
 
-	private void checkMotor (Data b) {
+    private void checkMotor (Data b) {
         if (!b.isMotor()) {
             throw new RuntimeException ("Expecting Motor expression");
+        }
+    }
+    
+    
+    private void checkFunctionExists(AslTree func, String name) {
+        func = FuncName2Tree.get(name);
+        if (func == null) {
+            throw new RuntimeException ("Function not exist");
+        }
+    }
+    
+    private void checkTypeParams(AslTree params, AslTree t) {
+        assert params.getChildCount() != t.getChildCount();
+        for (int i = 0; i < t.getChildCount(); ++i) {
+            Data param = Stack.getVariable(t.getChild(i).getText());
+            String tipo = params.getChild(i).getChild(0).getText();
+            
+            if ((tipo == "bool" && param.getType() != Data.Type.BOOLEAN) ||
+                (tipo == "int" && param.getType() != Data.Type.INTEGER) ||
+                (tipo == "float" && param.getType() != Data.Type.FLOAT) ||
+                (tipo == "motor" && param.getType() != Data.Type.MOTOR))
+                throw new RuntimeException ("expected " + tipo + " param, found " + param.getType().toString());
         }
     }
 

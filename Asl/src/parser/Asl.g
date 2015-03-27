@@ -44,7 +44,7 @@ tokens {
     PVALUE;             // Parameter by value in the list of parameters
     PREF;               // Parameter by reference in the list of parameters
     SMOTOR;
-	DMOTOR;
+    DMOTOR;
     GMOTOR;
     GSENSOR;
     SSLEEP;
@@ -65,7 +65,8 @@ prog    : func+ EOF -> ^(LIST_FUNCTIONS func+)
         ;
             
 // A function has a name, a list of parameters and a block of instructions	
-func    : (TIPO|VOID) FUNC^ ID params block_instructions  ENDFUNC!
+func    : TIPO FUNC^ ID params block_instructions return_stmt ENDFUNC!
+        | VOID FUNC^ ID params block_instructions ENDFUNC!
         ;
 
 // The list of parameters grouped in a subtree (it can be empty)
@@ -94,7 +95,6 @@ instruction
         | ite_stmt      // if-then-else
         | while_stmt    // while statement
         | funcall       // Call to a procedure (no result produced)
-        | return_stmt   // Return statement
         | read          // Read a variable
         | write         // Write a string or an expression
         |               // Nothing
@@ -129,7 +129,7 @@ while_stmt
 
 // Return statement with an expression
 return_stmt
-        : RETURN^ expr?
+        : RETURN^ expr
         ;
 
 // Read a variable
@@ -164,7 +164,7 @@ factor  : (NOT^ | PLUS^ | MINUS^)? atom
 // in parenthesis
 atom    : ID 
         | INT
-		| FLOAT
+        | FLOAT
         | m=MOTOR '(' b=INT ')' -> ^(DMOTOR[m, "MOTOR"+$b.text])
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
         | funcall
@@ -172,7 +172,7 @@ atom    : ID
         | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(GSENSOR $b INT)// añado el int para indicar cual de los sensores se usa
                                                     //ya que por ejemplo del touch hay dos y de los demas podria haber mas
         | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(GMOTOR $b ID)
-		;	
+        ;	
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
 funcall : ID '(' expr_list? ')' -> ^(FUNCALL ID ^(ARGLIST expr_list?))
@@ -211,8 +211,8 @@ READ            : 'read' ;
 WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
-VOID			: 'void';
-TIPO			: ('int'|'float'|'bool'|'motor');
+VOID            : 'void';
+TIPO            : ('int'|'float'|'bool'|'motor');
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
 PARAR           : 'parar' ;

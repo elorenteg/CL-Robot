@@ -94,8 +94,8 @@ public class Stack {
         Data d = CurrentAR.get(name);
         if (d == null) CurrentAR.put(name, value); // New definition
         else if(d.getType() != value.getType()){
-		throw new RuntimeException ("Change variable type not permited");
-	} 
+            throw new RuntimeException ("Change variable type not permited");
+        } 
     }
 
     /** Gets the value of the variable. The value is represented as

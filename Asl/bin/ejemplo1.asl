@@ -1,10 +1,11 @@
+
 func main()
 
     m1 = MOTOR(1);
     m1.setRadio(2);
     m1.setSpeed(10);
     
-    while getUltrasonico(1) > 4 do
+    while getUltrasonic(1) > 4 do
         m1.avanzar(10);
     endwhile;
     

@@ -46,15 +46,21 @@ public class Data {
     /** Type of data*/
     private Type type;
 
-	
-
-	Data(Type t){ type = t; }
+    Data(Type t){ type = t; }
 
     /** Constructor for void data */
     Data() { type = Type.VOID; }
 
     /** Copy constructor */
     Data(Data d) { type = d.type;}
+    
+    Data(String tipo) {
+        if (tipo == "bool") type = Type.BOOLEAN;
+        else if (tipo == "int") type = Type.INTEGER;
+        else if (tipo == "float") type = Type.FLOAT;
+        else if (tipo == "motor") type = Type.MOTOR;
+        else type = Type.VOID;
+    }
 
     /** Returns the type of data */
     public Type getType() { return type; }
@@ -68,9 +74,9 @@ public class Data {
     /** Indicates whether the data is void */
     public boolean isVoid() { return type == Type.VOID; }
 
-	public boolean isMotor() { return type == Type.MOTOR; }
+    public boolean isMotor() { return type == Type.MOTOR; }
 
-	public boolean isFloat() { return type == Type.FLOAT; }
+    public boolean isFloat() { return type == Type.FLOAT; }
 
     
     /** Copies the value from another data */
