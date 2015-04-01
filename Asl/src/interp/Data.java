@@ -55,10 +55,10 @@ public class Data {
     Data(Data d) { type = d.type;}
     
     Data(String tipo) {
-        if (tipo == "bool") type = Type.BOOLEAN;
-        else if (tipo == "int") type = Type.INTEGER;
-        else if (tipo == "float") type = Type.FLOAT;
-        else if (tipo == "motor") type = Type.MOTOR;
+        if (tipo.equals("bool")) type = Type.BOOLEAN;
+        else if (tipo.equals("int")) type = Type.INTEGER;
+        else if (tipo.equals("float")) type = Type.FLOAT;
+        else if (tipo.equals("motor")) type = Type.MOTOR;
         else type = Type.VOID;
     }
 
