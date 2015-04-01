@@ -74,10 +74,12 @@ exec:
 	chmod a+x $(EXEC)
 
 clean:
-	rm -rf $(PARSER)/*.java $(PARSER)/*.tokens 
+	rm -rf $(PARSER)/*.java $(PARSER)/*.tokens $(PARSER)/*~
 	rm -rf $(CLASSDIR)
 	rm -rf $(JAVADOC)
-	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl
+	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~
+	rm -rf *~
+	rm -rf $(INTERP)/*~
 
 tar: clean
 	cd ..; tar cvzf $(DISTRIB) $(TARGET); mv $(DISTRIB) $(TARGET); cd $(TARGET) 
