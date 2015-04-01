@@ -1,5 +1,12 @@
-void main(int a, bool b) {
+void funcion() {
+    a = 10;
+    System.out.println("hola");
+    b = true;
+}
+
+int main(int a, bool b) {
     while(a > 4 && b) {
+        c = main(a, b);
         a = 10;
     }
 
@@ -9,4 +16,5 @@ void main(int a, bool b) {
         a = 3;
     }
 
+    return a;
 }

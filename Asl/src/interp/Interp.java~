@@ -283,8 +283,7 @@ public class Interp {
                 
             case AslLexer.WRITE:
                 bw.write("System.out.println(");
-                if (t.getChild(0).getType() == AslLexer.STRING) bw.write(t.getChild(0).getText());
-                else type = translateExpression(t.getChild(0));
+                type = translateExpression(t.getChild(0));
                 bw.write(")");
                 break;
 
