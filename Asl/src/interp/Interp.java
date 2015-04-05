@@ -119,16 +119,18 @@ public class Interp {
         try {
             bw = new BufferedWriter(new FileWriter(traduccion));
             
+            // ----------------------------------------------------------------------------------------- IMPORTS!!
+            
             bw.write("public class Traduccion {"); bw.newLine();
             
-            int fnum = 0;
+            if (!FuncName2Tree.containsKey("main"))
+                throw new RuntimeException("function main must be declared");
+            
             for (Map.Entry<String, AslTree> funciones : FuncName2Tree.entrySet()) {
                 bw.newLine();
                 
                 String fname = funciones.getKey();
                 translateFunction(fname);
-                
-                ++fnum;
             }
             
             bw.write("}");
@@ -215,7 +217,7 @@ public class Interp {
             throw new RuntimeException ("function main must be void");
             
         if (fname.equals("main")) {
-            bw.write("public static void main (String args[]) {");
+            bw.write("public static void main(String args[]) {");
         }
         else {
             bw.write("public static " + ftype + " " + fname + "(");

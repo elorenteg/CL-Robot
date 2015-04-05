@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec java -enableassertions -jar /home/ester/Documentos/CL/robot-cl/Asl/bin/Asl.jar "$@"
