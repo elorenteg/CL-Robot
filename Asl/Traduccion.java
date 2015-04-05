@@ -1,18 +1,18 @@
 public class Traduccion {
 
-    public static void funcionInt(Integer a) {
+    public static void funcionInt(int a) {
         a = a + 2;
     }
 
     public static void funcion() {
-        Integer a = 10;
+        int a = 10;
         System.out.println("hola");
-        Boolean b = true;
+        boolean b = true;
     }
 
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         funcion();
-        Integer a = 1;
+        int a = 1;
         funcionInt(a);
     }
 }

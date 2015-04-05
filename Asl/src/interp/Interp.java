@@ -204,6 +204,10 @@ public class Interp {
     /** Defines the current line number with a specific value */
     private void setLineNumber(int l) { linenumber = l;}
     
+    
+    // ---------------------------------------------------------------------------------------------------------------------- //
+    
+    
     private void translateFunction(String fname) throws IOException {
         System.out.println(fname);
         
@@ -230,9 +234,9 @@ public class Interp {
                 
                 if (i > 0) bw.write(", ");
                 
-                if (ptype.equals("int")) ptype = "Integer";
-                else if (ptype.equals("bool")) ptype = "Boolean";
-                else if (ptype.equals("float")) ptype = "Float";
+                if (ptype.equals("int")) ptype = "int";
+                else if (ptype.equals("bool")) ptype = "boolean";
+                else if (ptype.equals("float")) ptype = "float";
                 else if (ptype.equals("motor")) ptype = "Motor";
                 
                 if (fparams.getType() == AslLexer.PREF) {
@@ -295,9 +299,9 @@ public class Interp {
                 // aqui ya tenemos el tipo de la variable, pero ya ha escrito la parte derecha
                 if (Stack.defineVariable(vname, result.getData())){
                     String tipo = "";
-                    if (result.getData().getType() == Data.Type.INTEGER) tipo = "Integer";
-                    if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "Boolean";
-                    if (result.getData().getType() == Data.Type.FLOAT) tipo = "Float";
+                    if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
+                    if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
+                    if (result.getData().getType() == Data.Type.FLOAT) tipo = "float";
                     if (result.getData().getType() == Data.Type.MOTOR) tipo = "MOTOR";
                     if (result.getData().getType() == Data.Type.VOID) {
                         throw new RuntimeException ("Assign of void type not valid");
@@ -578,12 +582,121 @@ public class Interp {
             Data param = Stack.getVariable(args.getChild(i).getText());
             String tipo = params.getChild(i).getChild(0).getText();
             
-            if ((tipo == "bool" && param.getType() != Data.Type.BOOLEAN) ||
-                (tipo == "int" && param.getType() != Data.Type.INTEGER) ||
-                (tipo == "float" && param.getType() != Data.Type.FLOAT) ||
-                (tipo == "motor" && param.getType() != Data.Type.MOTOR))
+            if ((tipo.equals("bool") && param.getType() != Data.Type.BOOLEAN) ||
+                (tipo.equals("int") && param.getType() != Data.Type.INTEGER) ||
+                (tipo.equals("float") && param.getType() != Data.Type.FLOAT) ||
+                (tipo.equals("motor") && param.getType() != Data.Type.MOTOR))
                 throw new RuntimeException ("expected " + tipo + " param, found " + param.getType().toString());
         }
         
+    }
+    
+    
+    // ---------------------------------------------------------------------------------------------------------------------- //
+    
+    
+    /**
+     * Gathers the list of arguments of a function call. It also checks
+     * that the arguments are compatible with the parameters. In particular,
+     * it checks that the number of parameters is the same and that no
+     * expressions are passed as parametres by reference.
+     * @param AstF The AST of the callee.
+     * @param args The AST of the list of arguments passed by the caller.
+     * @return The list of evaluated arguments.
+     */
+    private ArrayList<Data> listArguments (AslTree AstF, AslTree args) {
+        if (args != null) setLineNumber(args);
+        AslTree pars = AstF.getChild(1);   // Parameters of the function
+        
+        // Create the list of parameters
+        ArrayList<Data> Params = new ArrayList<Data> ();
+        int n = pars.getChildCount();
+
+        // Check that the number of parameters is the same
+        int nargs = (args == null) ? 0 : args.getChildCount();
+        if (n != nargs) {
+            throw new RuntimeException ("Incorrect number of parameters calling function " +
+                                        AstF.getChild(0).getText());
+        }
+
+        // Checks the compatibility of the parameters passed by
+        // reference and calculates the values and references of
+        // the parameters.
+        for (int i = 0; i < n; ++i) {
+            AslTree p = pars.getChild(i); // Parameters of the callee
+            AslTree a = args.getChild(i); // Arguments passed by the caller
+            setLineNumber(a);
+            if (p.getType() == AslLexer.PVALUE) {
+                // Pass by value: evaluate the expression
+                /*
+                Params.add(i,evaluateExpression(a));
+                */
+            } else {
+                // Pass by reference: check that it is a variable
+                if (a.getType() != AslLexer.ID) {
+                    throw new RuntimeException("Wrong argument for pass by reference");
+                }
+                // Find the variable and pass the reference
+                Data v = Stack.getVariable(a.getText());
+                Params.add(i,v);
+            }
+        }
+        return Params;
+    }
+
+    /**
+     * Writes trace information of a function call in the trace file.
+     * The information is the name of the function, the value of the
+     * parameters and the line number where the function call is produced.
+     * @param f AST of the function
+     * @param arg_values Values of the parameters passed to the function
+     */
+    private void traceFunctionCall(AslTree f, ArrayList<Data> arg_values) {
+        function_nesting++;
+        AslTree params = f.getChild(1);
+        int nargs = params.getChildCount();
+        
+        for (int i=0; i < function_nesting; ++i) trace.print("|   ");
+
+        // Print function name and parameters
+        trace.print(f.getChild(0) + "(");
+        for (int i = 0; i < nargs; ++i) {
+            if (i > 0) trace.print(", ");
+            AslTree p = params.getChild(i);
+            if (p.getType() == AslLexer.PREF) trace.print("&");
+            trace.print(p.getText() + "=" + arg_values.get(i));
+        }
+        trace.print(") ");
+        
+        if (function_nesting == 0) trace.println("<entry point>");
+        else trace.println("<line " + lineNumber() + ">");
+    }
+
+    /**
+     * Writes the trace information about the return of a function.
+     * The information is the value of the returned value and of the
+     * variables passed by reference. It also reports the line number
+     * of the return.
+     * @param f AST of the function
+     * @param result The value of the result
+     * @param arg_values The value of the parameters passed to the function
+     */
+    private void traceReturn(AslTree f, Data result, ArrayList<Data> arg_values) {
+        for (int i=0; i < function_nesting; ++i) trace.print("|   ");
+        function_nesting--;
+        trace.print("return");
+        if (!result.isVoid()) trace.print(" " + result);
+        
+        // Print the value of arguments passed by reference
+        AslTree params = f.getChild(1);
+        int nargs = params.getChildCount();
+        for (int i = 0; i < nargs; ++i) {
+            AslTree p = params.getChild(i);
+            if (p.getType() == AslLexer.PVALUE) continue;
+            trace.print(", &" + p.getText() + "=" + arg_values.get(i));
+        }
+        
+        trace.println(" <line " + lineNumber() + ">");
+        if (function_nesting < 0) trace.close();
     }
 }

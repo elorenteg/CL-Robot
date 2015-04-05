@@ -1,16 +1,16 @@
-void func main()
+void main()
     funcion();
     a = 1;
     funcionInt(a);
 endfunc
 
 
-void func funcion()
+void funcion()
     a = 10;
     write "hola";
     b = true;
 endfunc
 
-void func funcionInt(int a)
+void funcionInt(int a)
     a = a + 2;
 endfunc
