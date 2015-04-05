@@ -41,6 +41,28 @@ import java.util.Set;
 
 public class Interp {
 
+    
+    final static class MyResult {
+        private final Data value;
+        private final String texto;
+    
+        public MyResult(Data first, String second) {
+            this.value = first;
+            this.texto = second;
+        }
+    
+        public Data getData() {
+            return value;
+        }
+    
+        public String getTexto() {
+            return texto;
+        }
+    }
+    
+    
+    
+    
     private BufferedWriter bw;
 
     /** Memory of the virtual machine. */
@@ -111,7 +133,7 @@ public class Interp {
             bw.close();
             
             // indenta segun los estandares de java
-            Process p = Runtime.getRuntime().exec("astyle --style=java traduccion.java");
+            //Process p = Runtime.getRuntime().exec("astyle --style=java traduccion.java");
         }
         catch (IOException exc) {
             System.out.println(exc.toString());
@@ -212,12 +234,12 @@ public class Interp {
         if (f.getChildCount() == 5) {
             AslTree freturn = f.getChild(4).getChild(0);
             bw.write("return ");
-            Data result = translateExpression(freturn);
+            MyResult result = translateExpression(freturn);
             
-            if (result.getType() != (new Data(ftype)).getType()) {
+            if (result.getData().getType() != (new Data(ftype)).getType()) {
                 throw new RuntimeException ("Incompatible types in Function type and Return type");
             }
-            bw.write(";"); bw.newLine();
+            bw.write(result.getTexto()+";"); bw.newLine();
         }
         
         Stack.popActivationRecord();
@@ -240,25 +262,39 @@ public class Interp {
         setLineNumber(t);
 
         Data type;
+        MyResult result;
         switch (t.getType()) {
         
             case AslLexer.ASSIGN:
                 String vname = t.getChild(0).getText();
                 
                 // aqui necesitarios el tipo de la Expresion, pero aun no lo hemos evaluado
-                bw.write(vname + " = ");
+                //bw.write(vname + " = ");
                 
                 // translateExpression ya va imprimiento la parte derecha
-                type = translateExpression(t.getChild(1));
+                result = translateExpression(t.getChild(1));
                 // aqui ya tenemos el tipo de la variable, pero ya ha escrito la parte derecha
-                Stack.defineVariable(vname, type);
+                if (Stack.defineVariable(vname, result.getData())){
+                    String tipo = "";
+                    if (result.getData().getType() == Data.Type.INTEGER) tipo = "Integer";
+                    if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "Boolean";
+                    if (result.getData().getType() == Data.Type.FLOAT) tipo = "Float";
+                    if (result.getData().getType() == Data.Type.MOTOR) tipo = "MOTOR";
+                    if (result.getData().getType() == Data.Type.VOID) {
+                        throw new RuntimeException ("Assign of void type not valid");
+                    }
+                    
+                    bw.write (tipo+" "+vname + " = " +result.getTexto());
+                }else{
+                    bw.write (vname + " = " +result.getTexto());
+                }
                 break;
 
             case AslLexer.IF:
                 bw.write("if(");
-                type = translateExpression(t.getChild(0));
-                checkBoolean(type);
-                bw.write(") {"); bw.newLine();
+                result = translateExpression(t.getChild(0));
+                checkBoolean(result.getData());
+                bw.write(result.getTexto()+") {"); bw.newLine();
                 translateListInstruction(t.getChild(1));
                 bw.write("}"); bw.newLine();
                 
@@ -272,9 +308,10 @@ public class Interp {
                 
             case AslLexer.WHILE:
                 bw.write("while(");
-                type = translateExpression(t.getChild(0));
-                checkBoolean(type);
-                bw.write(") {"); bw.newLine();
+                result = translateExpression(t.getChild(0));
+                checkBoolean(result.getData());
+                
+                bw.write(result.getTexto()+") {"); bw.newLine();
                 
                 translateListInstruction(t.getChild(1));
                 
@@ -284,19 +321,26 @@ public class Interp {
             case AslLexer.WRITE:
                 bw.write("System.out.println(");
                 if (t.getChild(0).getType() == AslLexer.STRING) bw.write(t.getChild(0).getText());
-                else type = translateExpression(t.getChild(0));
+                else{
+                    result = translateExpression(t.getChild(0));
+                    bw.write(result.getTexto());
+                }
                 bw.write(")");
                 break;
 
             case AslLexer.FUNCALL:
-                type = translateExpression(t);
+                result = translateExpression(t);
+                if (result.getData().getType() != Data.Type.VOID){
+                    throw new RuntimeException ("Return funcall not assigned");
+                }
+                bw.write(result.getTexto());
                 break;
 
             default: assert false; // Should never happen
         }
     }
     
-    private Data translateExpression(AslTree t) throws IOException {
+    private MyResult translateExpression(AslTree t) throws IOException {
         assert t != null;
 
         int previous_line = lineNumber();
@@ -304,28 +348,34 @@ public class Interp {
         int type = t.getType();
 
         Data value = null;
-        
+        MyResult ret = null;
         // Atoms
         switch (type) {
             case AslLexer.ID:
                 value = new Data(Stack.getVariable(t.getText()));
-                bw.write(t.getText());
+                
+                ret = new MyResult(value, t.getText());
+                //bw.write(t.getText());
                 break;
             case AslLexer.INT:
                 value = new Data(Data.Type.INTEGER);
-                bw.write(t.getText());
+                ret = new MyResult(value, t.getText());
+                //bw.write(t.getText());
                 break;
             case AslLexer.BOOLEAN:
                 value = new Data(Data.Type.BOOLEAN);
-                bw.write(t.getText());
+                ret = new MyResult(value, t.getText());
+                //bw.write(t.getText());
                 break;
             case AslLexer.FLOAT:
                 value = new Data(Data.Type.FLOAT);
-                bw.write(t.getText());
+                ret = new MyResult(value, t.getText());
+                //bw.write(t.getText());
                 break;
             case AslLexer.DMOTOR:
                 value = new Data(Data.Type.MOTOR);
-                bw.write(t.getText());
+                ret = new MyResult(value, t.getText());
+                //bw.write(t.getText());
                 break;
             case AslLexer.FUNCALL:
                 String fname = t.getChild(0).getText();
@@ -334,20 +384,23 @@ public class Interp {
                 func = FuncName2Tree.get(fname);
                 checkTypeParams(func.getChild(2),t.getChild(1));
                 value = new Data(func.getChild(0).getText());
-                bw.write(fname + "(");
+                String funcion = fname+"(";
+                //bw.write(fname + "(");
                 for (int i = 0; i < t.getChild(1).getChildCount(); ++i) {
-                    if (i > 0) bw.write(", ");
-                    bw.write(t.getChild(1).getChild(i).getText());
+                    if (i > 0) funcion+=", "; //bw.write(", ");
+                    funcion+=t.getChild(1).getChild(i).getText(); //bw.write(t.getChild(1).getChild(i).getText());
                 }
-                bw.write(")");
+                funcion+=")";
+                ret = new MyResult(value, funcion);
+                //bw.write(")");
                 break;
             default: break;
         }
         
         switch (type){
             case AslLexer.GMOTOR:
-                value = translateExpression(t.getChild(1));
-                checkMotor(value);
+                ret = translateExpression(t.getChild(1));
+                checkMotor(ret.getData());
                 break;
             case AslLexer.SMOTOR:
                 value = evaluateExpression(t.getChild(1));
@@ -369,40 +422,45 @@ public class Interp {
         }
         
         // Retrieve the original line and return
-        if (value != null) {
+        if (value != null || ret !=null) {
             setLineNumber(previous_line);
-            return value;
+            return ret;
         }
         
         // Unary operators
         
         if (t.getChildCount() == 1) {
+            String texto = "";
             switch (type) {
                 case AslLexer.PLUS:
                 case AslLexer.MINUS:
-                    if (type == AslLexer.PLUS) bw.write("+");
-                    else if (type == AslLexer.MINUS) bw.write("-");
-                    value = translateExpression(t.getChild(0));
-                    checkNumerical(value);
+                    if (type == AslLexer.PLUS) texto="+";//bw.write("+");
+                    else if (type == AslLexer.MINUS) texto="-";//bw.write("-");
+                    ret = translateExpression(t.getChild(0));
+                    checkNumerical(ret.getData());
+                    ret = new MyResult(ret.getData(),texto+ret.getTexto());
                     break;
                 case AslLexer.NOT:
-                    bw.write("!");
-                    value = translateExpression(t.getChild(0));
-                    checkBoolean(value);
+                    //bw.write("!");
+                    ret = translateExpression(t.getChild(0));
+                    checkBoolean(ret.getData());
+                    ret = new MyResult(ret.getData(),texto+ret.getTexto());
                     break;
                 case AslLexer.SSLEEP:
-                    value = translateExpression(t.getChild(0));
-                    checkNumerical(value);
+                    ret = translateExpression(t.getChild(0));
+                    checkNumerical(ret.getData());
                     break;
                 default: assert false; // Should never happen
             }
             setLineNumber(previous_line);
-            return value;
+            return ret;
         }
 
         // Two operands
         Data value2;
-        value = translateExpression(t.getChild(0));
+        MyResult ret2;
+        String texto ="";
+        ret = translateExpression(t.getChild(0));
         switch (type) {
             case AslLexer.EQUAL:
             case AslLexer.NOT_EQUAL:
@@ -410,51 +468,59 @@ public class Interp {
             case AslLexer.LE:
             case AslLexer.GT:
             case AslLexer.GE:
-                if (type == AslLexer.EQUAL) bw.write(" == ");
-                else if (type == AslLexer.NOT_EQUAL) bw.write(" != ");
-                else if (type == AslLexer.LT) bw.write(" < ");
-                else if (type == AslLexer.LE) bw.write(" <= ");
-                else if (type == AslLexer.GT) bw.write(" > ");
-                else if (type == AslLexer.GE) bw.write(" >= ");
                 
-                value2 = translateExpression(t.getChild(1));
-                checkNumerical(value); checkNumerical(value2);
-                if (value.getType() != value2.getType()) {
+                if (type == AslLexer.EQUAL) texto="==";//bw.write(" == ");
+                else if (type == AslLexer.NOT_EQUAL) texto="!="; //bw.write(" != ");
+                else if (type == AslLexer.LT) texto="<";//bw.write(" < ");
+                else if (type == AslLexer.LE) texto="<=";//bw.write(" <= ");
+                else if (type == AslLexer.GT) texto=">";//bw.write(" > ");
+                else if (type == AslLexer.GE) texto=">=";//bw.write(" >= ");
+                
+                ret2 = translateExpression(t.getChild(1));
+                checkNumerical(ret.getData()); checkNumerical(ret2.getData());
+                if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
-                value = new Data(Data.Type.BOOLEAN);
+                ret = new MyResult (new Data(Data.Type.BOOLEAN),ret.getTexto()+texto+ret2.getTexto());
                 break;
             case AslLexer.PLUS:
             case AslLexer.MINUS:
             case AslLexer.MUL:
             case AslLexer.DIV:
-                if (type == AslLexer.PLUS) bw.write(" + ");
-                else if (type == AslLexer.MINUS) bw.write(" - ");
-                else if (type == AslLexer.MUL) bw.write(" * ");
-                else if (type == AslLexer.DIV) bw.write(" / ");
+                if (type == AslLexer.PLUS) texto=" + ";//bw.write(" + ");
+                else if (type == AslLexer.MINUS)texto=" - ";// bw.write(" - ");
+                else if (type == AslLexer.MUL) texto=" * ";//bw.write(" * ");
+                else if (type == AslLexer.DIV) texto=" / ";//;bw.write(" / ");
                 
-                value2 = translateExpression(t.getChild(1));
-                checkNumerical(value);checkNumerical(value2);
+                ret2 = translateExpression(t.getChild(1));
+                checkNumerical(ret.getData());checkNumerical(ret2.getData());
+                if (ret.getData().getType() != ret2.getData().getType()) {
+                  throw new RuntimeException ("Incompatible types in relational expression");
+                }
+                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
                 break;
             case AslLexer.MOD:
-                bw.write(" % ");
-                value2 = translateExpression(t.getChild(1));             
-                checkInteger(value); checkInteger(value2);
+                //bw.write(" % ");
+                ret2 = translateExpression(t.getChild(1));             
+                checkInteger(ret.getData()); checkInteger(ret2.getData());
+                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
                 break;
             case AslLexer.AND:
             case AslLexer.OR:
-                checkBoolean(value);
-                if (type == AslLexer.AND) bw.write(" && ");
-                else if (type == AslLexer.OR) bw.write(" || ");
+                checkBoolean(ret.getData());
+                if (type == AslLexer.AND) texto=" && ";//bw.write(" && ");
+                else if (type == AslLexer.OR) texto=" || ";//bw.write(" || ");
                 
-                value = translateExpression(t.getChild(1));
+                ret2 = translateExpression(t.getChild(1));
+                checkBoolean(ret2.getData());
+                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
                 break;
                 
             default: assert false; // Should never happen
         }
         
         setLineNumber(previous_line);
-        return value;
+        return ret;
     }
     
     

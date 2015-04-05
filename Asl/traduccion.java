@@ -1,20 +1,23 @@
 void funcion() {
-    a = 10;
-    System.out.println("hola");
-    b = true;
+Integer a = 10;
+System.out.println("hola");
+Boolean b = true;
 }
 
 int main(int a, bool b) {
-    while(a > 4 && b) {
-        c = main(a, b);
-        a = 10;
-    }
+while(a>4 && b) {
+Integer c = main(a, b);
+a = 10;
+}
 
-    if(a + 10 % 3 < 3) {
-        a = 20;
-    } else {
-        a = 3;
-    }
+if(a + 103<3) {
+a = 20;
+}
+else {
+a = 3;
+}
 
-    return a;
+funcion();
+Integer d = main(a, c);
+return a;
 }

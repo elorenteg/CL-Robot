@@ -90,12 +90,15 @@ public class Stack {
      * @param name The name of the variable
      * @param value The value of the variable
      */
-    public void defineVariable(String name, Data value) {
+    public boolean defineVariable(String name, Data value) {
         Data d = CurrentAR.get(name);
-        if (d == null) CurrentAR.put(name, value); // New definition
-        else if(d.getType() != value.getType()){
+        if (d == null){
+          CurrentAR.put(name, value);
+          return true;  
+        }else if(d.getType() != value.getType()){
             throw new RuntimeException ("Change variable type not permited");
         } 
+        return false;
     }
 
     /** Gets the value of the variable. The value is represented as

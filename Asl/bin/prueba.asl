@@ -8,8 +8,14 @@ int func main(int a, bool b)
         a = 20;
     else
         a = 3;
-    endif
-
+    
+    endif;
+    
+    funcion();
+    
+    
+    
+    d = main(a,c);
     return a
 endfunc
 
