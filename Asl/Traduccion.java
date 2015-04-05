@@ -1,3 +1,5 @@
+import lejos.nxt.*;
+
 public class Traduccion {
 
     public static void funcionInt(int a) {
@@ -14,5 +16,15 @@ public class Traduccion {
         funcion();
         int a = 1;
         funcionInt(a);
+        Motor.A.setSpeed(2);
+        Motor.A.setSpeed(2.1);
+        Motor.A.setRadio(2);
+        Motor.A.setRadio(2.1);
+        Motor.A.avanzar(1);
+        Motor.A.avanzar(1.2);
+        Motor.A.avanzar();
+        Motor.A.parar();
+        Motor.A.acelerar(1);
+        Motor.A.acelerar(1.2);
     }
 }

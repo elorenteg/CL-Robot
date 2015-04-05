@@ -102,10 +102,10 @@ instruction
         | sleep         //
         ; 
 
-motor   : ID '.' b=AVANZAR'('INT?')' -> ^(SMOTOR AVANZAR ID INT?)
-        | ID '.' b=ACELERAR'('INT')' -> ^(SMOTOR ACELERAR ID INT)
-        | ID '.' b=PARAR'('')' -> ^(SMOTOR PARAR ID)
-        | ID '.' (b=SETRADIO|b=SETSPEED)'('(c=INT|c=FLOAT)')' -> ^(SMOTOR $b ID $c)
+motor   : ID '.' f=AVANZAR '(' (v=INT | v=FLOAT)? ')' -> ^(SMOTOR $f ID $v?)
+        | ID '.' f=ACELERAR '(' (v=INT | v=FLOAT) ')' -> ^(SMOTOR $f ID $v)
+        | ID '.' PARAR '('')' -> ^(SMOTOR PARAR ID)
+        | ID '.' (f=SETRADIO | f=SETSPEED) '(' (v=INT | v=FLOAT) ')' -> ^(SMOTOR $f ID $v)
         ;
         
 sleep   : SLEEP '(' (c=INT | c=FLOAT) ')' -> ^(SSLEEP $c)

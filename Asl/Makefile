@@ -78,7 +78,7 @@ clean:
 	rm -rf $(CLASSDIR)
 	rm -rf $(JAVADOC)
 	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~
-	rm -rf *~
+	rm -rf *~ *.java.orig *.class
 	rm -rf $(INTERP)/*~
 
 tar: clean

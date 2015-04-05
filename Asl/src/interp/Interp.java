@@ -120,6 +120,8 @@ public class Interp {
             bw = new BufferedWriter(new FileWriter(traduccion));
             
             // ----------------------------------------------------------------------------------------- IMPORTS!!
+            bw.write("import lejos.nxt.*;"); bw.newLine();
+            bw.newLine();
             
             bw.write("public class Traduccion {"); bw.newLine();
             
@@ -217,15 +219,18 @@ public class Interp {
         setLineNumber(f);
         
         String ftype = f.getChild(0).getText();
-        if (fname.equals("main") && !ftype.equals("void")) 
-            throw new RuntimeException ("function main must be void");
-            
+        AslTree fparams = f.getChild(2);
         if (fname.equals("main")) {
-            bw.write("public static void main(String args[]) {");
+            if (!ftype.equals("void")) 
+                throw new RuntimeException ("function main must be void");
+            if (fparams.getChildCount() > 0)
+                throw new RuntimeException ("function main do not have parameters");
+            
+            if (fname.equals("main"))
+                bw.write("public static void main(String args[]) {");
         }
         else {
             bw.write("public static " + ftype + " " + fname + "(");
-            AslTree fparams = f.getChild(2);
             for (int i = 0; i < fparams.getChildCount(); ++i) {
                 String ptype = fparams.getChild(i).getChild(0).getText();
                 String pname = fparams.getChild(i).getChild(1).getText();
@@ -237,7 +242,7 @@ public class Interp {
                 if (ptype.equals("int")) ptype = "int";
                 else if (ptype.equals("bool")) ptype = "boolean";
                 else if (ptype.equals("float")) ptype = "float";
-                else if (ptype.equals("motor")) ptype = "Motor";
+                //else if (ptype.equals("motor")) ptype = "Motor";
                 
                 if (fparams.getType() == AslLexer.PREF) {
                     bw.write(ptype + "& " + pname);
@@ -273,43 +278,42 @@ public class Interp {
     private void translateListInstruction(AslTree t) throws IOException {
         assert t != null;
         for (int i = 0; i < t.getChildCount(); ++i) {
-            translateInstruction(t.getChild(i));
-            boolean comas = (t.getChild(i).getType() != AslLexer.WHILE) && (t.getChild(i).getType() != AslLexer.IF);
-            if (comas) bw.write(";");
-            bw.newLine();
+            boolean pongoComa = translateInstruction(t.getChild(i));
+            if (pongoComa) {
+                bw.write(";");
+                bw.newLine();
+            }
         }
     }
     
-    private void translateInstruction(AslTree t) throws IOException {
+    private boolean translateInstruction(AslTree t) throws IOException {
         assert t != null;
         setLineNumber(t);
 
-        Data type;
+        Data value;
         MyResult result;
         switch (t.getType()) {
         
             case AslLexer.ASSIGN:
                 String vname = t.getChild(0).getText();
-                
-                // aqui necesitarios el tipo de la Expresion, pero aun no lo hemos evaluado
-                //bw.write(vname + " = ");
-                
-                // translateExpression ya va imprimiento la parte derecha
                 result = translateExpression(t.getChild(1));
-                // aqui ya tenemos el tipo de la variable, pero ya ha escrito la parte derecha
                 if (Stack.defineVariable(vname, result.getData())){
                     String tipo = "";
                     if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
-                    if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
-                    if (result.getData().getType() == Data.Type.FLOAT) tipo = "float";
-                    if (result.getData().getType() == Data.Type.MOTOR) tipo = "MOTOR";
-                    if (result.getData().getType() == Data.Type.VOID) {
+                    else if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
+                    else if (result.getData().getType() == Data.Type.FLOAT) tipo = "float";
+                    //else if (result.getData().getType() == Data.Type.MOTOR) tipo = "MOTOR";
+                    else if (result.getData().getType() == Data.Type.VOID) {
                         throw new RuntimeException ("Assign of void type not valid");
                     }
                     
-                    bw.write (tipo+" "+vname + " = " +result.getTexto());
+                    if (result.getData().getType() != Data.Type.MOTOR)
+                        bw.write (tipo + " " + vname + " = " + result.getTexto());
+                    else return false;
                 }else{
-                    bw.write (vname + " = " +result.getTexto());
+                    if (result.getData().getType() != Data.Type.MOTOR)
+                        bw.write (vname + " = " + result.getTexto());
+                    else return false;
                 }
                 break;
 
@@ -327,7 +331,7 @@ public class Interp {
                     bw.write("}");
                 }
                 bw.newLine();
-                break;
+                return false;
                 
             case AslLexer.WHILE:
                 bw.write("while(");
@@ -339,7 +343,7 @@ public class Interp {
                 translateListInstruction(t.getChild(1));
                 
                 bw.write("}"); bw.newLine();
-                break;
+                return false;
                 
             case AslLexer.WRITE:
                 bw.write("System.out.println(");
@@ -358,9 +362,35 @@ public class Interp {
                 }
                 bw.write(result.getTexto());
                 break;
+                
+            case AslLexer.SMOTOR:
+                String texto = "";
+                String setterFunc = t.getChild(0).getText();
+                result = translateExpression(t.getChild(1));
+                checkMotor(result.getData());
+                String motor = result.getData().getNameMotor();
+                bw.write(motor + setterFunc + "(");
+                if (t.getChildCount() == 3) {
+                    result = translateExpression(t.getChild(2));
+                    checkNumerical(result.getData());
+                    bw.write(result.getTexto());
+                }
+                bw.write(")");
+                break;
+                /*
+            case AslLexer.GMOTOR:
+                ret = translateExpression(t.getChild(1));
+                checkMotor(ret.getData());
+                break;
+            case AslLexer.GSENSOR:
+                value = evaluateExpression(t.getChild(1));
+                checkInteger(value);
+                break;
+                */
 
             default: assert false; // Should never happen
         }
+        return true;
     }
     
     private MyResult translateExpression(AslTree t) throws IOException {
@@ -391,7 +421,12 @@ public class Interp {
                 ret = new MyResult(value, t.getText());
                 break;
             case AslLexer.DMOTOR:
-                value = new Data(Data.Type.MOTOR);
+                String tradMotor = "Motor.";
+                int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
+                if (num == 1) tradMotor = tradMotor.concat("A.");
+                else if (num == 2) tradMotor = tradMotor.concat("B.");
+                else if (num == 3) tradMotor = tradMotor.concat("C.");
+                value = new Data(Data.Type.MOTOR,tradMotor);
                 ret = new MyResult(value, t.getText());
                 break;
             case AslLexer.FUNCALL:
@@ -401,41 +436,16 @@ public class Interp {
                 func = FuncName2Tree.get(fname);
                 checkTypeParams(func.getChild(2),t.getChild(1));
                 value = new Data(func.getChild(0).getText());
-                String funcion = fname+"(";
+                String funcion = fname + "(";
                 for (int i = 0; i < t.getChild(1).getChildCount(); ++i) {
-                    if (i > 0) funcion+=", "; //bw.write(", ");
-                    funcion+=t.getChild(1).getChild(i).getText();
+                    if (i > 0) funcion += ", ";
+                    funcion += t.getChild(1).getChild(i).getText();
                 }
-                funcion+=")";
+                funcion += ")";
                 ret = new MyResult(value, funcion);
                 break;
             default: break;
         }
-        
-        /*
-        switch (type){
-            case AslLexer.GMOTOR:
-                ret = translateExpression(t.getChild(1));
-                checkMotor(ret.getData());
-                break;
-            case AslLexer.SMOTOR:
-                value = evaluateExpression(t.getChild(1));
-                checkMotor(value);
-                if (t.getChildCount()>2){
-                        Data valueAux = evaluateExpression(t.getChild(2));
-                        checkNumerical(valueAux);
-                        if (t.getChild(0).getText() != "setRadio" && t.getChild(0).getText() != "setSpeed"){ 
-                                checkInteger(valueAux);
-                        }
-                }
-                break;
-            case AslLexer.GSENSOR:
-                value = evaluateExpression(t.getChild(1));
-                checkInteger(value);
-                break;
-            default: break;
-        }
-        */
         
         // Retrieve the original line and return
         if (value != null || ret !=null) {

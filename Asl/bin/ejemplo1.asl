@@ -1,5 +1,5 @@
 
-func main()
+void main()
 
     m1 = MOTOR(1);
     m1.setRadio(2);
