@@ -2,14 +2,14 @@ import lejos.nxt.*;
 
 public class Traduccion {
 
-    public static Motor configura(int a, int b) {
+    public static Motor configura(boolean a, int b) {
         Motor m = Motor.A;
-        m.setSpeed(a);
+        m.setSpeed(5);
         m.setRadio(b);
         return m;
     }
 
-    public static  funcion(Motor m, TouchSensor t) {
+    public static void funcion(Motor m, TouchSensor t) {
         m.rotate(1);
     }
 
@@ -19,6 +19,6 @@ public class Traduccion {
         funcion(m1, ts);
         int a = 12;
         int b = 20;
-        m1 = configura(a, b);
+        m1 = configura((((3) + ((5) * (8))) > (6)) && ((7) < (9)), b);
     }
 }

@@ -238,6 +238,7 @@ public class Interp {
             else if (ftype.equals("touch")) ftypeNorm = "TouchSensor";
             else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
             else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
+            else if (ftype.equals("void")) ftypeNorm = "void";
             bw.write("public static " + ftypeNorm + " " + fname + "(");
             for (int i = 0; i < fparams.getChildCount(); ++i) {
                 String ptype = fparams.getChild(i).getChild(0).getText();
@@ -440,12 +441,25 @@ public class Interp {
                 AslTree func = null;
                 checkFunctionExists(func,fname);
                 func = FuncName2Tree.get(fname);
-                checkTypeParams(func.getChild(2),t.getChild(1));
+                
+                
+                //checkTypeParams(func.getChild(2),t.getChild(1));
+                
+                AslTree callerParams = t.getChild(1);
+                AslTree calleeParams = func.getChild(2);
+                assert callerParams.getChildCount()== calleeParams.getChildCount();
+                
                 value = new Data(func.getChild(0).getText());
                 String funcion = fname + "(";
-                for (int i = 0; i < t.getChild(1).getChildCount(); ++i) {
+                for (int i = 0; i < callerParams.getChildCount(); ++i) {
                     if (i > 0) funcion += ", ";
-                    funcion += t.getChild(1).getChild(i).getText();
+                    MyResult aux = translateExpression(callerParams.getChild(i));
+                    Data callee = new Data(calleeParams.getChild(i).getChild(0).getText());
+                    if (aux.getData().getType()==callee.getType()){
+                        funcion += aux.getTexto();
+                    }else{
+                         throw new RuntimeException ("does not match types on caller and calle on param number "+i);
+                    }
                 }
                 funcion += ")";
                 ret = new MyResult(value, funcion);
@@ -530,7 +544,7 @@ public class Interp {
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
-                ret = new MyResult (new Data(Data.Type.BOOLEAN),ret.getTexto()+texto+ret2.getTexto());
+                ret = new MyResult (new Data(Data.Type.BOOLEAN),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
                 break;
             case AslLexer.PLUS:
             case AslLexer.MINUS:
@@ -547,13 +561,13 @@ public class Interp {
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
-                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
                 break;
             case AslLexer.MOD:
                 ret = translateExpression(t.getChild(0));
                 ret2 = translateExpression(t.getChild(1));             
                 checkInteger(ret.getData()); checkInteger(ret2.getData());
-                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
                 break;
             case AslLexer.AND:
             case AslLexer.OR:
@@ -564,7 +578,7 @@ public class Interp {
                 
                 ret2 = translateExpression(t.getChild(1));
                 checkBoolean(ret2.getData());
-                ret = new MyResult (ret.getData(),ret.getTexto()+texto+ret2.getTexto());
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
                 break;
                 
             case AslLexer.GMOTOR:
@@ -656,7 +670,7 @@ public class Interp {
     private void checkFunctionExists(AslTree func, String name) {
         func = FuncName2Tree.get(name);
         if (func == null) {
-            throw new RuntimeException ("Function not exist");
+            throw new RuntimeException ("Function does not exist");
         }
     }
     

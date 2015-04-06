@@ -8,12 +8,12 @@ void main()
     funcion(m1,ts);
     a=12;
     b=20;
-    m1 = configura (a,b);
+    m1 = configura (((3+(5*8))>6)and(7<9),b);
 endfunc
 
-motor configura(int a,int b)
+motor configura(bool a,int b)
     m = MOTOR(1);
-    m.setSpeed(a);
+    m.setSpeed(5);
     m.setRadio(b);
     return m
     
