@@ -216,19 +216,29 @@ public class Interp {
         Stack.pushActivationRecord(fname,lineNumber());
         setLineNumber(f);
         
+        
+        
         String ftype = f.getChild(0).getText();
         AslTree fparams = f.getChild(2);
         if (fname.equals("main")) {
             if (!ftype.equals("void")) 
                 throw new RuntimeException ("function main must be void");
             if (fparams.getChildCount() > 0)
-                throw new RuntimeException ("function main do not have parameters");
+                throw new RuntimeException ("function main must not have parameters");
             
             if (fname.equals("main"))
                 bw.write("public static void main(String args[]) {");
         }
         else {
-            bw.write("public static " + ftype + " " + fname + "(");
+            String ftypeNorm ="";
+            if (ftype.equals("int")) ftypeNorm = "int";
+            else if (ftype.equals("bool")) ftypeNorm = "boolean";
+            else if (ftype.equals("float")) ftypeNorm = "float";
+            else if (ftype.equals("motor")) ftypeNorm = "Motor";
+            else if (ftype.equals("touch")) ftypeNorm = "TouchSensor";
+            else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
+            else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
+            bw.write("public static " + ftypeNorm + " " + fname + "(");
             for (int i = 0; i < fparams.getChildCount(); ++i) {
                 String ptype = fparams.getChild(i).getChild(0).getText();
                 String pname = fparams.getChild(i).getChild(1).getText();
