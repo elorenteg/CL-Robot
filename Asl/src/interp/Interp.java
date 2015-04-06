@@ -295,12 +295,15 @@ public class Interp {
             case AslLexer.ASSIGN:
                 String vname = t.getChild(0).getText();
                 result = translateExpression(t.getChild(1));
+                String tipo = "";
                 if (Stack.defineVariable(vname, result.getData())){
-                    String tipo = "";
                     if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
                     else if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
                     else if (result.getData().getType() == Data.Type.FLOAT) tipo = "float";
                     else if (result.getData().getType() == Data.Type.MOTOR) tipo = "Motor";
+                    else if (result.getData().getType() == Data.Type.ULTRA) tipo = "UltrasonicSensor";
+                    else if (result.getData().getType() == Data.Type.TOUCH) tipo = "TouchSensor";
+                    else if (result.getData().getType() == Data.Type.COLOR) tipo = "ColorSensor";
                     else if (result.getData().getType() == Data.Type.VOID) {
                         throw new RuntimeException ("Assign of void type not valid");
                     }
@@ -362,13 +365,19 @@ public class Interp {
             case AslLexer.SMOTOR:
                 String setterFunc = t.getChild(0).getText();
                 // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
+                if (setterFunc.equals("avanzar")) {
+                    if (t.getChildCount() == 2) setterFunc = "forward";
+                    else setterFunc = "rotate";
+                }
+                else if (setterFunc.equals("parar")) setterFunc = "stop";
+                
                 result = translateExpression(t.getChild(1));
                 checkMotor(result.getData());
                 String motorSet = t.getChild(1).getText();
                 bw.write(motorSet + "." + setterFunc + "(");
                 if (t.getChildCount() == 3) {
                     result = translateExpression(t.getChild(2));
-                    checkNumerical(result.getData());
+                    checkInteger(result.getData());
                     bw.write(result.getTexto());
                 }
                 bw.write(")");
@@ -413,17 +422,6 @@ public class Interp {
                 value = new Data(Data.Type.FLOAT);
                 ret = new MyResult(value, t.getText());
                 break;
-            case AslLexer.DMOTOR:
-                String tradMotor = "Motor.";
-                int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
-                if (num == 1) tradMotor += "A";
-                else if (num == 2) tradMotor += "B";
-                else if (num == 3) tradMotor += "C";
-                else if (num < 1 || num > 3) throw new RuntimeException ("Motor number between 1 to 3");
-                value = new Data(Data.Type.MOTOR);
-                ret = new MyResult(value, tradMotor);
-                break;
-                
             case AslLexer.FUNCALL:
                 String fname = t.getChild(0).getText();
                 AslTree func = null;
@@ -438,6 +436,29 @@ public class Interp {
                 }
                 funcion += ")";
                 ret = new MyResult(value, funcion);
+                break;
+            case AslLexer.DMOTOR:
+                String tradMotor = "Motor.";
+                int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
+                if (num == 1) tradMotor += "A";
+                else if (num == 2) tradMotor += "B";
+                else if (num == 3) tradMotor += "C";
+                else if (num < 1 || num > 3) throw new RuntimeException ("Motor number between 1 to 3");
+                value = new Data(Data.Type.MOTOR);
+                ret = new MyResult(value, tradMotor);
+                break;
+            case AslLexer.DSENSOR:
+                num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
+                String sensorPort = "SensorPort.S" + Integer.toString(num);
+                if (num < 1 || num > 5) throw new RuntimeException ("Sensor port number between 1 to 5");
+                
+                String tradSensor = t.getText().substring(0, t.getText().length()-1);
+                if (tradSensor.equals("ULTRA")) { tradSensor = "new UltrasonicSensor"; value = new Data(Data.Type.ULTRA); }
+                else if (tradSensor.equals("TOUCH")) { tradSensor = "new TouchSensor"; value = new Data(Data.Type.TOUCH); }
+                else if (tradSensor.equals("COLOR")) { tradSensor = "new ColorSensor"; value = new Data(Data.Type.COLOR); }
+                
+                tradSensor += "(" + sensorPort + ")";
+                ret = new MyResult(value, tradSensor);
                 break;
             default: break;
         }
@@ -536,6 +557,7 @@ public class Interp {
             case AslLexer.GMOTOR:
                 String getterFunc = t.getChild(0).getText();
                 // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
+                
                 ret = translateExpression(t.getChild(1));
                 checkMotor(ret.getData());
                 String motorGet = t.getChild(1).getText();
@@ -546,20 +568,19 @@ public class Interp {
                 
             case AslLexer.GSENSOR:
                 String sensorFunc = t.getChild(0).getText();
-                // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
                 ret = translateExpression(t.getChild(1));
-                checkInteger(ret.getData());
-                int num = Integer.parseInt(ret.getTexto());
-                if (num < 1 || num > 5) throw new RuntimeException ("Sensor number between 1 to 5");
-                String sensorPort = "SensorPort S" + Integer.toString(num);
-                texto = "ATENCIOOOON!! " + sensorFunc + "(" + sensorPort + ")";
+                // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
+                if (sensorFunc.equals("getUltrasonic")) { sensorFunc = "getDistance"; checkUltra(ret.getData()); }
+                else if (sensorFunc.equals("getTouch")) { sensorFunc = "isPressed"; checkTouch(ret.getData()); }
+                else if (sensorFunc.equals("getColor")) { sensorFunc = "getColorNumber"; checkColor(ret.getData()); }
                 
-                if (sensorFunc.equals("getUltrasonic")) value = new Data(Data.Type.INTEGER);
-                else if (sensorFunc.equals("getTouch")) value = new Data(Data.Type.BOOLEAN);
-                else if (sensorFunc.equals("getColor")) value = new Data(Data.Type.INTEGER);
+                if (sensorFunc.equals("getDistance")) value = new Data(Data.Type.INTEGER);
+                else if (sensorFunc.equals("isPressed")) value = new Data(Data.Type.BOOLEAN);
+                else if (sensorFunc.equals("getColorNumber")) value = new Data(Data.Type.INTEGER);
+                
+                texto = ret.getTexto() + "." + sensorFunc + "()";
                 ret = new MyResult(value, texto);
                 break;
-
             
             default: assert false; // Should never happen
         }
@@ -598,6 +619,24 @@ public class Interp {
     private void checkMotor (Data b) {
         if (!b.isMotor()) {
             throw new RuntimeException ("Expecting Motor expression");
+        }
+    }
+    
+    private void checkUltra (Data b) {
+        if (!b.isUltra()) {
+            throw new RuntimeException ("Expecting UltrasonicSensor expression");
+        }
+    }
+    
+    private void checkTouch (Data b) {
+        if (!b.isTouch()) {
+            throw new RuntimeException ("Expecting TouchSensor expression");
+        }
+    }
+    
+    private void checkColor (Data b) {
+        if (!b.isColor()) {
+            throw new RuntimeException ("Expecting ColorSensor expression");
         }
     }
     

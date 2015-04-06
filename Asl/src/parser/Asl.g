@@ -47,6 +47,7 @@ tokens {
     DMOTOR;
     GMOTOR;
     GSENSOR;
+    DSENSOR;
     SSLEEP;
 }
 
@@ -166,12 +167,12 @@ atom    : ID
         | INT
         | FLOAT
         | m=MOTOR '(' b=INT ')' -> ^(DMOTOR[m, "MOTOR"+$b.text])
+        | s=SENSOR '(' b=INT ')' -> ^(DSENSOR[s, $s.text+$b.text])
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
         | funcall
         | '('! expr ')'!
-        | (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' INT')' -> ^(GSENSOR $b INT)// añado el int para indicar cual de los sensores se usa
-                                                    //ya que por ejemplo del touch hay dos y de los demas podria haber mas
-        | ID'.'(b=GETSPEED|b=GETRADIO)'('')' -> ^(GMOTOR $b ID)
+        | ID '.' (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' ')' -> ^(GSENSOR $b ID)
+        | ID'.'(b=GETSPEED|b=GETRADIO)'(' ')' -> ^(GMOTOR $b ID)
         ;	
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
@@ -225,6 +226,7 @@ GETCOLOR        : 'getColor' ;
 GETULTRA        : 'getUltrasonic' ;
 GETTOUCH        : 'getTouch' ;
 MOTOR           : 'MOTOR';
+SENSOR          : ('ULTRA'|'TOUCH'|'COLOR');
 SLEEP           : 'sleep' ;
 
 

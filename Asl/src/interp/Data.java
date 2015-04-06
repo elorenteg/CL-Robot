@@ -41,7 +41,7 @@ import parser.*;
 
 public class Data {
     /** Types of data */
-    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, FLOAT;}
+    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, FLOAT, ULTRA, TOUCH, COLOR;}
 
     /** Type of data*/
     private Type type;
@@ -60,7 +60,10 @@ public class Data {
         else if (tipo.equals("int")) type = Type.INTEGER;
         else if (tipo.equals("float")) type = Type.FLOAT;
         else if (tipo.equals("motor")) type = Type.MOTOR;
-        else type = Type.VOID;
+        else if (tipo.equals("void")) type = Type.VOID;
+        else if (tipo.equals("ultra")) type = Type.ULTRA;
+        else if (tipo.equals("touch")) type = Type.TOUCH;
+        else if (tipo.equals("color")) type = Type.COLOR;
     }
 
     /** Returns the type of data */
@@ -78,6 +81,12 @@ public class Data {
     public boolean isMotor() { return type == Type.MOTOR; }
 
     public boolean isFloat() { return type == Type.FLOAT; }
+    
+    public boolean isUltra() { return type == Type.ULTRA; }
+    
+    public boolean isTouch() { return type == Type.TOUCH; }
+    
+    public boolean isColor() { return type == Type.COLOR; }
     
     /*
     public String getNameMotor() {
