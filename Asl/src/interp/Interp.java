@@ -241,6 +241,9 @@ public class Interp {
                 else if (ptype.equals("bool")) ptype = "boolean";
                 else if (ptype.equals("float")) ptype = "float";
                 else if (ptype.equals("motor")) ptype = "Motor";
+                else if (ptype.equals("touch")) ptype = "TouchSensor";
+                else if (ptype.equals("ultra")) ptype = "UltraSensor";
+                else if (ptype.equals("color")) ptype = "ColorSensor";
                 
                 if (fparams.getType() == AslLexer.PREF) {
                     bw.write(ptype + "& " + pname);

@@ -213,7 +213,7 @@ WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
 VOID            : 'void';
-TIPO            : ('int'|'float'|'bool'|'motor');
+TIPO            : ('int'|'float'|'bool'|'motor'|'touch'|'ultra'|'color');
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
 PARAR           : 'parar' ;
