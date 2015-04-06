@@ -41,24 +41,24 @@ import parser.*;
 
 public class Data {
     /** Types of data */
-    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, FLOAT, ULTRA, TOUCH, COLOR;}
+    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, ULTRA, TOUCH, COLOR;}
 
     /** Type of data*/
     private Type type;
-    //private String tradMotor;
 
+    /** Constructor by Type */
     Data(Type t){ type = t; }
 
     /** Constructor for void data */
     Data() { type = Type.VOID; }
 
     /** Copy constructor */
-    Data(Data d) { type = d.type; /* tradMotor = d.tradMotor; */}
+    Data(Data d) { type = d.type; }
     
+    /** Constructor by string with the type */
     Data(String tipo) {
         if (tipo.equals("bool")) type = Type.BOOLEAN;
         else if (tipo.equals("int")) type = Type.INTEGER;
-        else if (tipo.equals("float")) type = Type.FLOAT;
         else if (tipo.equals("motor")) type = Type.MOTOR;
         else if (tipo.equals("void")) type = Type.VOID;
         else if (tipo.equals("ultra")) type = Type.ULTRA;
@@ -78,24 +78,18 @@ public class Data {
     /** Indicates whether the data is void */
     public boolean isVoid() { return type == Type.VOID; }
 
+    /** Indicates whether the data is a motor */
     public boolean isMotor() { return type == Type.MOTOR; }
-
-    public boolean isFloat() { return type == Type.FLOAT; }
     
+    /** Indicates whether the data is an ultrasonic sensor */
     public boolean isUltra() { return type == Type.ULTRA; }
     
+    /** Indicates whether the data is a touch sensor */
     public boolean isTouch() { return type == Type.TOUCH; }
     
+    /** Indicates whether the data is color sensor */
     public boolean isColor() { return type == Type.COLOR; }
-    
-    /*
-    public String getNameMotor() {
-        assert type == Type.MOTOR;
-        return tradMotor;
-    }
-    */
     
     /** Copies the value from another data */
     public void setData(Data d) { type = d.type; }
-    
 }

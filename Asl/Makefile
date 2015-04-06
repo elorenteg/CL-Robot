@@ -80,6 +80,13 @@ clean:
 	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~
 	rm -rf *~ *.java.orig *.class
 	rm -rf $(INTERP)/*~
+	
+cleanJAVADOC:
+	rm -rf $(PARSER)/*.java $(PARSER)/*.tokens $(PARSER)/*~
+	rm -rf $(CLASSDIR)
+	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~
+	rm -rf *~ *.java.orig *.class
+	rm -rf $(INTERP)/*~
 
 tar: clean
 	cd ..; tar cvzf $(DISTRIB) $(TARGET); mv $(DISTRIB) $(TARGET); cd $(TARGET) 

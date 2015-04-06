@@ -59,11 +59,10 @@ public class Interp {
         }
     }
     
+    /** Buffered character-output stream */
     private BufferedWriter bw;
     
     
-    
-
     /** Memory of the virtual machine. */
     private Stack Stack;
 
@@ -209,14 +208,12 @@ public class Interp {
     
     // ---------------------------------------------------------------------------------------------------------------------- //
     
-    
+    /** Translates a function */
     private void translateFunction(String fname) throws IOException {
         AslTree f = FuncName2Tree.get(fname);
         
         Stack.pushActivationRecord(fname,lineNumber());
         setLineNumber(f);
-        
-        
         
         String ftype = f.getChild(0).getText();
         AslTree fparams = f.getChild(2);
@@ -233,7 +230,6 @@ public class Interp {
             String ftypeNorm ="";
             if (ftype.equals("int")) ftypeNorm = "int";
             else if (ftype.equals("bool")) ftypeNorm = "boolean";
-            else if (ftype.equals("float")) ftypeNorm = "float";
             else if (ftype.equals("motor")) ftypeNorm = "Motor";
             else if (ftype.equals("touch")) ftypeNorm = "TouchSensor";
             else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
@@ -250,7 +246,6 @@ public class Interp {
                 
                 if (ptype.equals("int")) ptype = "int";
                 else if (ptype.equals("bool")) ptype = "boolean";
-                else if (ptype.equals("float")) ptype = "float";
                 else if (ptype.equals("motor")) ptype = "Motor";
                 else if (ptype.equals("touch")) ptype = "TouchSensor";
                 else if (ptype.equals("ultra")) ptype = "UltraSensor";
@@ -268,9 +263,7 @@ public class Interp {
         
         AslTree finstr = f.getChild(3);
         translateListInstruction(finstr);
-        
-        
-        
+       
         if (f.getChildCount() == 5) {
             AslTree freturn = f.getChild(4).getChild(0);
             bw.write("return ");
@@ -287,6 +280,7 @@ public class Interp {
         bw.write("}"); bw.newLine();
     }
     
+    /** Translates a list of instructions */
     private void translateListInstruction(AslTree t) throws IOException {
         assert t != null;
         for (int i = 0; i < t.getChildCount(); ++i) {
@@ -298,6 +292,7 @@ public class Interp {
         }
     }
     
+    /** Translates an instruction */
     private boolean translateInstruction(AslTree t) throws IOException {
         assert t != null;
         setLineNumber(t);
@@ -313,7 +308,6 @@ public class Interp {
                 if (Stack.defineVariable(vname, result.getData())){
                     if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
                     else if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
-                    else if (result.getData().getType() == Data.Type.FLOAT) tipo = "float";
                     else if (result.getData().getType() == Data.Type.MOTOR) tipo = "Motor";
                     else if (result.getData().getType() == Data.Type.ULTRA) tipo = "UltrasonicSensor";
                     else if (result.getData().getType() == Data.Type.TOUCH) tipo = "TouchSensor";
@@ -399,7 +393,7 @@ public class Interp {
                 
                 case AslLexer.SSLEEP:
                     result = translateExpression(t.getChild(0));
-                    checkNumerical(result.getData());
+                    checkInteger(result.getData());
                     // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
                     bw.write("sleep(" + result.getTexto() + ")");
                     break;
@@ -409,6 +403,7 @@ public class Interp {
         return true;
     }
     
+    /** Translates an expression */
     private MyResult translateExpression(AslTree t) throws IOException {
         assert t != null;
 
@@ -432,22 +427,17 @@ public class Interp {
                 value = new Data(Data.Type.BOOLEAN);
                 ret = new MyResult(value, t.getText());
                 break;
-            case AslLexer.FLOAT:
-                value = new Data(Data.Type.FLOAT);
-                ret = new MyResult(value, t.getText());
-                break;
             case AslLexer.FUNCALL:
                 String fname = t.getChild(0).getText();
                 AslTree func = null;
                 checkFunctionExists(func,fname);
                 func = FuncName2Tree.get(fname);
                 
-                
                 //checkTypeParams(func.getChild(2),t.getChild(1));
                 
                 AslTree callerParams = t.getChild(1);
                 AslTree calleeParams = func.getChild(2);
-                assert callerParams.getChildCount()== calleeParams.getChildCount();
+                assert callerParams.getChildCount() == calleeParams.getChildCount();
                 
                 value = new Data(func.getChild(0).getText());
                 String funcion = fname + "(";
@@ -505,7 +495,7 @@ public class Interp {
                     if (type == AslLexer.PLUS) texto="+";
                     else if (type == AslLexer.MINUS) texto="-";
                     ret = translateExpression(t.getChild(0));
-                    checkNumerical(ret.getData());
+                    checkInteger(ret.getData());
                     ret = new MyResult(ret.getData(),texto+ret.getTexto());
                     break;
                 case AslLexer.NOT:
@@ -540,7 +530,7 @@ public class Interp {
                 
                 ret = translateExpression(t.getChild(0));
                 ret2 = translateExpression(t.getChild(1));
-                checkNumerical(ret.getData()); checkNumerical(ret2.getData());
+                checkInteger(ret.getData()); checkInteger(ret2.getData());
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
@@ -557,7 +547,7 @@ public class Interp {
                 
                 ret = translateExpression(t.getChild(0));
                 ret2 = translateExpression(t.getChild(1));
-                checkNumerical(ret.getData());checkNumerical(ret2.getData());
+                checkInteger(ret.getData());checkInteger(ret2.getData());
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
@@ -631,42 +621,35 @@ public class Interp {
         }
     }
 
-    private void checkFloat (Data b) {
-        if (!b.isFloat()) {
-            throw new RuntimeException ("Expecting float numerical expression");
-        }
-    }
-
-    private void checkNumerical (Data b) {
-        if (!b.isInteger() && !b.isFloat()) {
-            throw new RuntimeException ("Expecting numerical expression");
-        }
-    }
-
+    /** Checks that the data is a motor and raises an exception if it is not */
     private void checkMotor (Data b) {
         if (!b.isMotor()) {
             throw new RuntimeException ("Expecting Motor expression");
         }
     }
     
+    /** Checks that the data is an UltrasonicSensor and raises an exception if it is not */
     private void checkUltra (Data b) {
         if (!b.isUltra()) {
             throw new RuntimeException ("Expecting UltrasonicSensor expression");
         }
     }
     
+    /** Checks that the data is a TouchSensor and raises an exception if it is not */
     private void checkTouch (Data b) {
         if (!b.isTouch()) {
             throw new RuntimeException ("Expecting TouchSensor expression");
         }
     }
     
+    /** Checks that the data is a ColorSensor and raises an exception if it is not */
     private void checkColor (Data b) {
         if (!b.isColor()) {
             throw new RuntimeException ("Expecting ColorSensor expression");
         }
     }
     
+    /** Checks that the function with name exists and raises an exception if it is not */
     private void checkFunctionExists(AslTree func, String name) {
         func = FuncName2Tree.get(name);
         if (func == null) {
@@ -674,6 +657,7 @@ public class Interp {
         }
     }
     
+    /** Checks that the types of params and args are the same and raises an exception if it is not */
     private void checkTypeParams(AslTree params, AslTree args) {
         assert params.getChildCount() == args.getChildCount();
         
@@ -683,7 +667,6 @@ public class Interp {
             
             if ((tipo.equals("bool") && param.getType() != Data.Type.BOOLEAN) ||
                 (tipo.equals("int") && param.getType() != Data.Type.INTEGER) ||
-                (tipo.equals("float") && param.getType() != Data.Type.FLOAT) ||
                 (tipo.equals("motor") && param.getType() != Data.Type.MOTOR))
                 throw new RuntimeException ("expected " + tipo + " param, found " + param.getType().toString());
         }

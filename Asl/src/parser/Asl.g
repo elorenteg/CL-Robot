@@ -109,7 +109,7 @@ motor   : ID '.' f=AVANZAR '(' expr? ')' -> ^(SMOTOR $f ID expr?)
         | ID '.' (f=SETRADIO | f=SETSPEED) '(' expr ')' -> ^(SMOTOR $f ID expr)
         ;
         
-sleep   : SLEEP '(' (c=INT | c=FLOAT) ')' -> ^(SSLEEP $c)
+sleep   : SLEEP '(' expr ')' -> ^(SSLEEP expr)
         ;
 
 // Assignment
@@ -165,7 +165,6 @@ factor  : (NOT^ | PLUS^ | MINUS^)? atom
 // in parenthesis
 atom    : ID 
         | INT
-        | FLOAT
         | m=MOTOR '(' b=INT ')' -> ^(DMOTOR[m, "MOTOR"+$b.text])
         | s=SENSOR '(' b=INT ')' -> ^(DSENSOR[s, $s.text+$b.text])
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
@@ -213,7 +212,7 @@ WRITE           : 'write' ;
 TRUE            : 'true' ;
 FALSE           : 'false';
 VOID            : 'void';
-TIPO            : ('int'|'float'|'bool'|'motor'|'touch'|'ultra'|'color');
+TIPO            : ('int'|'bool'|'motor'|'touch'|'ultra'|'color');
 AVANZAR         : 'avanzar' ;
 GIRAR           : 'girar' ;
 PARAR           : 'parar' ;
@@ -231,7 +230,6 @@ SLEEP           : 'sleep' ;
 
 
 ID              : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
-FLOAT           : '-'? '0'..'9'+ '.' '0'..'9'+ ;
 INT             : '-'? '0'..'9'+ ;
 
 // C-style comments
