@@ -19,6 +19,6 @@ public class Traduccion {
         funcion(m1, ts);
         int a = 12;
         int b = 20;
-        m1 = configura((((3) + ((5) * (8))) > (6)) && ((7) < (9)), b);
+        m1 = configura((((3 + (5 * 8)) > 6) && (7 < 9)), b);
     }
 }

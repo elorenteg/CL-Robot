@@ -544,7 +544,7 @@ public class Interp {
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
-                ret = new MyResult (new Data(Data.Type.BOOLEAN),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
+                ret = new MyResult (new Data(Data.Type.BOOLEAN),"("+ret.getTexto()+texto+ret2.getTexto()+")");
                 break;
             case AslLexer.PLUS:
             case AslLexer.MINUS:
@@ -561,13 +561,13 @@ public class Interp {
                 if (ret.getData().getType() != ret2.getData().getType()) {
                   throw new RuntimeException ("Incompatible types in relational expression");
                 }
-                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+texto+ret2.getTexto()+")");
                 break;
             case AslLexer.MOD:
                 ret = translateExpression(t.getChild(0));
                 ret2 = translateExpression(t.getChild(1));             
                 checkInteger(ret.getData()); checkInteger(ret2.getData());
-                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+texto+ret2.getTexto()+")");
                 break;
             case AslLexer.AND:
             case AslLexer.OR:
@@ -578,7 +578,7 @@ public class Interp {
                 
                 ret2 = translateExpression(t.getChild(1));
                 checkBoolean(ret2.getData());
-                ret = new MyResult (ret.getData(),"("+ret.getTexto()+")"+texto+"("+ret2.getTexto()+")");
+                ret = new MyResult (ret.getData(),"("+ret.getTexto()+texto+ret2.getTexto()+")");
                 break;
                 
             case AslLexer.GMOTOR:
