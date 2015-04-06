@@ -2,8 +2,8 @@ import lejos.nxt.*;
 
 public class Traduccion {
 
-    public static void funcionInt(int a) {
-        a = a + 2;
+    public static void funcionMotor(Motor m) {
+        m.setRadio(3);
     }
 
     public static void funcion() {
@@ -13,18 +13,20 @@ public class Traduccion {
     }
 
     public static void main(String args[]) {
-        funcion();
-        int a = 1;
-        funcionInt(a);
-        Motor.A.setSpeed(2);
-        Motor.A.setSpeed(2.1);
-        Motor.A.setRadio(2);
-        Motor.A.setRadio(2.1);
-        Motor.A.avanzar(1);
-        Motor.A.avanzar(1.2);
-        Motor.A.avanzar();
-        Motor.A.parar();
-        Motor.A.acelerar(1);
-        Motor.A.acelerar(1.2);
+        Motor m1 = Motor.A;
+        m1.setRadio(2);
+        m1.setSpeed(10);
+        while(ATENCIOOOON!! getUltrasonic(SensorPort S1) > 4) {
+            m1.avanzar(10);
+        }
+        if(ATENCIOOOON!! getColor(SensorPort S2) == 4) {
+            Motor m2 = Motor.B;
+            m2.avanzar(10);
+        } else {
+            m2.avanzar(-10);
+        }
+        sleep(100);
+        m1.avanzar(100);
+        funcionMotor(m1);
     }
 }

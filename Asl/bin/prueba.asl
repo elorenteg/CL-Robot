@@ -4,16 +4,9 @@ void main()
     funcionInt(a);
     
     m1 = MOTOR(1);
-    m1.setSpeed(2);
-    m1.setSpeed(2.1);
-    m1.setRadio(2);
-    m1.setRadio(2.1);
-    m1.avanzar(1);
-    m1.avanzar(1.2);
-    m1.avanzar();
-    m1.parar();
-    m1.acelerar(1);
-    m1.acelerar(1.2);
+    m1.setSpeed(1);
+    c = m1.getSpeed();
+    d = getUltrasonic(1);
     
 endfunc
 

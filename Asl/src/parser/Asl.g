@@ -64,7 +64,7 @@ tokens {
 prog    : func+ EOF -> ^(LIST_FUNCTIONS func+)
         ;
             
-// A function has a name, a list of parameters and a block of instructions	
+// A function has a name, a list of parameters and a block of instructions
 func    : TIPO ID params block_instructions return_stmt ENDFUNC -> ^(FUNC TIPO ID params block_instructions return_stmt)
         | VOID ID params block_instructions ENDFUNC -> ^(FUNC VOID ID params block_instructions)
         ;

@@ -45,7 +45,7 @@ public class Data {
 
     /** Type of data*/
     private Type type;
-    private String tradMotor;
+    //private String tradMotor;
 
     Data(Type t){ type = t; }
 
@@ -53,17 +53,14 @@ public class Data {
     Data() { type = Type.VOID; }
 
     /** Copy constructor */
-    Data(Data d) { type = d.type; tradMotor = d.tradMotor; }
+    Data(Data d) { type = d.type; /* tradMotor = d.tradMotor; */}
     
     Data(String tipo) {
         if (tipo.equals("bool")) type = Type.BOOLEAN;
         else if (tipo.equals("int")) type = Type.INTEGER;
         else if (tipo.equals("float")) type = Type.FLOAT;
+        else if (tipo.equals("motor")) type = Type.MOTOR;
         else type = Type.VOID;
-    }
-    
-    Data(Type tipo, String trad) {
-        if (tipo == Type.MOTOR) {type = Type.MOTOR; tradMotor = trad;}
     }
 
     /** Returns the type of data */
@@ -82,11 +79,12 @@ public class Data {
 
     public boolean isFloat() { return type == Type.FLOAT; }
     
+    /*
     public String getNameMotor() {
         assert type == Type.MOTOR;
         return tradMotor;
     }
-
+    */
     
     /** Copies the value from another data */
     public void setData(Data d) { type = d.type; }

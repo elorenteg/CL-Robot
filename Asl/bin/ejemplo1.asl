@@ -1,4 +1,14 @@
 
+void funcion()
+    a = 10;
+    write "hola";
+    b = true;
+endfunc
+
+void funcionMotor(motor m)
+    m.setRadio(3);
+endfunc
+
 void main()
 
     m1 = MOTOR(1);
@@ -20,5 +30,7 @@ void main()
     sleep(100);
     
     m1.avanzar(100);
+    
+    funcionMotor(m1);
 
 endfunc
