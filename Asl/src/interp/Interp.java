@@ -581,7 +581,7 @@ public class Interp {
             case AslLexer.GMOTOR:
                 String getterFunc = t.getChild(0).getText();
                 // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
-                
+                // ----------------------- me queda hacer esto con los nuevos getters y de forma parecida a la que la hago en los setters de motor
                 ret = translateExpression(t.getChild(1));
                 checkMotor(ret.getData());
                 String motorGet = t.getChild(1).getText();
@@ -593,6 +593,8 @@ public class Interp {
             case AslLexer.GSENSOR:
                 String sensorFunc = t.getChild(0).getText();
                 ret = translateExpression(t.getChild(1));
+                
+                
                 // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
                 if (sensorFunc.equals("getUltrasonic")) { sensorFunc = "getDistance"; checkUltra(ret.getData()); }
                 else if (sensorFunc.equals("getTouch")) { sensorFunc = "isPressed"; checkTouch(ret.getData()); }
@@ -634,6 +636,7 @@ public class Interp {
             throw new RuntimeException ("Expecting Motor expression");
         }
     }
+    
     
     /** Checks that the data is an UltrasonicSensor and raises an exception if it is not */
     private void checkUltra (Data b) {
