@@ -370,8 +370,9 @@ public class Interp {
             case AslLexer.SMOTOR:
                 assert t.getChildCount()>=2;
                 String setterFunc ="";
-                String motorSet = t.getChild(1).getText();
-                checkMotor(Stack.getVariable(motorSet));
+                result = translateExpression(t.getChild(1));
+                checkMotor(result.getData());
+                String motorSet = result.getTexto();
                 switch(t.getChild(0).getType()){
                     case AslLexer.AVANZAR:
                         if (t.getChildCount()==2){
