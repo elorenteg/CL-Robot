@@ -81,8 +81,7 @@ paramlist
 
 // Parameters with & as prefix are passed by reference
 // Only one node with the name of the parameter is created
-param   : TIPO '&' id=ID -> ^(PREF TIPO ID)
-        | TIPO id=ID -> ^(PVALUE TIPO ID)
+param   : TIPO id=ID -> ^(PVALUE TIPO ID)
         ;
 
 // A list of instructions, all of them gouped in a subtree
@@ -103,10 +102,9 @@ instruction
         | sleep         //
         ; 
 
-motor   : ID '.' f=AVANZAR '(' expr? ')' -> ^(SMOTOR $f ID expr?)
-        | ID '.' f=ACELERAR '(' expr ')' -> ^(SMOTOR $f ID expr)
+motor   : ID '.' AVANZAR '(' expr? ')' -> ^(SMOTOR AVANZAR ID expr?)
         | ID '.' PARAR '('')' -> ^(SMOTOR PARAR ID)
-        | ID '.' (f=SETRADIO | f=SETSPEED) '(' expr ')' -> ^(SMOTOR $f ID expr)
+        | ID '.' MSETTER '(' expr ')' -> ^(SMOTOR MSETTER ID expr)
         ;
         
 sleep   : SLEEP '(' expr ')' -> ^(SSLEEP expr)
@@ -171,7 +169,7 @@ atom    : ID
         | funcall
         | '('! expr ')'!
         | ID '.' (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' ')' -> ^(GSENSOR $b ID)
-        | ID'.'(b=GETSPEED|b=GETRADIO)'(' ')' -> ^(GMOTOR $b ID)
+        | ID'.' b=MGETTER '(' ')' -> ^(GMOTOR $b ID)
         ;	
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
@@ -213,14 +211,10 @@ TRUE            : 'true' ;
 FALSE           : 'false';
 VOID            : 'void';
 TIPO            : ('int'|'bool'|'motor'|'touch'|'ultra'|'color');
-AVANZAR         : 'avanzar' ;
-GIRAR           : 'girar' ;
+AVANZAR         : 'avanzar' | 'retroceder' ;
 PARAR           : 'parar' ;
-ACELERAR        : 'acelerar' ;
-GETRADIO        : 'getRadio';
-SETRADIO        : 'setRadio';
-GETSPEED        : 'getSpeed';
-SETSPEED        : 'setSpeed';
+MSETTER         : ('setSpeed' | 'setPower');
+MGETTER         : ('getSpeed' | 'getPower' | 'isMoving' );
 GETCOLOR        : 'getColor' ;
 GETULTRA        : 'getUltrasonic' ;
 GETTOUCH        : 'getTouch' ;

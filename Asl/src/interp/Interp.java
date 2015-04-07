@@ -251,12 +251,9 @@ public class Interp {
                 else if (ptype.equals("ultra")) ptype = "UltraSensor";
                 else if (ptype.equals("color")) ptype = "ColorSensor";
                 
-                if (fparams.getType() == AslLexer.PREF) {
-                    bw.write(ptype + "& " + pname);
-                }
-                else {
-                    bw.write(ptype + " " + pname);
-                }
+                
+                bw.write(ptype + " " + pname);
+                
             }
             bw.write(") {"); bw.newLine();
         }
@@ -371,32 +368,45 @@ public class Interp {
                 break;
                 
             case AslLexer.SMOTOR:
-                String setterFunc = t.getChild(0).getText();
-                // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
-                if (setterFunc.equals("avanzar")) {
-                    if (t.getChildCount() == 2) setterFunc = "forward";
-                    else setterFunc = "rotate";
-                }
-                else if (setterFunc.equals("parar")) setterFunc = "stop";
-                
-                result = translateExpression(t.getChild(1));
-                checkMotor(result.getData());
+                assert t.getChildCount()>=2;
+                String setterFunc ="";
                 String motorSet = t.getChild(1).getText();
-                bw.write(motorSet + "." + setterFunc + "(");
-                if (t.getChildCount() == 3) {
-                    result = translateExpression(t.getChild(2));
-                    checkInteger(result.getData());
-                    bw.write(result.getTexto());
+                checkMotor(Stack.getVariable(motorSet));
+                switch(t.getChild(0).getType()){
+                    case AslLexer.AVANZAR:
+                        if (t.getChildCount()==2){
+                            if (t.getChild(0).getText().equals("avanzar")) setterFunc = "forward()";
+                            else if(t.getChild(0).getText().equals("retroceder")) setterFunc = "backward()";
+                            else assert false; //should never happen
+                        }else if (t.getChildCount()==3){
+                            result = translateExpression(t.getChild(2));
+                            checkInteger(result.getData());
+                            setterFunc = "roate(";
+                            if (t.getChild(0).getText().equals("avanzar")) setterFunc += result.getTexto()+")";
+                            else if(t.getChild(0).getText().equals("retroceder")) setterFunc +="-"+result.getTexto()+")";
+                            else assert false; //should never happen
+                        }
+                        break;
+                    case AslLexer.PARAR:
+                        setterFunc = "stop()";
+                        break;
+                    case AslLexer.MSETTER:
+                        result = translateExpression(t.getChild(2));
+                        checkInteger(result.getData());
+                        if (t.getChild(0).getText().equals("setSpeed")) setterFunc = "setSpeed("+result.getTexto()+")";
+                        else if(t.getChild(0).getText().equals("setPower")) setterFunc = "setPower("+result.getTexto()+")";
+                        else assert false; //should never happen
+                        break;
+                    default: assert false; //should never happen
                 }
-                bw.write(")");
+                bw.write(motorSet+'.'+setterFunc);
                 break;
-                
-                case AslLexer.SSLEEP:
-                    result = translateExpression(t.getChild(0));
-                    checkInteger(result.getData());
-                    // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
-                    bw.write("sleep(" + result.getTexto() + ")");
-                    break;
+            case AslLexer.SSLEEP:
+                result = translateExpression(t.getChild(0));
+                checkInteger(result.getData());
+                // ------------------------------------------------------- mirar la traduccion del nombre de la funcion!!
+                bw.write("try { Thread.sleep("+result.getTexto()+"); } catch (InterruptedException e) {}");
+                break;
                 
             default: assert false; // Should never happen
         }
@@ -432,9 +442,6 @@ public class Interp {
                 AslTree func = null;
                 checkFunctionExists(func,fname);
                 func = FuncName2Tree.get(fname);
-                
-                //checkTypeParams(func.getChild(2),t.getChild(1));
-                
                 AslTree callerParams = t.getChild(1);
                 AslTree calleeParams = func.getChild(2);
                 assert callerParams.getChildCount() == calleeParams.getChildCount();
@@ -448,7 +455,7 @@ public class Interp {
                     if (aux.getData().getType()==callee.getType()){
                         funcion += aux.getTexto();
                     }else{
-                         throw new RuntimeException ("does not match types on caller and calle on param number "+i);
+                         throw new RuntimeException ("does not match types on caller and calle on param number "+i+" expected: "+callee.getType()+" found: "+aux.getData().getType()+" on parameter called: "+aux.getTexto());
                     }
                 }
                 funcion += ")";
@@ -655,22 +662,6 @@ public class Interp {
         if (func == null) {
             throw new RuntimeException ("Function does not exist");
         }
-    }
-    
-    /** Checks that the types of params and args are the same and raises an exception if it is not */
-    private void checkTypeParams(AslTree params, AslTree args) {
-        assert params.getChildCount() == args.getChildCount();
-        
-        for (int i = 0; i < args.getChildCount(); ++i) {
-            Data param = Stack.getVariable(args.getChild(i).getText());
-            String tipo = params.getChild(i).getChild(0).getText();
-            
-            if ((tipo.equals("bool") && param.getType() != Data.Type.BOOLEAN) ||
-                (tipo.equals("int") && param.getType() != Data.Type.INTEGER) ||
-                (tipo.equals("motor") && param.getType() != Data.Type.MOTOR))
-                throw new RuntimeException ("expected " + tipo + " param, found " + param.getType().toString());
-        }
-        
     }
     
     
