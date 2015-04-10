@@ -20,8 +20,10 @@ motor configura(bool a,int b)
     us = ULTRA(1);
     cs = COLOR(2);
     ts = TOUCH(3);
+    write us.getUltrasonic();
+    write cs.getColor();
+    write ts.getTouch();
     m.setSpeed(5);
     return m
-    
 endfunc
     

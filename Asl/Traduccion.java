@@ -6,12 +6,15 @@ public class Traduccion {
         Motor m = Motor.A;
         m.forward();
         m.stop();
-        m.roate(15);
+        m.rotate(15);
         m.backward();
-        m.roate(-10);
+        m.rotate(-10);
         UltrasonicSensor us = new UltrasonicSensor(SensorPort.S1);
         ColorSensor cs = new ColorSensor(SensorPort.S2);
         TouchSensor ts = new TouchSensor(SensorPort.S3);
+        System.out.println(us.getDistance());
+        System.out.println(cs.getColorNumber());
+        System.out.println(ts.isPressed());
         m.setSpeed(5);
         return m;
     }
