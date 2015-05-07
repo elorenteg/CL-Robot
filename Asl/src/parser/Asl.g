@@ -49,6 +49,9 @@ tokens {
     GSENSOR;
     DSENSOR;
     SSLEEP;
+    LIST_INCLUDES;
+    INCL;
+    PROG;
 }
 
 @header {
@@ -62,8 +65,19 @@ tokens {
 
 
 // A program is a list of functions
-prog    : func+ EOF -> ^(LIST_FUNCTIONS func+)
+
+prog   : list_includes list_funcs -> ^(PROG list_includes list_funcs)
         ;
+
+list_includes : include* -> ^(LIST_INCLUDES include*)
+    ;
+list_funcs : func+ EOF -> ^(LIST_FUNCTIONS func+)
+        ;
+        
+include : INCLUDE p=ID'/'f=ID -> ^(INCL $p $f) 
+    ;
+//prog^   : func+ EOF -> ^(LIST_FUNCTIONS func+)
+//        ;
             
 // A function has a name, a list of parameters and a block of instructions
 func    : TIPO ID params block_instructions return_stmt ENDFUNC -> ^(FUNC TIPO ID params block_instructions return_stmt)
@@ -102,7 +116,7 @@ instruction
         | sleep         //
         ; 
 
-motor   : ID '.' AVANZAR '(' expr? ')' -> ^(SMOTOR AVANZAR ID expr?)
+motor   : ID '.' AVANZAR '(' (e1=expr (','e2=expr)?)? ')' -> ^(SMOTOR AVANZAR ID $e1? $e2?)
         | ID '.' PARAR '('')' -> ^(SMOTOR PARAR ID)
         | ID '.' MSETTER '(' expr ')' -> ^(SMOTOR MSETTER ID expr)
         ;
@@ -192,6 +206,7 @@ MINUS           : '-' ;
 MUL             : '*' ;
 DIV             : '/' ;
 MOD             : '%' ;
+INCLUDE         : 'include';
 NOT             : 'not' ;
 AND             : 'and' ;
 OR              : 'or' ;

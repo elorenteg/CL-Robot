@@ -72,7 +72,11 @@ public class Interp {
      * correponding to the function.
      */
     private HashMap<String,AslTree> FuncName2Tree;
-
+    
+    private HashMap<String,HashMap<String,AslTree> > IncludeName2Tree;
+    
+    private ArrayList<String> list_includes;
+    
     /** Standard input of the interpreter (System.in). */
     private Scanner stdin;
 
@@ -92,10 +96,12 @@ public class Interp {
      * Constructor of the interpreter. It prepares the main
      * data structures for the execution of the main program.
      */
-    public Interp(AslTree T, String tracefile) {
+    public Interp(AslTree T, String tracefile,HashMap<String,HashMap<String,AslTree> > acumulado,String archivo ) {
         assert T != null;
-        MapFunctions(T);  // Creates the table to map function names into AST nodes
-        PreProcessAST(T); // Some internal pre-processing ot the AST
+        IncludeName2Tree = acumulado;
+        PopulateListIncludes(T.getChild(0));
+        MapFunctions(T.getChild(1), archivo);  // Creates the table to map function names into AST nodes
+        PreProcessAST(T.getChild(1)); // Some internal pre-processing ot the AST
         Stack = new Stack(); // Creates the memory of the virtual machine
         // Initializes the standard input of the program
         stdin = new Scanner (new BufferedReader(new InputStreamReader(System.in)));
@@ -111,21 +117,35 @@ public class Interp {
     }
 
     /** Runs the program by calling the main function without parameters. */
-    public void Run() {
-        String ruta = "Traduccion.java";
-        File traduccion = new File(ruta);
-        
+    public void Run(String ruta, String filename) {
+        File traduccion;
+        if (ruta.equals("")){
+            traduccion = new File (filename+".java");
+        }else{
+            traduccion = new File(ruta+"/"+filename+".java");
+        }
         try {
             bw = new BufferedWriter(new FileWriter(traduccion));
             
             // ----------------------------------------------------------------------------------------- IMPORTS!!
+            if (ruta.equals(""){
+                for (int i=0;i<list_includes.length();++i){
+                    bw.write("import "+list_includes.get(i)+";");
+                    bw.newLine();
+                }
+            }else{
+                bw.write ("package "+ruta+";");
+                bw.newLine();
+            }
             bw.write("import lejos.nxt.*;"); bw.newLine();
             bw.newLine();
             
-            bw.write("public class Traduccion {"); bw.newLine();
-            
-            if (!FuncName2Tree.containsKey("main"))
-                throw new RuntimeException("function main must be declared");
+            bw.write("public class "+filename+" {"); bw.newLine();
+            if (ruta.equals("") and !FuncName2Tree.containsKey("main"){
+                throw new RuntimeException("file "+filename+": function main() must be declared");
+            }else if(!ruta.equals("") and FuncName2Tree.containsKey("main"){
+                throw new RuntimeException("file "+filename+": function main() must NOT be declared");
+            }
             
             for (Map.Entry<String, AslTree> funciones : FuncName2Tree.entrySet()) {
                 bw.newLine();
@@ -156,11 +176,19 @@ public class Interp {
         return Stack.getStackTrace(lineNumber(), nitems);
     }
     
+    
+    private void PopulateListIncludes(AslTree T){
+        list_includes = new ArrayList<String> ();
+        for (int i = 0; i<T.getChildCount();++i){
+            list_includes.add(T.getChild(i).getChild(0)+"."+T.getChild(i).getChild(1));
+        }
+    }
+    
     /**
      * Gathers information from the AST and creates the map from
      * function names to the corresponding AST nodes.
      */
-    private void MapFunctions(AslTree T) {
+    private void MapFunctions(AslTree T,String filename) {
         assert T != null && T.getType() == AslLexer.LIST_FUNCTIONS;
         FuncName2Tree = new HashMap<String,AslTree> ();
         int n = T.getChildCount();
@@ -168,11 +196,18 @@ public class Interp {
             AslTree f = T.getChild(i);
             assert f.getType() == AslLexer.FUNC;
             String fname = f.getChild(1).getText();
-            if (FuncName2Tree.containsKey(fname)) {
-                throw new RuntimeException("Multiple definitions of function " + fname);
+            if (FuncName2Tree.containsKey(fname) ) {
+                throw new RuntimeException(filename+" has multiple definitions of function " + fname);
+            }
+            for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
+                if (includes.containsKey(fname)){
+                    throw new RuntimeException(filename+" has definition of function " + fname+ "previously declared in "+includes.getKey());
+                }    
             }
             FuncName2Tree.put(fname, f);
-        } 
+            
+        }
+        IncludeName2Tree.put(filename,FuncName2Tree);
     }
 
     /**
@@ -230,7 +265,7 @@ public class Interp {
             String ftypeNorm ="";
             if (ftype.equals("int")) ftypeNorm = "int";
             else if (ftype.equals("bool")) ftypeNorm = "boolean";
-            else if (ftype.equals("motor")) ftypeNorm = "Motor";
+            else if (ftype.equals("motor")) ftypeNorm = "NXTRegulatedMotor";
             else if (ftype.equals("touch")) ftypeNorm = "TouchSensor";
             else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
             else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
@@ -246,7 +281,7 @@ public class Interp {
                 
                 if (ptype.equals("int")) ptype = "int";
                 else if (ptype.equals("bool")) ptype = "boolean";
-                else if (ptype.equals("motor")) ptype = "Motor";
+                else if (ptype.equals("motor")) ptype = "NXTRegulatedMotor";
                 else if (ptype.equals("touch")) ptype = "TouchSensor";
                 else if (ptype.equals("ultra")) ptype = "UltraSensor";
                 else if (ptype.equals("color")) ptype = "ColorSensor";
@@ -305,7 +340,7 @@ public class Interp {
                 if (Stack.defineVariable(vname, result.getData())){
                     if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
                     else if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
-                    else if (result.getData().getType() == Data.Type.MOTOR) tipo = "Motor";
+                    else if (result.getData().getType() == Data.Type.MOTOR) tipo = "NXTRegulatedMotor";
                     else if (result.getData().getType() == Data.Type.ULTRA) tipo = "UltrasonicSensor";
                     else if (result.getData().getType() == Data.Type.TOUCH) tipo = "TouchSensor";
                     else if (result.getData().getType() == Data.Type.COLOR) tipo = "ColorSensor";
@@ -379,13 +414,24 @@ public class Interp {
                             if (t.getChild(0).getText().equals("avanzar")) setterFunc = "forward()";
                             else if(t.getChild(0).getText().equals("retroceder")) setterFunc = "backward()";
                             else assert false; //should never happen
-                        }else if (t.getChildCount()==3){
+                        }else if (t.getChildCount()>=3){
                             result = translateExpression(t.getChild(2));
                             checkInteger(result.getData());
                             setterFunc = "rotate(";
-                            if (t.getChild(0).getText().equals("avanzar")) setterFunc += result.getTexto()+")";
-                            else if(t.getChild(0).getText().equals("retroceder")) setterFunc +="-"+result.getTexto()+")";
+                            if (t.getChild(0).getText().equals("avanzar")) setterFunc += result.getTexto();
+                            else if(t.getChild(0).getText().equals("retroceder")) setterFunc +="-"+result.getTexto();
                             else assert false; //should never happen
+                            
+                            if (t.getChildCount()==4){
+                                result = translateExpression(t.getChild(3));
+                                checkBoolean(result.getData());
+                                setterFunc+= ","+result.getTexto();
+                            }
+                            setterFunc+=")";
+                            
+                            //if (t.getChild(0).getText().equals("avanzar")) setterFunc += result.getTexto()+")";
+                            //else if(t.getChild(0).getText().equals("retroceder")) setterFunc +="-"+result.getTexto()+")";
+                            //else assert false; //should never happen
                         }
                         break;
                     case AslLexer.PARAR:
@@ -594,11 +640,11 @@ public class Interp {
                 
                 if (sensorFunc.equals("getUltrasonic")) { sensorFunc = "getDistance"; checkUltra(ret.getData()); }
                 else if (sensorFunc.equals("getTouch")) { sensorFunc = "isPressed"; checkTouch(ret.getData()); }
-                else if (sensorFunc.equals("getColor")) { sensorFunc = "getColorNumber"; checkColor(ret.getData()); }
+                else if (sensorFunc.equals("getColor")) { sensorFunc = "getColorID"; checkColor(ret.getData()); }
                 
                 if (sensorFunc.equals("getDistance")) value = new Data(Data.Type.INTEGER);
                 else if (sensorFunc.equals("isPressed")) value = new Data(Data.Type.BOOLEAN);
-                else if (sensorFunc.equals("getColorNumber")) value = new Data(Data.Type.INTEGER);
+                else if (sensorFunc.equals("getColorID")) value = new Data(Data.Type.INTEGER);
                 
                 texto = ret.getTexto() + "." + sensorFunc + "()";
                 ret = new MyResult(value, texto);

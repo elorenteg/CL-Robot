@@ -3,11 +3,10 @@ void main()
     
     b = MOTOR(2);
     c = 12;
-    
     b.setSpeed(5+c);
     a=12;
     sleep(20+a);
-    m1 = configura (((3+(5*8))>6),c);
+    m1 = configura (((4+(5*8))>6),c);
 endfunc
 
 motor configura(bool a,int b)
@@ -26,4 +25,3 @@ motor configura(bool a,int b)
     m.setSpeed(5);
     return m
 endfunc
-    

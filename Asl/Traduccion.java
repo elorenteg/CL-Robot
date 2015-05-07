@@ -2,32 +2,28 @@ import lejos.nxt.*;
 
 public class Traduccion {
 
-    public static Motor configura(boolean a, int b) {
-        Motor m = Motor.A;
-        m.forward();
-        m.stop();
-        m.rotate(15);
-        m.backward();
-        m.rotate(-10);
-        UltrasonicSensor us = new UltrasonicSensor(SensorPort.S1);
-        ColorSensor cs = new ColorSensor(SensorPort.S2);
-        TouchSensor ts = new TouchSensor(SensorPort.S3);
-        System.out.println(us.getDistance());
-        System.out.println(cs.getColorNumber());
-        System.out.println(ts.isPressed());
-        m.setSpeed(5);
-        return m;
+    public static void girar(NXTRegulatedMotor m1, NXTRegulatedMotor m2, int grado) {
+        m1.rotate(540,(4 < 5));
+        m2.rotate(-(520 + 20),(5 < 3));
     }
 
     public static void main(String args[]) {
-        Motor m1 = Motor.A;
-        Motor b = Motor.B;
-        int c = 12;
-        b.setSpeed((5 + c));
-        int a = 12;
-        try {
-            Thread.sleep((20 + a));
-        } catch (InterruptedException e) {};
-        m1 = configura(((3 + (5 * 8)) > 6), c);
+        NXTRegulatedMotor m1 = Motor.A;
+        NXTRegulatedMotor m2 = Motor.B;
+        UltrasonicSensor us = new UltrasonicSensor(SensorPort.S1);
+        m1.setSpeed(720);
+        m2.setSpeed(720);
+        while(true) {
+            m1.forward();
+            m2.forward();
+            while((us.getDistance() > 20)) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {};
+            }
+            m1.stop();
+            m2.stop();
+            girar(m1, m2, 90);
+        }
     }
 }
