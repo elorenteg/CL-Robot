@@ -35,6 +35,8 @@ import org.antlr.stringtemplate.*;
 // Imports from Java
 import org.apache.commons.cli.*; // Command Language Interface
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 // Parser and Interpreter
 import parser.*;
@@ -59,6 +61,8 @@ public class Asl{
     private static String tracefile = null;
     /** Flag to indicate whether the program must be executed after parsing. */
     private static boolean execute = true;
+    
+    private static HashMap<String,HashMap<String,AslTree> > funcMapped;
       
     /** Main program that invokes the parser and the interpreter. */
     
@@ -66,13 +70,84 @@ public class Asl{
         // Parser for command line options
         if (!readOptions (args)) System.exit(1);
 
-        // Parsing of the input file
+        AslTree t = parseador(infile);
         
+
+        // Generate a file for the AST (option -ast file)
+        if (astfile != null) {
+            File ast = new File(astfile);
+            BufferedWriter output = new BufferedWriter(new FileWriter(ast));
+            if (dotformat) {
+                DOTTreeGenerator gen = new DOTTreeGenerator();
+                output.write(gen.toDOT(t).toString());
+            } else {
+                output.write(t.toStringTree());
+            }
+            output.close();
+        }
+
+        // Start interpretation (only if execution required)
+        if (execute) {
+            // Creates and prepares the interpreter
+            funcMapped = null;
+            AslTree incls = t.getChild(0);
+            for (int i = 0;i<incls.getChildCount();++i){
+                String file = incls.getChild(i).getChild(0).getText()+"/"+incls.getChild(i).getChild(1).getText()+".asl";
+                AslTree inclFile = parseador(file);
+                Interp J = null;
+                int linenumber = -1;
+                try{
+                    System.out.println("hola");
+                    J= new Interp(inclFile, tracefile,funcMapped,incls.getChild(i).getChild(1).getText(),incls.getChild(i).getChild(0).getText());
+                    System.out.println("post j");
+                    J.Run();
+                    System.out.println("post run");
+                    funcMapped = J.functionsMapped();
+                }catch (RuntimeException e) {
+                    if (J != null) linenumber = J.lineNumber();
+                    System.err.print ("Runtime error");
+                    if (linenumber < 0) System.err.print (": ");
+                    else System.err.print (" (" + infile + ", line " + linenumber + "): ");
+                    System.err.println (e.getMessage() + ".a");
+                    System.err.format (J.getStackTrace()+".fin");
+                } catch (StackOverflowError e) {
+                    if (J != null) linenumber = J.lineNumber();
+                    System.err.print("Stack overflow error");
+                    if (linenumber < 0) System.err.print (".");
+                    else System.err.println (" (" + infile + ", line " + linenumber + ").");
+                    System.err.format (J.getStackTrace(5));
+                }
+            }
+            //
+            Interp I = null;
+            int linenumber = -1;
+            try {
+                I = new Interp(t, tracefile,funcMapped,infile.substring(0,infile.lastIndexOf('.')),""); // prepares the interpreter
+                I.Run();                // Executes the code
+            } catch (RuntimeException e) {
+                if (I != null) linenumber = I.lineNumber();
+                System.err.print ("Runtime error");
+                if (linenumber < 0) System.err.print (": ");
+                else System.err.print (" (" + infile + ", line " + linenumber + "): ");
+                System.err.println (e.getMessage() + ".");
+                System.err.format (I.getStackTrace());
+            } catch (StackOverflowError e) {
+                if (I != null) linenumber = I.lineNumber();
+                System.err.print("Stack overflow error");
+                if (linenumber < 0) System.err.print (".");
+                else System.err.println (" (" + infile + ", line " + linenumber + ").");
+                System.err.format (I.getStackTrace(5));
+            }
+        }
+    }
+
+
+    private static AslTree parseador(String ruta){
         CharStream input = null;
         try {
-            input = new ANTLRFileStream(infile);
+            input = new ANTLRFileStream(ruta);
         } catch (IOException e) {
-            System.err.println ("Error: file " + infile + " could not be opened.");
+            System.err.println ("Error: file " + ruta + " could not be opened.");
             System.exit(1);
         }
 
@@ -98,46 +173,8 @@ public class Asl{
         }
 
         // Get the AST
-        AslTree t = (AslTree)result.getTree();
-
-        // Generate a file for the AST (option -ast file)
-        if (astfile != null) {
-            File ast = new File(astfile);
-            BufferedWriter output = new BufferedWriter(new FileWriter(ast));
-            if (dotformat) {
-                DOTTreeGenerator gen = new DOTTreeGenerator();
-                output.write(gen.toDOT(t).toString());
-            } else {
-                output.write(t.toStringTree());
-            }
-            output.close();
-        }
-
-        // Start interpretation (only if execution required)
-        if (execute) {
-            // Creates and prepares the interpreter
-            Interp I = null;
-            int linenumber = -1;
-            try {
-                I = new Interp(t, tracefile); // prepares the interpreter
-                I.Run();                  // Executes the code
-            } catch (RuntimeException e) {
-                if (I != null) linenumber = I.lineNumber();
-                System.err.print ("Runtime error");
-                if (linenumber < 0) System.err.print (": ");
-                else System.err.print (" (" + infile + ", line " + linenumber + "): ");
-                System.err.println (e.getMessage() + ".");
-                System.err.format (I.getStackTrace());
-            } catch (StackOverflowError e) {
-                if (I != null) linenumber = I.lineNumber();
-                System.err.print("Stack overflow error");
-                if (linenumber < 0) System.err.print (".");
-                else System.err.println (" (" + infile + ", line " + linenumber + ").");
-                System.err.format (I.getStackTrace(5));
-            }
-        }
+        return (AslTree)result.getTree();
     }
-
     /**
      * Function to parse the command line. It defines some of
      * the attributes of the class. It returns true if the parsing

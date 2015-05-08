@@ -77,6 +77,10 @@ public class Interp {
     
     private ArrayList<String> list_includes;
     
+    private String ruta;
+    
+    private String filename;
+    
     /** Standard input of the interpreter (System.in). */
     private Scanner stdin;
 
@@ -96,13 +100,23 @@ public class Interp {
      * Constructor of the interpreter. It prepares the main
      * data structures for the execution of the main program.
      */
-    public Interp(AslTree T, String tracefile,HashMap<String,HashMap<String,AslTree> > acumulado,String archivo ) {
+    public Interp(AslTree T, String tracefile, HashMap<String,HashMap<String,AslTree> > acumulado, String archivo , String rut) {
         assert T != null;
+        System.out.println("1");
         IncludeName2Tree = acumulado;
+        System.out.println("2");
+        ruta = rut;
+        System.out.println("3");
+        filename = archivo;
+        System.out.println("4");
         PopulateListIncludes(T.getChild(0));
+        System.out.println("5");
         MapFunctions(T.getChild(1), archivo);  // Creates the table to map function names into AST nodes
+        System.out.println("6");
         PreProcessAST(T.getChild(1)); // Some internal pre-processing ot the AST
+        System.out.println("7");
         Stack = new Stack(); // Creates the memory of the virtual machine
+        System.out.println("8");
         // Initializes the standard input of the program
         stdin = new Scanner (new BufferedReader(new InputStreamReader(System.in)));
         if (tracefile != null) {
@@ -117,19 +131,20 @@ public class Interp {
     }
 
     /** Runs the program by calling the main function without parameters. */
-    public void Run(String ruta, String filename) {
+    public void Run() {
         File traduccion;
         if (ruta.equals("")){
             traduccion = new File (filename+".java");
         }else{
             traduccion = new File(ruta+"/"+filename+".java");
+            traduccion.getParentFile().mkdirs();
         }
         try {
             bw = new BufferedWriter(new FileWriter(traduccion));
             
             // ----------------------------------------------------------------------------------------- IMPORTS!!
-            if (ruta.equals(""){
-                for (int i=0;i<list_includes.length();++i){
+            if (ruta.equals("")){
+                for (int i=0;i<list_includes.size();++i){
                     bw.write("import "+list_includes.get(i)+";");
                     bw.newLine();
                 }
@@ -137,13 +152,16 @@ public class Interp {
                 bw.write ("package "+ruta+";");
                 bw.newLine();
             }
-            bw.write("import lejos.nxt.*;"); bw.newLine();
+            bw.write("import lejos.nxt.*;"); 
+            bw.newLine();
             bw.newLine();
             
-            bw.write("public class "+filename+" {"); bw.newLine();
-            if (ruta.equals("") and !FuncName2Tree.containsKey("main"){
+            bw.write("public class "+filename+" {"); 
+            bw.newLine();
+            
+            if (ruta.equals("") && !FuncName2Tree.containsKey("main")){
                 throw new RuntimeException("file "+filename+": function main() must be declared");
-            }else if(!ruta.equals("") and FuncName2Tree.containsKey("main"){
+            }else if(!ruta.equals("") && FuncName2Tree.containsKey("main")){
                 throw new RuntimeException("file "+filename+": function main() must NOT be declared");
             }
             
@@ -159,7 +177,12 @@ public class Interp {
             bw.close();
             
             // indenta segun los estandares de java
-            Process p = Runtime.getRuntime().exec("astyle --style=java Traduccion.java");
+            if (ruta.equals("")){
+                Process p = Runtime.getRuntime().exec("astyle --style=java "+filename+".java");
+            }else{
+                Process p = Runtime.getRuntime().exec("astyle --style=java "+ruta+"/"+filename+".java");
+            }
+            
         }
         catch (IOException exc) {
             System.out.println(exc.toString());
@@ -180,7 +203,7 @@ public class Interp {
     private void PopulateListIncludes(AslTree T){
         list_includes = new ArrayList<String> ();
         for (int i = 0; i<T.getChildCount();++i){
-            list_includes.add(T.getChild(i).getChild(0)+"."+T.getChild(i).getChild(1));
+            list_includes.add(T.getChild(i).getChild(0).getText()+"."+T.getChild(i).getChild(1).getText());
         }
     }
     
@@ -191,6 +214,7 @@ public class Interp {
     private void MapFunctions(AslTree T,String filename) {
         assert T != null && T.getType() == AslLexer.LIST_FUNCTIONS;
         FuncName2Tree = new HashMap<String,AslTree> ();
+        if (IncludeName2Tree ==null) IncludeName2Tree = new HashMap<String, HashMap<String,AslTree> >();
         int n = T.getChildCount();
         for (int i = 0; i < n; ++i) {
             AslTree f = T.getChild(i);
@@ -200,7 +224,7 @@ public class Interp {
                 throw new RuntimeException(filename+" has multiple definitions of function " + fname);
             }
             for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
-                if (includes.containsKey(fname)){
+                if (includes.getValue().containsKey(fname)){
                     throw new RuntimeException(filename+" has definition of function " + fname+ "previously declared in "+includes.getKey());
                 }    
             }
@@ -233,6 +257,8 @@ public class Interp {
      * error.
      */
     public int lineNumber() { return linenumber; }
+    
+    public HashMap<String,HashMap<String,AslTree> > functionsMapped() {return IncludeName2Tree;}
 
     /** Defines the current line number associated to an AST node. */
     private void setLineNumber(AslTree t) { linenumber = t.getLine();}
@@ -270,6 +296,7 @@ public class Interp {
             else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
             else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
             else if (ftype.equals("void")) ftypeNorm = "void";
+            else throw new RuntimeException ("Not a valid type return on function: "+fname );
             bw.write("public static " + ftypeNorm + " " + fname + "(");
             for (int i = 0; i < fparams.getChildCount(); ++i) {
                 String ptype = fparams.getChild(i).getChild(0).getText();
@@ -485,15 +512,28 @@ public class Interp {
                 break;
             case AslLexer.FUNCALL:
                 String fname = t.getChild(0).getText();
+                String sitio;
+                String funcion;
                 AslTree func = null;
-                checkFunctionExists(func,fname);
-                func = FuncName2Tree.get(fname);
+                
+                if (checkFunctionMine(fname)){
+                    func = FuncName2Tree.get(fname);
+                    funcion = fname + "(";
+                }else{
+                     sitio = checkFunctionIncludes(fname);
+                    if (!sitio.equals("")){
+                        func = IncludeName2Tree.get(sitio).get(fname);
+                        funcion = sitio+"."+fname + "(";
+                    }else{
+                        throw new RuntimeException("Function "+fname+" is not declred");
+                    }
+                }
                 AslTree callerParams = t.getChild(1);
                 AslTree calleeParams = func.getChild(2);
                 assert callerParams.getChildCount() == calleeParams.getChildCount();
                 
                 value = new Data(func.getChild(0).getText());
-                String funcion = fname + "(";
+                
                 for (int i = 0; i < callerParams.getChildCount(); ++i) {
                     if (i > 0) funcion += ", ";
                     MyResult aux = translateExpression(callerParams.getChild(i));
@@ -699,6 +739,20 @@ public class Interp {
         if (!b.isColor()) {
             throw new RuntimeException ("Expecting ColorSensor expression");
         }
+    }
+    
+    private boolean checkFunctionMine(String fname){
+        return FuncName2Tree.get(fname) != null;
+    }
+    
+    private String checkFunctionIncludes(String fname){
+        
+        for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
+                if (includes.getValue().containsKey(fname)){
+                    return includes.getKey();
+                }    
+        }
+        return "";
     }
     
     /** Checks that the function with name exists and raises an exception if it is not */
