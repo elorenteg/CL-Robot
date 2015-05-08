@@ -92,29 +92,28 @@ public class Asl{
             funcMapped = null;
             AslTree incls = t.getChild(0);
             for (int i = 0;i<incls.getChildCount();++i){
-                String file = incls.getChild(i).getChild(0).getText()+"/"+incls.getChild(i).getChild(1).getText()+".asl";
+                String fn = incls.getChild(i).getChild(1).getText();
+                String pt = incls.getChild(i).getChild(0).getText();
+                String file = pt+"/"+fn+".asl";
                 AslTree inclFile = parseador(file);
                 Interp J = null;
                 int linenumber = -1;
                 try{
-                    System.out.println("hola");
-                    J= new Interp(inclFile, tracefile,funcMapped,incls.getChild(i).getChild(1).getText(),incls.getChild(i).getChild(0).getText());
-                    System.out.println("post j");
+                    J= new Interp(inclFile, tracefile,funcMapped,fn,pt);
                     J.Run();
-                    System.out.println("post run");
                     funcMapped = J.functionsMapped();
                 }catch (RuntimeException e) {
                     if (J != null) linenumber = J.lineNumber();
                     System.err.print ("Runtime error");
                     if (linenumber < 0) System.err.print (": ");
-                    else System.err.print (" (" + infile + ", line " + linenumber + "): ");
-                    System.err.println (e.getMessage() + ".a");
-                    System.err.format (J.getStackTrace()+".fin");
+                    else System.err.print (" (" + file + ", line " + linenumber + "): ");
+                    System.err.println (e.getMessage() + ".");
+                    System.err.format (J.getStackTrace());
                 } catch (StackOverflowError e) {
                     if (J != null) linenumber = J.lineNumber();
                     System.err.print("Stack overflow error");
                     if (linenumber < 0) System.err.print (".");
-                    else System.err.println (" (" + infile + ", line " + linenumber + ").");
+                    else System.err.println (" (" + file + ", line " + linenumber + ").");
                     System.err.format (J.getStackTrace(5));
                 }
             }

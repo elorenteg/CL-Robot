@@ -184,6 +184,7 @@ atom    : ID
         | '('! expr ')'!
         | ID '.' (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' ')' -> ^(GSENSOR $b ID)
         | ID'.' b=MGETTER '(' ')' -> ^(GMOTOR $b ID)
+        | OBJECT '(' ID ')'-> ^(OBJECT ID)
         ;	
 
 // A function call has a lits of arguments in parenthesis (possibly empty)
@@ -235,6 +236,7 @@ GETULTRA        : 'getUltrasonic' ;
 GETTOUCH        : 'getTouch' ;
 MOTOR           : 'MOTOR';
 SENSOR          : ('ULTRA'|'TOUCH'|'COLOR');
+OBJECT          : 'OBJECT';
 SLEEP           : 'sleep' ;
 
 // funciones reservadas ---------------------------------------------------------------------------------- //

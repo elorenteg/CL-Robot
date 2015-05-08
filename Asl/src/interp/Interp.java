@@ -102,21 +102,13 @@ public class Interp {
      */
     public Interp(AslTree T, String tracefile, HashMap<String,HashMap<String,AslTree> > acumulado, String archivo , String rut) {
         assert T != null;
-        System.out.println("1");
         IncludeName2Tree = acumulado;
-        System.out.println("2");
         ruta = rut;
-        System.out.println("3");
         filename = archivo;
-        System.out.println("4");
         PopulateListIncludes(T.getChild(0));
-        System.out.println("5");
         MapFunctions(T.getChild(1), archivo);  // Creates the table to map function names into AST nodes
-        System.out.println("6");
         PreProcessAST(T.getChild(1)); // Some internal pre-processing ot the AST
-        System.out.println("7");
         Stack = new Stack(); // Creates the memory of the virtual machine
-        System.out.println("8");
         // Initializes the standard input of the program
         stdin = new Scanner (new BufferedReader(new InputStreamReader(System.in)));
         if (tracefile != null) {
@@ -201,6 +193,7 @@ public class Interp {
     
     
     private void PopulateListIncludes(AslTree T){
+        if (!ruta.equals("") && T.getChildCount()!=0) throw new RuntimeException("Includes Packages cannot have includes");
         list_includes = new ArrayList<String> ();
         for (int i = 0; i<T.getChildCount();++i){
             list_includes.add(T.getChild(i).getChild(0).getText()+"."+T.getChild(i).getChild(1).getText());
@@ -215,6 +208,7 @@ public class Interp {
         assert T != null && T.getType() == AslLexer.LIST_FUNCTIONS;
         FuncName2Tree = new HashMap<String,AslTree> ();
         if (IncludeName2Tree ==null) IncludeName2Tree = new HashMap<String, HashMap<String,AslTree> >();
+        if (IncludeName2Tree.containsKey(filename)) throw new RuntimeException("Multiple definitions of " + filename);
         int n = T.getChildCount();
         for (int i = 0; i < n; ++i) {
             AslTree f = T.getChild(i);
@@ -225,7 +219,7 @@ public class Interp {
             }
             for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
                 if (includes.getValue().containsKey(fname)){
-                    throw new RuntimeException(filename+" has definition of function " + fname+ "previously declared in "+includes.getKey());
+                    throw new RuntimeException(filename+" has definition of function " + fname+ " previously declared in "+includes.getKey());
                 }    
             }
             FuncName2Tree.put(fname, f);
@@ -258,7 +252,7 @@ public class Interp {
      */
     public int lineNumber() { return linenumber; }
     
-    public HashMap<String,HashMap<String,AslTree> > functionsMapped() {return IncludeName2Tree;}
+    public HashMap<String, HashMap<String,AslTree> > functionsMapped() {return IncludeName2Tree;}
 
     /** Defines the current line number associated to an AST node. */
     private void setLineNumber(AslTree t) { linenumber = t.getLine();}
@@ -371,11 +365,15 @@ public class Interp {
                     else if (result.getData().getType() == Data.Type.ULTRA) tipo = "UltrasonicSensor";
                     else if (result.getData().getType() == Data.Type.TOUCH) tipo = "TouchSensor";
                     else if (result.getData().getType() == Data.Type.COLOR) tipo = "ColorSensor";
+                    else if (result.getData().getType() == Data.Type.OBJECT) tipo = result.getTexto();
                     else if (result.getData().getType() == Data.Type.VOID) {
                         throw new RuntimeException ("Assign of void type not valid");
                     }
-                    
-                    bw.write (tipo + " " + vname + " = " + result.getTexto());
+                    if (result.getData().getType() != Data.Type.OBJECT){
+                        bw.write (tipo + " " + vname + " = " + result.getTexto());
+                    }else{
+                        bw.write (tipo + " " + vname + " = new " + result.getTexto() + "()");
+                    }
                     //else return false;
                 }else{
                     bw.write (vname + " = " + result.getTexto());
@@ -519,18 +517,20 @@ public class Interp {
                 if (checkFunctionMine(fname)){
                     func = FuncName2Tree.get(fname);
                     funcion = fname + "(";
-                }else{
-                     sitio = checkFunctionIncludes(fname);
+                }else if (ruta.equals("")){
+                    sitio = checkFunctionIncludes(fname);
                     if (!sitio.equals("")){
                         func = IncludeName2Tree.get(sitio).get(fname);
                         funcion = sitio+"."+fname + "(";
                     }else{
                         throw new RuntimeException("Function "+fname+" is not declred");
                     }
+                }else{
+                    throw new RuntimeException("Function "+fname+" is not declred");
                 }
                 AslTree callerParams = t.getChild(1);
                 AslTree calleeParams = func.getChild(2);
-                assert callerParams.getChildCount() == calleeParams.getChildCount();
+                if (callerParams.getChildCount() != calleeParams.getChildCount()) throw new RuntimeException("Different number of parameters in function : "+fname+ " declared "+calleeParams.getChildCount()+ " found "+callerParams.getChildCount());
                 
                 value = new Data(func.getChild(0).getText());
                 
@@ -547,6 +547,11 @@ public class Interp {
                 funcion += ")";
                 ret = new MyResult(value, funcion);
                 break;
+            case AslLexer.OBJECT:
+                value = new Data(Data.Type.OBJECT);
+                String clase = t.getChild(0).getText();
+                if (!IncludeName2Tree.containsKey(clase)) throw new RuntimeException ("Class "+clase+" does not exist");
+                ret = new MyResult(value, t.getChild(0).getText());
             case AslLexer.DMOTOR:
                 String tradMotor = "Motor.";
                 int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
