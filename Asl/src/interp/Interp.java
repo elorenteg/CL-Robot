@@ -290,6 +290,7 @@ public class Interp {
             else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
             else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
             else if (ftype.equals("void")) ftypeNorm = "void";
+            else if (IncludeName2Tree.containsKey(ftype)) ftypeNorm = ftype;
             else throw new RuntimeException ("Not a valid type return on function: "+fname );
             bw.write("public static " + ftypeNorm + " " + fname + "(");
             for (int i = 0; i < fparams.getChildCount(); ++i) {
@@ -306,8 +307,7 @@ public class Interp {
                 else if (ptype.equals("touch")) ptype = "TouchSensor";
                 else if (ptype.equals("ultra")) ptype = "UltraSensor";
                 else if (ptype.equals("color")) ptype = "ColorSensor";
-                
-                
+                else if (!IncludeName2Tree.containsKey(ptype)) throw new RuntimeException ("Not a valid type of parameter: "+ptype );
                 bw.write(ptype + " " + pname);
                 
             }
@@ -356,6 +356,7 @@ public class Interp {
         
             case AslLexer.ASSIGN:
                 String vname = t.getChild(0).getText();
+                
                 result = translateExpression(t.getChild(1));
                 String tipo = "";
                 if (Stack.defineVariable(vname, result.getData())){
@@ -420,6 +421,7 @@ public class Interp {
                 break;
 
             case AslLexer.FUNCALL:
+            case AslLexer.OBJ_FUNC:
                 result = translateExpression(t);
                 if (result.getData().getType() != Data.Type.VOID){
                     throw new RuntimeException ("Return funcall not assigned");
@@ -547,11 +549,20 @@ public class Interp {
                 funcion += ")";
                 ret = new MyResult(value, funcion);
                 break;
+                
+            case AslLexer.OBJ_FUNC:
+                String id = t.getChild(0).getText();
+                String fname = t.getChild(1).getChild(0).getText();
+                Data object = Stack.getVariable(id);
+                checkObject(object);
+                HashMap <String,AslTree> funcs_object = IncludeName2Tree.get(object.getClase());
+                if (funcs_object==null) throw new RuntimeException("Object does not exists");
+                if (
             case AslLexer.OBJECT:
-                value = new Data(Data.Type.OBJECT);
                 String clase = t.getChild(0).getText();
+                value = new Data(clase);
                 if (!IncludeName2Tree.containsKey(clase)) throw new RuntimeException ("Class "+clase+" does not exist");
-                ret = new MyResult(value, t.getChild(0).getText());
+                ret = new MyResult(value, clase);
             case AslLexer.DMOTOR:
                 String tradMotor = "Motor.";
                 int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
@@ -739,6 +750,12 @@ public class Interp {
         }
     }
     
+    private void checkObject (Data b) {
+        if (!b.isObject()) {
+            throw new RuntimeException ("Expecting Object expression");
+        }
+    }
+    
     /** Checks that the data is a ColorSensor and raises an exception if it is not */
     private void checkColor (Data b) {
         if (!b.isColor()) {
@@ -758,6 +775,10 @@ public class Interp {
                 }    
         }
         return "";
+    }
+    
+    private void checkIDnotInclude(String id){
+        if (IncludeName2Tree.containsKey(id)) throw new RuntimeException ("ID cannot have the name of an Include file");
     }
     
     /** Checks that the function with name exists and raises an exception if it is not */

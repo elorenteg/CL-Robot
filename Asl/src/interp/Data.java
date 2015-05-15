@@ -41,10 +41,12 @@ import parser.*;
 
 public class Data {
     /** Types of data */
-    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, ULTRA, TOUCH, COLOR;}
+    public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, ULTRA, TOUCH, COLOR, OBJECT;}
 
     /** Type of data*/
     private Type type;
+    
+    private String clase;
 
     /** Constructor by Type */
     Data(Type t){ type = t; }
@@ -53,21 +55,29 @@ public class Data {
     Data() { type = Type.VOID; }
 
     /** Copy constructor */
-    Data(Data d) { type = d.type; }
+    Data(Data d) { type = d.type; clase = d.clase; }
     
     /** Constructor by string with the type */
     Data(String tipo) {
+        clase = "";
         if (tipo.equals("bool")) type = Type.BOOLEAN;
-        else if (tipo.equals("int")) type = Type.INTEGER;
+        else if (tipo.equals("int")) type = Type.INTEGER; 
         else if (tipo.equals("motor")) type = Type.MOTOR;
         else if (tipo.equals("void")) type = Type.VOID;
         else if (tipo.equals("ultra")) type = Type.ULTRA;
         else if (tipo.equals("touch")) type = Type.TOUCH;
         else if (tipo.equals("color")) type = Type.COLOR;
+        else {
+            type = Type.OBJECT;
+            clase = tipo;
+        }
     }
 
     /** Returns the type of data */
     public Type getType() { return type; }
+    
+    /** Returns the class of data */
+    public String getClase() {return clase;}
 
     /** Indicates whether the data is Boolean */
     public boolean isBoolean() { return type == Type.BOOLEAN; }
@@ -90,6 +100,11 @@ public class Data {
     /** Indicates whether the data is color sensor */
     public boolean isColor() { return type == Type.COLOR; }
     
+    /** Indicates whether the data is an object */
+    public boolean isObject() { return type == Type.OBJECT; }
+    
     /** Copies the value from another data */
-    public void setData(Data d) { type = d.type; }
+    public void setData(Data d) { type = d.type; clase = d.clase;}
+    
+    
 }

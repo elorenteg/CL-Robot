@@ -52,6 +52,7 @@ tokens {
     LIST_INCLUDES;
     INCL;
     PROG;
+    OBJ_FUNC;
 }
 
 @header {
@@ -96,6 +97,7 @@ paramlist
 // Parameters with & as prefix are passed by reference
 // Only one node with the name of the parameter is created
 param   : TIPO id=ID -> ^(PVALUE TIPO ID)
+        : t=ID id=ID -> ^(PVALUE $t $id)
         ;
 
 // A list of instructions, all of them gouped in a subtree
@@ -113,8 +115,11 @@ instruction
         | write         // Write a string or an expression
         |               // Nothing
         | motor         // 
+        | obj_fun
         | sleep         //
         ; 
+        
+obj_fun : ID '.' funcall -> ^(OBJ_FUNC ID funcall)
 
 motor   : ID '.' AVANZAR '(' (e1=expr (','e2=expr)?)? ')' -> ^(SMOTOR AVANZAR ID $e1? $e2?)
         | ID '.' PARAR '('')' -> ^(SMOTOR PARAR ID)
@@ -181,6 +186,7 @@ atom    : ID
         | s=SENSOR '(' b=INT ')' -> ^(DSENSOR[s, $s.text+$b.text])
         | (b=TRUE | b=FALSE) -> ^(BOOLEAN[$b,$b.text])
         | funcall
+        | obj_fun
         | '('! expr ')'!
         | ID '.' (b=GETCOLOR | b=GETULTRA | b=GETTOUCH) '(' ')' -> ^(GSENSOR $b ID)
         | ID'.' b=MGETTER '(' ')' -> ^(GMOTOR $b ID)

@@ -95,7 +95,7 @@ public class Stack {
         if (d == null){
           CurrentAR.put(name, value);
           return true;  
-        }else if(d.getType() != value.getType()){
+        }else if(d.getType() != value.getType() || (d.getType()==value.getType() && !d.getClase().equals(value.getClase()))){
             throw new RuntimeException ("Change variable type not permited");
         } 
         return false;
