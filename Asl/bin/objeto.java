@@ -3,6 +3,10 @@ import paquete.sensor;
 import lejos.nxt.*;
 
 public class objeto {
+    private piloto pil;
+    private int a;
+
+
 
     public static void girar(int a, NXTRegulatedMotor m1, piloto pi) {
         int b = a;
@@ -19,11 +23,12 @@ public class objeto {
     }
 
     public static void ja() {
-        int a = 2;
+        a = 2;
     }
 
     public static void main(String args[]) {
         piloto o = new piloto();
+        o = ejemplo();
         o = new piloto();
         sensor b = new sensor();
         int numero = 5;
@@ -33,7 +38,8 @@ public class objeto {
         NXTRegulatedMotor m2 = Motor.B;
         NXTRegulatedMotor m3 = ejemplo2();
         o.girar(m1, m2, 45);
-        b.girar2(m2, m1, 20);
+        o.sensor();
+        b.girar(m2, m1, 20);
         girar(10, m1, o);
     }
 }

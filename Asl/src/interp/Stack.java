@@ -46,6 +46,7 @@ public class Stack {
     /** Reference to the current activation record */
     private HashMap<String,Data> CurrentAR = null;
 
+    public HashMap<String,Data> GlobalMap = null;
     /**
      * Class to represent an item of the Stack trace.
      * For each function call, the function name and
@@ -67,6 +68,7 @@ public class Stack {
         Stack = new LinkedList<HashMap<String,Data>>();
         CurrentAR = null;
         StackTrace = new LinkedList<StackTraceItem>();
+        GlobalMap = new HashMap<String,Data>();
     }
 
     /** Creates a new activation record on the top of the stack */
@@ -92,6 +94,8 @@ public class Stack {
      */
     public boolean defineVariable(String name, Data value) {
         Data d = CurrentAR.get(name);
+        
+        if (d == null) d = GlobalMap.get(name);
         /*if (d!=null){
             System.out.println(d.getType() +" " +d.getClase());
             System.out.println(value.getType() +" " +value.getClase());
@@ -104,6 +108,17 @@ public class Stack {
         } 
         return false;
     }
+    
+    public void defineGlobal(String name, Data value){
+      Data d = GlobalMap.get(name);
+      
+      if (d==null){
+	GlobalMap.put(name,value);
+      }else{
+	throw new RuntimeException ("Redefinition of Global variable " +name +" not permited");
+      }
+    
+    }
 
     /** Gets the value of the variable. The value is represented as
      * a Data object. In this way, any modification of the object
@@ -113,6 +128,7 @@ public class Stack {
      */
     public Data getVariable(String name) {
         Data v = CurrentAR.get(name);
+        if (v==null) v= GlobalMap.get(name);
         if (v == null) {
             throw new RuntimeException ("Variable " + name + " not defined");
         }

@@ -8,3 +8,12 @@ void girar(motor m1, motor m2,int grado)
 endfunc
 
 
+
+
+void sensor()
+
+  a = 5;
+endfunc
+
+
+

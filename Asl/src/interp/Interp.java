@@ -106,9 +106,14 @@ public class Interp {
         ruta = rut;
         filename = archivo;
         PopulateListIncludes(T.getChild(0));
-        MapFunctions(T.getChild(1), archivo);  // Creates the table to map function names into AST nodes
-        PreProcessAST(T.getChild(1)); // Some internal pre-processing ot the AST
         Stack = new Stack(); // Creates the memory of the virtual machine
+        //TO-DO
+        //mapear globales getChild(1)
+        
+        MapGlobal(T.getChild(1));
+        
+        MapFunctions(T.getChild(2), archivo);  // Creates the table to map function names into AST nodes
+        PreProcessAST(T.getChild(2)); // Some internal pre-processing ot the AST
         // Initializes the standard input of the program
         stdin = new Scanner (new BufferedReader(new InputStreamReader(System.in)));
         if (tracefile != null) {
@@ -148,8 +153,36 @@ public class Interp {
             bw.newLine();
             bw.newLine();
             
+            //traduccion globales
+            
             bw.write("public class "+filename+" {"); 
             bw.newLine();
+            
+            for (Map.Entry<String, Data> global : Stack.GlobalMap.entrySet()) {
+                
+                
+                String gname = global.getKey();
+		Data gdata = global.getValue();
+		if (gdata.getType() == Data.Type.OBJECT){
+		  bw.write("private " +gdata.getClase()+" "+gname+";");
+		}else{
+		  String norm="";
+		  if (gdata.getType()==Data.Type.INTEGER) norm = "int";
+		  else if(gdata.getType()==Data.Type.BOOLEAN) norm = "boolean";
+		  else if(gdata.getType()==Data.Type.MOTOR) norm = "NXTRegulatedMotor";
+		  else if(gdata.getType()==Data.Type.ULTRA) norm = "UltrasonicSensor";
+		  else if(gdata.getType()==Data.Type.COLOR) norm = "ColorSensor";
+		  else if(gdata.getType()==Data.Type.TOUCH) norm = "TouchSensor";
+		  else throw new RuntimeException("ERROR MUY GORDO!!!! no deberia salir nunca!!");
+		  bw.write("private "+norm + " "+gname+";");
+		}
+                bw.newLine();
+            }
+            
+            
+            bw.newLine();
+            bw.newLine();
+            
             
             if (ruta.equals("") && !FuncName2Tree.containsKey("main")){
                 throw new RuntimeException("file "+filename+": function main() must be declared");
@@ -226,6 +259,18 @@ public class Interp {
             
         }
         IncludeName2Tree.put(filename,FuncName2Tree);
+    }
+    
+    
+    private void MapGlobal(AslTree t){
+      for (int i=0;i<t.getChildCount();++i){
+	String tipo =t.getChild(i).getChild(0).getText();
+	String name =t.getChild(i).getChild(1).getText();
+	checkIDnotInclude(name);
+	Data v = new Data(tipo);
+	Stack.defineGlobal(name,v);
+      }
+    
     }
 
     /**
@@ -388,14 +433,9 @@ public class Interp {
                     if (result.getData().getType() != Data.Type.OBJECT){
                         bw.write (vname + " = " + result.getTexto());
                     }else{
-                        System.out.println(t.getChild(1).getType());
-                        System.out.println(AslLexer.FUNCALL);
-                        System.out.println(lineNumber());
                         if (t.getChild(1).getType()==AslLexer.FUNCALL){
-                            System.out.println("entro en funcall "+vname);
                             bw.write(vname+" = " + result.getTexto());
                         }else{
-                            System.out.println("NO entro en funcall "+vname);
                             bw.write (vname + " = new " + result.getTexto() + "()");
                         }
                     }

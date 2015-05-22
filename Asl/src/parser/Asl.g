@@ -53,6 +53,8 @@ tokens {
     INCL;
     PROG;
     OBJ_FUNC;
+    LIST_GLOBALS;
+    GLOB;
 }
 
 @header {
@@ -67,16 +69,25 @@ tokens {
 
 // A program is a list of functions
 
-prog   : list_includes list_funcs -> ^(PROG list_includes list_funcs)
+prog   : list_includes list_globals list_funcs -> ^(PROG list_includes list_globals list_funcs)
         ;
 
 list_includes : include* -> ^(LIST_INCLUDES include*)
     ;
+    
+list_globals : (global ';')* -> ^(LIST_GLOBALS global*)
+  ;
+    
 list_funcs : func+ EOF -> ^(LIST_FUNCTIONS func+)
         ;
         
 include : INCLUDE p=ID'/'f=ID -> ^(INCL $p $f) 
     ;
+    
+global : t=ID id=ID -> ^(GLOB $t $id)
+	| TIPO ID -> ^(GLOB TIPO ID)
+	;
+    
 //prog^   : func+ EOF -> ^(LIST_FUNCTIONS func+)
 //        ;
             
