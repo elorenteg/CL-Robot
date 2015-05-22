@@ -81,7 +81,8 @@ include : INCLUDE p=ID'/'f=ID -> ^(INCL $p $f)
 //        ;
             
 // A function has a name, a list of parameters and a block of instructions
-func    : TIPO ID params block_instructions return_stmt ENDFUNC -> ^(FUNC TIPO ID params block_instructions return_stmt)
+func    : t=ID id=ID params block_instructions return_stmt ENDFUNC -> ^(FUNC $t $id params block_instructions return_stmt)
+        | TIPO ID params block_instructions return_stmt ENDFUNC -> ^(FUNC TIPO ID params block_instructions return_stmt)
         | VOID ID params block_instructions ENDFUNC -> ^(FUNC VOID ID params block_instructions)
         ;
 
@@ -97,7 +98,7 @@ paramlist
 // Parameters with & as prefix are passed by reference
 // Only one node with the name of the parameter is created
 param   : TIPO id=ID -> ^(PVALUE TIPO ID)
-        : t=ID id=ID -> ^(PVALUE $t $id)
+        | t=ID id=ID -> ^(PVALUE $t $id)
         ;
 
 // A list of instructions, all of them gouped in a subtree
@@ -120,6 +121,7 @@ instruction
         ; 
         
 obj_fun : ID '.' funcall -> ^(OBJ_FUNC ID funcall)
+        ;
 
 motor   : ID '.' AVANZAR '(' (e1=expr (','e2=expr)?)? ')' -> ^(SMOTOR AVANZAR ID $e1? $e2?)
         | ID '.' PARAR '('')' -> ^(SMOTOR PARAR ID)
@@ -147,7 +149,7 @@ while_stmt
 
 // Return statement with an expression
 return_stmt
-        : RETURN^ expr
+        : RETURN^ expr ';'!
         ;
 
 // Read a variable

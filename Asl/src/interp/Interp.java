@@ -216,12 +216,12 @@ public class Interp {
             String fname = f.getChild(1).getText();
             if (FuncName2Tree.containsKey(fname) ) {
                 throw new RuntimeException(filename+" has multiple definitions of function " + fname);
-            }
+            }/*
             for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
                 if (includes.getValue().containsKey(fname)){
                     throw new RuntimeException(filename+" has definition of function " + fname+ " previously declared in "+includes.getKey());
                 }    
-            }
+            }*/
             FuncName2Tree.put(fname, f);
             
         }
@@ -292,11 +292,14 @@ public class Interp {
             else if (ftype.equals("void")) ftypeNorm = "void";
             else if (IncludeName2Tree.containsKey(ftype)) ftypeNorm = ftype;
             else throw new RuntimeException ("Not a valid type return on function: "+fname );
+            checkIDnotInclude(fname);
             bw.write("public static " + ftypeNorm + " " + fname + "(");
             for (int i = 0; i < fparams.getChildCount(); ++i) {
+                
+                
                 String ptype = fparams.getChild(i).getChild(0).getText();
                 String pname = fparams.getChild(i).getChild(1).getText();
-                
+                checkIDnotInclude(pname);
                 Stack.defineVariable(pname, new Data(ptype));
                 
                 if (i > 0) bw.write(", ");
@@ -359,6 +362,7 @@ public class Interp {
                 
                 result = translateExpression(t.getChild(1));
                 String tipo = "";
+                checkIDnotInclude(vname);
                 if (Stack.defineVariable(vname, result.getData())){
                     if (result.getData().getType() == Data.Type.INTEGER) tipo = "int";
                     else if (result.getData().getType() == Data.Type.BOOLEAN) tipo = "boolean";
@@ -373,7 +377,11 @@ public class Interp {
                     if (result.getData().getType() != Data.Type.OBJECT){
                         bw.write (tipo + " " + vname + " = " + result.getTexto());
                     }else{
-                        bw.write (tipo + " " + vname + " = new " + result.getTexto() + "()");
+                        if (t.getChild(1).getType()==AslLexer.FUNCALL){
+                            bw.write(result.getData().getClase() +" "+vname+" = " + result.getTexto());
+                        }else{
+                            bw.write (tipo + " " + vname + " = new " + result.getTexto() + "()");
+                        }
                     }
                     //else return false;
                 }else{
@@ -516,18 +524,20 @@ public class Interp {
                 String funcion;
                 AslTree func = null;
                 
+                
+                
                 if (checkFunctionMine(fname)){
                     func = FuncName2Tree.get(fname);
                     funcion = fname + "(";
-                }else if (ruta.equals("")){
+                }/*else if (ruta.equals("")){
                     sitio = checkFunctionIncludes(fname);
                     if (!sitio.equals("")){
                         func = IncludeName2Tree.get(sitio).get(fname);
-                        funcion = sitio+"."+fname + "(";
+                        funcion = fname + "(";
                     }else{
                         throw new RuntimeException("Function "+fname+" is not declred");
                     }
-                }else{
+                }*/else{
                     throw new RuntimeException("Function "+fname+" is not declred");
                 }
                 AslTree callerParams = t.getChild(1);
@@ -552,17 +562,46 @@ public class Interp {
                 
             case AslLexer.OBJ_FUNC:
                 String id = t.getChild(0).getText();
-                String fname = t.getChild(1).getChild(0).getText();
+                String fname2 = t.getChild(1).getChild(0).getText();
                 Data object = Stack.getVariable(id);
                 checkObject(object);
                 HashMap <String,AslTree> funcs_object = IncludeName2Tree.get(object.getClase());
                 if (funcs_object==null) throw new RuntimeException("Object does not exists");
-                if (
+                if (!funcs_object.containsKey(fname2)) throw new RuntimeException("Object does not have this function declared");
+                String funcion2 ="";
+                AslTree func2 = funcs_object.get(fname2);
+                AslTree callerParams2 = t.getChild(1).getChild(1);
+                AslTree calleeParams2 = func2.getChild(2);
+                if (callerParams2.getChildCount() != calleeParams2.getChildCount()) throw new RuntimeException("Different number of parameters in function : "+fname2+ " declared "+calleeParams2.getChildCount()+ " found "+callerParams2.getChildCount());
+                
+                value = new Data(func2.getChild(0).getText());
+                
+                for (int i = 0; i < callerParams2.getChildCount(); ++i) {
+                    if (i > 0) funcion2 += ", ";
+                    MyResult aux = translateExpression(callerParams2.getChild(i));
+                    Data callee = new Data(calleeParams2.getChild(i).getChild(0).getText());
+                    if (aux.getData().getType()==callee.getType()){
+                        funcion2 += aux.getTexto();
+                    }else{
+                         throw new RuntimeException ("does not match types on caller and calle on param number "+i+" expected: "+callee.getType()+" found: "+aux.getData().getType()+" on parameter called: "+aux.getTexto());
+                    }
+                }
+                funcion2= id+"."+fname2+"("+funcion2+")";
+                
+                ret = new MyResult(value, funcion2);
+                break;
+                /*
+                MyResult aux = translateExpression(t.getChild(1));
+                String funcion2 = id +"."+aux.getTexto();
+                ret = new MyResult(aux.getData(), funcion2);
+                break;
+                */
             case AslLexer.OBJECT:
                 String clase = t.getChild(0).getText();
                 value = new Data(clase);
                 if (!IncludeName2Tree.containsKey(clase)) throw new RuntimeException ("Class "+clase+" does not exist");
                 ret = new MyResult(value, clase);
+                break;
             case AslLexer.DMOTOR:
                 String tradMotor = "Motor.";
                 int num = Integer.parseInt(t.getText().substring(t.getText().length()-1));
