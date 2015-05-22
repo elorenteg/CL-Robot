@@ -18,11 +18,18 @@ public class objeto {
         return m1;
     }
 
+    public static void ja() {
+        int a = 2;
+    }
+
     public static void main(String args[]) {
-        piloto o = ejemplo();
+        piloto o = new piloto();
+        o = new piloto();
         sensor b = new sensor();
         int numero = 5;
         NXTRegulatedMotor m1 = Motor.A;
+        m1 = Motor.B;
+        m1 = ejemplo2();
         NXTRegulatedMotor m2 = Motor.B;
         NXTRegulatedMotor m3 = ejemplo2();
         o.girar(m1, m2, 45);

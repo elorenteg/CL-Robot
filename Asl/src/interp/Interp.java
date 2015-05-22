@@ -385,7 +385,21 @@ public class Interp {
                     }
                     //else return false;
                 }else{
-                    bw.write (vname + " = " + result.getTexto());
+                    if (result.getData().getType() != Data.Type.OBJECT){
+                        bw.write (vname + " = " + result.getTexto());
+                    }else{
+                        System.out.println(t.getChild(1).getType());
+                        System.out.println(AslLexer.FUNCALL);
+                        System.out.println(lineNumber());
+                        if (t.getChild(1).getType()==AslLexer.FUNCALL){
+                            System.out.println("entro en funcall "+vname);
+                            bw.write(vname+" = " + result.getTexto());
+                        }else{
+                            System.out.println("NO entro en funcall "+vname);
+                            bw.write (vname + " = new " + result.getTexto() + "()");
+                        }
+                    }
+                    
                     //else return false;
                 }
                 break;

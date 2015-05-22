@@ -92,6 +92,10 @@ public class Stack {
      */
     public boolean defineVariable(String name, Data value) {
         Data d = CurrentAR.get(name);
+        /*if (d!=null){
+            System.out.println(d.getType() +" " +d.getClase());
+            System.out.println(value.getType() +" " +value.getClase());
+        }*/
         if (d == null){
           CurrentAR.put(name, value);
           return true;  

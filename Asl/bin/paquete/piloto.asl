@@ -6,3 +6,5 @@ void girar(motor m1, motor m2,int grado)
     
     
 endfunc
+
+

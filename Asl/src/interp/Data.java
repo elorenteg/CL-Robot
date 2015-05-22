@@ -49,10 +49,10 @@ public class Data {
     private String clase;
 
     /** Constructor by Type */
-    Data(Type t){ type = t; }
+    Data(Type t){ type = t;clase=""; }
 
     /** Constructor for void data */
-    Data() { type = Type.VOID; }
+    Data() { type = Type.VOID; clase="";}
 
     /** Copy constructor */
     Data(Data d) { type = d.type; clase = d.clase; }
