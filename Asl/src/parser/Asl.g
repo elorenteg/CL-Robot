@@ -67,29 +67,28 @@ tokens {
 }
 
 
-// A program is a list of functions
-
-prog   : list_includes list_globals list_funcs -> ^(PROG list_includes list_globals list_funcs)
+// A program is a list of includes, a list of global variables and a list of functions
+prog    : list_includes list_globals list_funcs -> ^(PROG list_includes list_globals list_funcs)
         ;
 
-list_includes : include* -> ^(LIST_INCLUDES include*)
-    ;
-    
-list_globals : (global ';')* -> ^(LIST_GLOBALS global*)
-  ;
-    
-list_funcs : func+ EOF -> ^(LIST_FUNCTIONS func+)
+list_includes
+        : include* -> ^(LIST_INCLUDES include*)
         ;
-        
+    
+list_globals
+        : (global ';')* -> ^(LIST_GLOBALS global*)
+        ;
+    
+list_funcs
+        : func+ EOF -> ^(LIST_FUNCTIONS func+)
+        ;
+            
 include : INCLUDE p=ID'/'f=ID -> ^(INCL $p $f) 
-    ;
+        ;
     
-global : t=ID id=ID -> ^(GLOB $t $id)
-	| TIPO ID -> ^(GLOB TIPO ID)
-	;
-    
-//prog^   : func+ EOF -> ^(LIST_FUNCTIONS func+)
-//        ;
+global  : t=ID id=ID -> ^(GLOB $t $id)
+        | TIPO ID -> ^(GLOB TIPO ID)
+        ;
             
 // A function has a name, a list of parameters and a block of instructions
 func    : t=ID id=ID params block_instructions return_stmt ENDFUNC -> ^(FUNC $t $id params block_instructions return_stmt)
@@ -211,7 +210,8 @@ funcall : ID '(' expr_list? ')' -> ^(FUNCALL ID ^(ARGLIST expr_list?))
         ;
 
 // A list of expressions separated by commas
-expr_list: expr (','! expr)*
+expr_list
+        : expr (','! expr)*
         ;
 
 // Basic tokens
