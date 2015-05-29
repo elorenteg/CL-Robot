@@ -1,19 +1,25 @@
+include basic/sonar
+
 void main()
 
     m1 = MOTOR(1);
-    m1.setSpeed(10);
+    m2 = MOTOR(2);
+    m1.setSpeed(720);
+    m2.setSpeed(720);
     
-    us = ULTRA(1);
-    while us.getUltrasonic() > 4 do
-        m1.avanzar(1);
+    s = OBJECT(sonar);
+    s.init();        // ULTRA(1) en MOTOR(3)
+    
+    mu = MOTOR(3);
+    
+    desf = 0;
+    mu.avanzar(10,false); desf = desf + 10;
+    
+    while true do
+        g = s.grados(0);
+        m1.avanzar(g,true);
+        m2.avanzar(g,false);
+        desf = desf + 10;
     endwhile;
-    m1.parar();
-    
-    ts = TOUCH(2);
-    if ts.getTouch() then
-        m1.avanzar(10);
-    endif;
-    
-    sleep(100);
 
-endfunc
+endfunc 

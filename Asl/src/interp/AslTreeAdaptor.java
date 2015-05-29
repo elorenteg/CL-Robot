@@ -40,7 +40,7 @@ import parser.*;
  * It re-defines some required methods to cast the AST tree nodes
  * to the new AST nodes.
  */
- 
+
 public class AslTreeAdaptor extends CommonTreeAdaptor {
     public Object create(Token t) {
         return new AslTree(t);
@@ -50,9 +50,9 @@ public class AslTreeAdaptor extends CommonTreeAdaptor {
         if ( t==null ) return null;
         return create(((AslTree)t).token);
     }
-    
+
     public Object errorNode(TokenStream input, Token start, Token stop,
-                             RecognitionException e) {
+                            RecognitionException e) {
         return null;
     }
 }

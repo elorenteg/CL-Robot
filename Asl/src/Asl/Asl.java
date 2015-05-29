@@ -49,7 +49,7 @@ import interp.*;
  * the accepted options, run the command Asl -help.
  */
 
-public class Asl{
+public class Asl {
 
     /** The file name of the program. */
     private static String infile = null;
@@ -61,17 +61,17 @@ public class Asl{
     private static String tracefile = null;
     /** Flag to indicate whether the program must be executed after parsing. */
     private static boolean execute = true;
-    
+
     private static HashMap<String,HashMap<String,AslTree> > funcMapped;
-      
+
     /** Main program that invokes the parser and the interpreter. */
-    
+
     public static void main(String[] args) throws Exception {
         // Parser for command line options
         if (!readOptions (args)) System.exit(1);
 
         AslTree t = parseador(infile);
-        
+
 
         // Generate a file for the AST (option -ast file)
         if (astfile != null) {
@@ -91,18 +91,18 @@ public class Asl{
             // Creates and prepares the interpreter
             funcMapped = new HashMap<String,HashMap<String,AslTree> >();
             AslTree incls = t.getChild(0);
-            for (int i = 0;i<incls.getChildCount();++i){
+            for (int i = 0; i<incls.getChildCount(); ++i) {
                 String fn = incls.getChild(i).getChild(1).getText();
                 String pt = incls.getChild(i).getChild(0).getText();
                 String file = pt+"/"+fn+".asl";
                 AslTree inclFile = parseador(file);
                 Interp J = null;
                 int linenumber = -1;
-                try{
+                try {
                     J= new Interp(inclFile, tracefile,funcMapped,fn,pt);
                     J.Run();
                     funcMapped = J.functionsMapped();
-                }catch (RuntimeException e) {
+                } catch (RuntimeException e) {
                     if (J != null) linenumber = J.lineNumber();
                     System.err.print ("Runtime error");
                     if (linenumber < 0) System.err.print (": ");
@@ -141,7 +141,7 @@ public class Asl{
     }
 
 
-    private static AslTree parseador(String ruta){
+    private static AslTree parseador(String ruta) {
         CharStream input = null;
         try {
             input = new ANTLRFileStream(ruta);
@@ -162,7 +162,7 @@ public class Asl{
         try {
             result = parser.prog();
         } catch (Exception e) {} // Just catch the exception (nothing to do)
-        
+
         // Check for parsing errors
         int nerrors = parser.getNumberOfSyntaxErrors();
         if (nerrors > 0) {
@@ -186,16 +186,16 @@ public class Asl{
         Option noexec = new Option("noexec", "do not execute the program");
         Option dot = new Option("dot", "dump the AST in dot format");
         Option ast = OptionBuilder
-                        .withArgName ("file")
-                        .hasArg()
-                        .withDescription ("write the AST")
-                        .create ("ast");
+                     .withArgName ("file")
+                     .hasArg()
+                     .withDescription ("write the AST")
+                     .create ("ast");
         Option trace = OptionBuilder
-                        .withArgName ("file")
-                        .hasArg()
-                        .withDescription ("write a trace of function calls during the execution of the program")
-                        .create ("trace");
-                                       
+                       .withArgName ("file")
+                       .hasArg()
+                       .withDescription ("write a trace of function calls during the execution of the program")
+                       .create ("trace");
+
         Options options = new Options();
         options.addOption(help);
         options.addOption(dot);
@@ -206,13 +206,12 @@ public class Asl{
         CommandLine line = null;
 
         String cmdline = "Asl [options] file";
-        
-        
+
+
         // Parse the options
         try {
             line = clp.parse (options, args);
-        }
-        catch (ParseException exp) {
+        } catch (ParseException exp) {
             System.err.println ("Incorrect command line: " + exp.getMessage());
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp (cmdline, options);
@@ -225,16 +224,16 @@ public class Asl{
             formatter.printHelp (cmdline, options);
             return false;
         }
-        
+
         // Option -dot
         if (line.hasOption ("dot")) dotformat = true;
 
         // Option -ast dotfile
         if (line.hasOption ("ast")) astfile = line.getOptionValue ("ast");
-        
+
         // Option -trace dotfile
         if (line.hasOption ("trace")) tracefile = line.getOptionValue ("trace");
-        
+
         // Option -noexec
         if (line.hasOption ("noexec")) execute = false;
 
@@ -246,7 +245,7 @@ public class Asl{
             formatter.printHelp (cmdline, options);
             return false;
         }
-        
+
         infile = files[0];
         return true;
     }

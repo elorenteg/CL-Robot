@@ -33,13 +33,12 @@ public class piloto {
     }
 
     public static boolean girarInSitu(int dire, int grados, boolean check) {
-        if((dire >= 0)) {
-            izq.rotate((relacion * grados),true);
-            der.rotate(-(relacion * grados),true);
-        } else {
-            der.rotate((relacion * grados),true);
-            izq.rotate(-(relacion * grados),true);
+        if((dire < 0)) {
+            grados = (-1 * grados);
         }
+
+        izq.rotate((relacion * grados),true);
+        der.rotate(-(relacion * grados),true);
         return checkMotorSensor(check);
     }
 

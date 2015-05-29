@@ -45,23 +45,32 @@ public class Data {
 
     /** Type of data*/
     private Type type;
-    
+
     private String clase;
 
     /** Constructor by Type */
-    Data(Type t){ type = t;clase=""; }
+    Data(Type t) {
+        type = t;
+        clase="";
+    }
 
     /** Constructor for void data */
-    Data() { type = Type.VOID; clase="";}
+    Data() {
+        type = Type.VOID;
+        clase="";
+    }
 
     /** Copy constructor */
-    Data(Data d) { type = d.type; clase = d.clase; }
-    
+    Data(Data d) {
+        type = d.type;
+        clase = d.clase;
+    }
+
     /** Constructor by string with the type */
     Data(String tipo) {
         clase = "";
         if (tipo.equals("bool")) type = Type.BOOLEAN;
-        else if (tipo.equals("int")) type = Type.INTEGER; 
+        else if (tipo.equals("int")) type = Type.INTEGER;
         else if (tipo.equals("motor")) type = Type.MOTOR;
         else if (tipo.equals("void")) type = Type.VOID;
         else if (tipo.equals("ultra")) type = Type.ULTRA;
@@ -74,37 +83,60 @@ public class Data {
     }
 
     /** Returns the type of data */
-    public Type getType() { return type; }
-    
+    public Type getType() {
+        return type;
+    }
+
     /** Returns the class of data */
-    public String getClase() {return clase;}
+    public String getClase() {
+        return clase;
+    }
 
     /** Indicates whether the data is Boolean */
-    public boolean isBoolean() { return type == Type.BOOLEAN; }
+    public boolean isBoolean() {
+        return type == Type.BOOLEAN;
+    }
 
     /** Indicates whether the data is integer */
-    public boolean isInteger() { return type == Type.INTEGER; }
+    public boolean isInteger() {
+        return type == Type.INTEGER;
+    }
 
     /** Indicates whether the data is void */
-    public boolean isVoid() { return type == Type.VOID; }
+    public boolean isVoid() {
+        return type == Type.VOID;
+    }
 
     /** Indicates whether the data is a motor */
-    public boolean isMotor() { return type == Type.MOTOR; }
-    
+    public boolean isMotor() {
+        return type == Type.MOTOR;
+    }
+
     /** Indicates whether the data is an ultrasonic sensor */
-    public boolean isUltra() { return type == Type.ULTRA; }
-    
+    public boolean isUltra() {
+        return type == Type.ULTRA;
+    }
+
     /** Indicates whether the data is a touch sensor */
-    public boolean isTouch() { return type == Type.TOUCH; }
-    
+    public boolean isTouch() {
+        return type == Type.TOUCH;
+    }
+
     /** Indicates whether the data is color sensor */
-    public boolean isColor() { return type == Type.COLOR; }
-    
+    public boolean isColor() {
+        return type == Type.COLOR;
+    }
+
     /** Indicates whether the data is an object */
-    public boolean isObject() { return type == Type.OBJECT; }
-    
+    public boolean isObject() {
+        return type == Type.OBJECT;
+    }
+
     /** Copies the value from another data */
-    public void setData(Data d) { type = d.type; clase = d.clase;}
-    
-    
+    public void setData(Data d) {
+        type = d.type;
+        clase = d.clase;
+    }
+
+
 }

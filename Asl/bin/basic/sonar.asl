@@ -2,22 +2,22 @@
 ultra U;
 motor M;
 
-void init(int portU, int portM)
-    U = ULTRA(portU);
-    M = MOTOR(portM);
+void init()
+    U = ULTRA(1);
+    M = MOTOR(3);
     M.setSpeed(720);
-    
 endfunc
 
 
+
 void girar(int g)
-    M.avanzar(g,True);
-    M.retroceder(g,False);
-enfunc
+    M.avanzar(g,true);
+    M.retroceder(g,false);
+endfunc
 
 
 int grados(int desf)
-    girar(-desf-75);
+    girar(- desf - 75);
     
     grad = 0;
     dist = 0;
@@ -33,8 +33,9 @@ int grados(int desf)
         i = i + 10;
     endwhile;
     
-    girar(desf-75);
+    girar(desf - 75);
     
     return grad;
-    
 endfunc
+
+
