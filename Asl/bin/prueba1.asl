@@ -10,20 +10,17 @@ void main()
     m1 = MOTOR(1);
     m2 = MOTOR(2);
     us = ULTRA(1);
+    
+    m1.setSpeed(180);
+    m2.setSpeed(180);
+    
     p = OBJECT(piloto);
     p.init(m1,m2,9,12,2);
-    r = p.girar(1,180,true);
-    write r;
+    p.setColorSen(COLOR(1));
+    p.setColorToFollow(7);
+    r = p.followColor(true);
     sleep();
-    r = p.girarInSitu(1,360,true);
-    write r;
-    sleep();
-    r = p.girarInSitu(-1,360,false);
-    write r;
-    sleep();
-    r = p.mover(1,10,true);
-    write r;
-    sleep();
+    
 
 endfunc
 
