@@ -1,6 +1,6 @@
 include basic/sonar
 
-// Mueve el robot hacia los sitios mas despejados
+// mueve el robot siguiendo un objeto
 
 void main()
 
@@ -19,11 +19,11 @@ void main()
     mu.avanzar(10,false); desf = desf + 10;
     
     while true do
-        g = s.grados(0);
+        g = s.gradosObj(0);
         m1.avanzar(g,true);
         m2.retroceder(g,false);
         
-        // desf = desf + 10;
+        desf = desf + 10;
         
         m1.avanzar(20,true);
         m2.avanzar(20,false);

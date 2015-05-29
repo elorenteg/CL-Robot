@@ -10,14 +10,18 @@ M.rotate(g,true);
 M.rotate(-g,false);
 }
 
-public static int grados(int desf) {
+public static int grados(int desf, boolean esDesp) {
 girar((-desf - 75));
 int grad = 0;
 int dist = 0;
+if(!esDesp) {
+dist = 255;
+}
+
 int i = -75;
 while((i < 75)) {
 girar(10);
-if((U.getDistance() > dist)) {
+if(((esDesp && (U.getDistance() > dist)) || (!esDesp && (U.getDistance() < dist)))) {
 dist = U.getDistance();
 grad = i;
 }

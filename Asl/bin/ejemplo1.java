@@ -16,10 +16,12 @@ public class ejemplo1 {
         mu.rotate(10,false);
         desf = (desf + 10);
         while(true) {
-            int g = s.grados(0);
+            int g = s.grados(0, true);
             m1.rotate(g,true);
-            m2.rotate(g,false);
+            m2.rotate(-g,false);
             desf = (desf + 10);
+            m1.rotate(20,true);
+            m2.rotate(20,false);
         }
     }
 }

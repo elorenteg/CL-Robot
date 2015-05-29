@@ -30,18 +30,42 @@ int grados(int desf)
     grad = 0;
     dist = 0;
     i = -75;
-    while i < 75 do
-        girar(10);
+    while i <= 75 do
         
-        if U.getUltrasonic() > dist then
+        if (U.getUltrasonic() > dist) then
             dist = U.getUltrasonic();
             grad = i;
         endif;
+        
+        girar(10);
         
         i = i + 10;
     endwhile;
     
     girar(desf - 75);
+    
+    return grad;
+endfunc
+
+int gradosObj(int desf)
+    girar(- desf - 10);
+    
+    grad = 0;
+    dist = 255;
+    i = -10;
+    while i <= 10 do
+        
+        if (U.getUltrasonic() < dist) then
+            dist = U.getUltrasonic();
+            grad = i;
+        endif;
+        
+        girar(10);
+        
+        i = i + 10;
+    endwhile;
+    
+    girar(desf - 10);
     
     return grad;
 endfunc
