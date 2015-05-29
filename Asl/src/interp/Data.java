@@ -43,9 +43,10 @@ public class Data {
     /** Types of data */
     public enum Type {VOID, BOOLEAN, INTEGER, MOTOR, ULTRA, TOUCH, COLOR, OBJECT;}
 
-    /** Type of data*/
+    /** Type of data */
     private Type type;
 
+    /** Name of the class if Type is an object */
     private String clase;
 
     /** Constructor by Type */

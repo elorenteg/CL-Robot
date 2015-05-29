@@ -41,19 +41,26 @@ import java.util.Set;
 
 public class Interp {
 
+    /** Inner class for instruction result with Data and String */
     final static class MyResult {
+        /** Result Data */
         private final Data value;
+        
+        /** Result String with the translation */
         private final String texto;
 
+        /** Constructor by Data and String */
         public MyResult(Data first, String second) {
             this.value = first;
             this.texto = second;
         }
 
+        /** Returns the Data of the Result */
         public Data getData() {
             return value;
         }
 
+        /** Returns the String to print of the Result */
         public String getTexto() {
             return texto;
         }
@@ -73,12 +80,19 @@ public class Interp {
      */
     private HashMap<String,AslTree> FuncName2Tree;
 
-    private HashMap<String,HashMap<String,AslTree> > IncludeName2Tree;
+    /**
+     * Map between include names (keys) and their FuncName2Tree (values).
+     * Each entry of the map stores a map between the function names (keys) and ASTs (value)
+     */
+    private HashMap<String,HashMap<String,AslTree>> IncludeName2Tree;
 
+    /** List of includes with path and name */
     private ArrayList<String> list_includes;
 
+    /** Path of the file */
     private String ruta;
 
+    /** Name of the file */
     private String filename;
 
     /** Standard input of the interpreter (System.in). */
@@ -225,6 +239,7 @@ public class Interp {
     }
 
 
+    /** Gathers information from the AST and creates the list of includes */
     private void PopulateListIncludes(AslTree T) {
         if (!ruta.equals("") && T.getChildCount()!=0) throw new RuntimeException("Includes Packages cannot have includes");
         list_includes = new ArrayList<String> ();
@@ -260,7 +275,7 @@ public class Interp {
         IncludeName2Tree.put(filename,FuncName2Tree);
     }
 
-
+    /** Gathers information from the AST and creates the global variables stack */
     private void MapGlobal(AslTree t) {
 
         for (int i=0; i<t.getChildCount(); ++i) {
@@ -306,6 +321,7 @@ public class Interp {
         return linenumber;
     }
 
+    /** Gets the includes map */
     public HashMap<String, HashMap<String,AslTree> > functionsMapped() {
         return IncludeName2Tree;
     }
@@ -895,6 +911,7 @@ public class Interp {
         }
     }
 
+    /** Checks the data is an Object of a class */
     private void checkObject (Data b) {
         if (!b.isObject()) {
             throw new RuntimeException ("Expecting Object expression");
@@ -908,10 +925,13 @@ public class Interp {
         }
     }
 
+    /** Checks the function is in the same file */
     private boolean checkFunctionMine(String fname) {
         return FuncName2Tree.get(fname) != null;
     }
 
+    /** Gets the include where is declared the function called fname
+        Returns an empty string otherwise */
     private String checkFunctionIncludes(String fname) {
 
         for (Map.Entry<String, HashMap<String,AslTree> > includes : IncludeName2Tree.entrySet()) {
@@ -921,7 +941,8 @@ public class Interp {
         }
         return "";
     }
-
+    
+    /** Checks if there is no include name with the name of a variable */
     private void checkIDnotInclude(String id) {
         if (IncludeName2Tree.containsKey(id)) throw new RuntimeException ("ID cannot have the name of an Include file");
     }

@@ -46,7 +46,9 @@ public class Stack {
     /** Reference to the current activation record */
     private HashMap<String,Data> CurrentAR = null;
 
+    /** Reference to the global variables activation record */
     public HashMap<String,Data> GlobalMap = null;
+    
     /**
      * Class to represent an item of the Stack trace.
      * For each function call, the function name and
@@ -92,6 +94,7 @@ public class Stack {
      * the variable are re-defined.
      * @param name The name of the variable
      * @param value The value of the variable
+     * @return If it is a new variable
      */
     public boolean defineVariable(String name, Data value) {
         Data d = CurrentAR.get(name);
@@ -109,7 +112,12 @@ public class Stack {
         }
         return false;
     }
-
+    
+    /** Defines the value of a global variable. If the global variable does not
+     * exist, it is created.
+     * @param name The name of the global variable
+     * @param value The Data value of the global variable
+     */
     public void defineGlobal(String name, Data value) {
         Data d = GlobalMap.get(name);
 

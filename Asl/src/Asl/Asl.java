@@ -62,7 +62,8 @@ public class Asl {
     /** Flag to indicate whether the program must be executed after parsing. */
     private static boolean execute = true;
 
-    private static HashMap<String,HashMap<String,AslTree> > funcMapped;
+    /** Map with the includes functions */
+    private static HashMap<String,HashMap<String,AslTree>> funcMapped;
 
     /** Main program that invokes the parser and the interpreter. */
 
@@ -141,6 +142,7 @@ public class Asl {
     }
 
 
+    /** Parser the file in path/name ruta */
     private static AslTree parseador(String ruta) {
         CharStream input = null;
         try {
