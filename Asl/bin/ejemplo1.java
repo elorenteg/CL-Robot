@@ -3,7 +3,6 @@ import lejos.nxt.*;
 import lejos.util.Delay;
 
 public class ejemplo1 {
-
     public static void main(String args[]) {
         NXTRegulatedMotor m1 = Motor.A;
         NXTRegulatedMotor m2 = Motor.B;
@@ -11,7 +10,8 @@ public class ejemplo1 {
         m2.setSpeed(720);
         sonar s = new sonar();
         s.init();
-        NXTRegulatedMotor mu = Motor.C;
+        UltrasonicSensor u = s.getUltra();
+        NXTRegulatedMotor mu = s.getMotor();
         int desf = 0;
         mu.rotate(10,false);
         desf = (desf + 10);

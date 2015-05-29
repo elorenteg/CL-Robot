@@ -10,7 +10,8 @@ void main()
     s = OBJECT(sonar);
     s.init();        // ULTRA(1) en MOTOR(3)
     
-    mu = MOTOR(3);
+    u = s.getUltra();
+    mu = s.getMotor();
     
     desf = 0;
     mu.avanzar(10,false); desf = desf + 10;

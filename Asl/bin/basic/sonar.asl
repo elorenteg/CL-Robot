@@ -8,7 +8,15 @@ void init()
     M.setSpeed(720);
 endfunc
 
+ultra getUltra()
+    u = U;
+    return u;
+endfunc
 
+motor getMotor()
+    m = M;
+    return m;
+endfunc
 
 void girar(int g)
     M.avanzar(g,true);
@@ -37,5 +45,3 @@ int grados(int desf)
     
     return grad;
 endfunc
-
-

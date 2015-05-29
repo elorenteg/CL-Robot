@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g 2015-05-29 13:38:40
+// $ANTLR 3.4 /home2/users/alumnes/1161255/dades/linux/CL/Proyecto/robot-cl/Asl/src/parser/Asl.g 2015-05-29 14:08:40
 
     package parser;
     import interp.AslTree;
@@ -198,7 +198,7 @@ public TreeAdaptor getTreeAdaptor() {
             stream_list_funcs.add(list_funcs3.getTree());
 
             // AST REWRITE
-            // elements: list_funcs, list_globals, list_includes
+            // elements: list_funcs, list_includes, list_globals
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -691,7 +691,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: f, p
+            // elements: p, f
             // token labels: f, p
             // rule labels: retval
             // token list labels: 
@@ -806,7 +806,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: id, t
+                    // elements: t, id
                     // token labels: id, t
                     // rule labels: retval
                     // token list labels: 
@@ -1036,7 +1036,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: params, id, return_stmt, block_instructions, t
+                    // elements: block_instructions, params, t, return_stmt, id
                     // token labels: id, t
                     // rule labels: retval
                     // token list labels: 
@@ -1114,7 +1114,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: ID, TIPO, block_instructions, params, return_stmt
+                    // elements: params, ID, return_stmt, block_instructions, TIPO
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1187,7 +1187,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: block_instructions, params, ID, VOID
+                    // elements: block_instructions, VOID, params, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1522,7 +1522,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: ID, TIPO
+                    // elements: TIPO, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2344,7 +2344,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: e1, ID, AVANZAR, e2
+                    // elements: e2, e1, ID, AVANZAR
                     // token labels: 
                     // rule labels: retval, e1, e2
                     // token list labels: 
@@ -2421,7 +2421,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: PARAR, ID
+                    // elements: ID, PARAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2489,7 +2489,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, ID, MSETTER
+                    // elements: MSETTER, expr, ID
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4646,7 +4646,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: ID, b
+                    // elements: b, ID
                     // token labels: b
                     // rule labels: retval
                     // token list labels: 

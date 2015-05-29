@@ -178,9 +178,10 @@ public class Interp {
                     else throw new RuntimeException("ERROR MUY GORDO!!!! no deberia salir nunca!!");
                     bw.write("private static "+norm + " "+gname+";");
                 }
+                bw.newLine();
             }
 
-            bw.newLine();
+            if (Stack.GlobalMap.size() != 0) bw.newLine();
 
             if (ruta.equals("") && !FuncName2Tree.containsKey("main")) {
                 throw new RuntimeException("file "+filename+": function main() must be declared");

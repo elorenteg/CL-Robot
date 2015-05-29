@@ -5,6 +5,7 @@ import lejos.util.Delay;
 public class sonar {
     private static UltrasonicSensor U;
     private static NXTRegulatedMotor M;
+
     public static void girar(int g) {
         M.rotate(g,true);
         M.rotate(-g,false);
@@ -26,6 +27,16 @@ public class sonar {
         }
         girar((desf - 75));
         return grad;
+    }
+
+    public static UltrasonicSensor getUltra() {
+        UltrasonicSensor u = U;
+        return u;
+    }
+
+    public static NXTRegulatedMotor getMotor() {
+        NXTRegulatedMotor m = M;
+        return m;
     }
 
     public static void init() {
