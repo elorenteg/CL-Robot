@@ -2,14 +2,12 @@ Descripcion de los directorios
 ==============================
 
 DOCS:    informe de la practica
-EXEC:    ejecutable de la practica con ejemplos
 FONT:    codigo fuente de la practica
-JAVADOC: javadoc con las clases Java comentadas
 
 
 Ejecucion:
 ==========
 
-Dentro del directorio EXEC.
+Dentro del directorio FONT/bin
 
     ./Asl <fichero_principal>
