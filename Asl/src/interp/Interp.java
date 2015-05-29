@@ -110,6 +110,7 @@ public class Interp {
         //TO-DO
         //mapear globales getChild(1)
         
+        
         MapGlobal(T.getChild(1));
         
         MapFunctions(T.getChild(2), archivo);  // Creates the table to map function names into AST nodes
@@ -150,6 +151,7 @@ public class Interp {
                 bw.newLine();
             }
             bw.write("import lejos.nxt.*;"); 
+            bw.write("import lejos.util.Delay;");
             bw.newLine();
             bw.newLine();
             
@@ -164,7 +166,7 @@ public class Interp {
                 String gname = global.getKey();
 		Data gdata = global.getValue();
 		if (gdata.getType() == Data.Type.OBJECT){
-		  bw.write("private " +gdata.getClase()+" "+gname+";");
+		  bw.write("private static " +gdata.getClase()+" "+gname+";");
 		}else{
 		  String norm="";
 		  if (gdata.getType()==Data.Type.INTEGER) norm = "int";
@@ -174,7 +176,7 @@ public class Interp {
 		  else if(gdata.getType()==Data.Type.COLOR) norm = "ColorSensor";
 		  else if(gdata.getType()==Data.Type.TOUCH) norm = "TouchSensor";
 		  else throw new RuntimeException("ERROR MUY GORDO!!!! no deberia salir nunca!!");
-		  bw.write("private "+norm + " "+gname+";");
+		  bw.write("private static "+norm + " "+gname+";");
 		}
                 bw.newLine();
             }
@@ -240,7 +242,6 @@ public class Interp {
     private void MapFunctions(AslTree T,String filename) {
         assert T != null && T.getType() == AslLexer.LIST_FUNCTIONS;
         FuncName2Tree = new HashMap<String,AslTree> ();
-        if (IncludeName2Tree ==null) IncludeName2Tree = new HashMap<String, HashMap<String,AslTree> >();
         if (IncludeName2Tree.containsKey(filename)) throw new RuntimeException("Multiple definitions of " + filename);
         int n = T.getChildCount();
         for (int i = 0; i < n; ++i) {
@@ -263,12 +264,13 @@ public class Interp {
     
     
     private void MapGlobal(AslTree t){
+    
       for (int i=0;i<t.getChildCount();++i){
-	String tipo =t.getChild(i).getChild(0).getText();
-	String name =t.getChild(i).getChild(1).getText();
-	checkIDnotInclude(name);
-	Data v = new Data(tipo);
-	Stack.defineGlobal(name,v);
+	    String tipo =t.getChild(i).getChild(0).getText();
+	    String name =t.getChild(i).getChild(1).getText();
+	    checkIDnotInclude(name);
+	    Data v = new Data(tipo);
+	    Stack.defineGlobal(name,v);
       }
     
     }
@@ -332,7 +334,7 @@ public class Interp {
             else if (ftype.equals("bool")) ftypeNorm = "boolean";
             else if (ftype.equals("motor")) ftypeNorm = "NXTRegulatedMotor";
             else if (ftype.equals("touch")) ftypeNorm = "TouchSensor";
-            else if (ftype.equals("ultra")) ftypeNorm = "UltraSensor";
+            else if (ftype.equals("ultra")) ftypeNorm = "UltrasonicSensor";
             else if (ftype.equals("color")) ftypeNorm = "ColorSensor";
             else if (ftype.equals("void")) ftypeNorm = "void";
             else if (IncludeName2Tree.containsKey(ftype)) ftypeNorm = ftype;
@@ -353,7 +355,7 @@ public class Interp {
                 else if (ptype.equals("bool")) ptype = "boolean";
                 else if (ptype.equals("motor")) ptype = "NXTRegulatedMotor";
                 else if (ptype.equals("touch")) ptype = "TouchSensor";
-                else if (ptype.equals("ultra")) ptype = "UltraSensor";
+                else if (ptype.equals("ultra")) ptype = "UltrasonicSensor";
                 else if (ptype.equals("color")) ptype = "ColorSensor";
                 else if (!IncludeName2Tree.containsKey(ptype)) throw new RuntimeException ("Not a valid type of parameter: "+ptype );
                 bw.write(ptype + " " + pname);
@@ -538,9 +540,13 @@ public class Interp {
                 bw.write(motorSet+'.'+setterFunc);
                 break;
             case AslLexer.SSLEEP:
-                result = translateExpression(t.getChild(0));
-                checkInteger(result.getData());
-                bw.write("try { Thread.sleep("+result.getTexto()+"); } catch (InterruptedException e) {}");
+                if (t.getChildCount()==1){
+                    result = translateExpression(t.getChild(0));
+                    checkInteger(result.getData());
+                    bw.write("Delay.msDelay("+Integer.parseInt(result.getTexto())+")");
+                }else{
+                    bw.write("Button.waitForAnyPress()");
+                }
                 break;
                 
             default: assert false; // Should never happen
@@ -701,6 +707,7 @@ public class Interp {
                     ret = new MyResult(ret.getData(),texto+ret.getTexto());
                     break;
                 case AslLexer.NOT:
+                    texto = "!";
                     ret = translateExpression(t.getChild(0));
                     checkBoolean(ret.getData());
                     ret = new MyResult(ret.getData(),texto+ret.getTexto());
@@ -779,8 +786,11 @@ public class Interp {
                 checkMotor(ret.getData());
                 String motorGet = t.getChild(1).getText();
                 texto = motorGet + "." + getterFunc + "()";
-                
-                ret = new MyResult(new Data(Data.Type.INTEGER), texto);
+                if (getterFunc.equals("isMoving")){
+                    ret = new MyResult(new Data(Data.Type.BOOLEAN),texto);
+                }else{
+                    ret = new MyResult(new Data(Data.Type.INTEGER), texto);
+                }
                 break;
                 
             case AslLexer.GSENSOR:

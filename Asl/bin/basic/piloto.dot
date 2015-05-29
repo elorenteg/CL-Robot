@@ -1,0 +1,555 @@
+digraph {
+
+	ordering=out;
+	ranksep=.4;
+	bgcolor="lightgrey"; node [shape=box, fixedsize=false, fontsize=12, fontname="Helvetica-bold", fontcolor="blue"
+		width=.25, height=.25, color="black", fillcolor="white", style="filled, solid, bold"];
+	edge [arrowsize=.5, color="black", style="bold"]
+
+  n0 [label="PROG"];
+  n1 [label="LIST_INCLUDES"];
+  n2 [label="LIST_GLOBALS"];
+  n2 [label="LIST_GLOBALS"];
+  n3 [label="GLOB"];
+  n3 [label="GLOB"];
+  n4 [label="int"];
+  n5 [label="sep"];
+  n6 [label="GLOB"];
+  n6 [label="GLOB"];
+  n7 [label="int"];
+  n8 [label="eje"];
+  n9 [label="GLOB"];
+  n9 [label="GLOB"];
+  n10 [label="int"];
+  n11 [label="radio"];
+  n12 [label="GLOB"];
+  n12 [label="GLOB"];
+  n13 [label="int"];
+  n14 [label="relacion"];
+  n15 [label="GLOB"];
+  n15 [label="GLOB"];
+  n16 [label="motor"];
+  n17 [label="izq"];
+  n18 [label="GLOB"];
+  n18 [label="GLOB"];
+  n19 [label="motor"];
+  n20 [label="der"];
+  n21 [label="GLOB"];
+  n21 [label="GLOB"];
+  n22 [label="color"];
+  n23 [label="coloSen"];
+  n24 [label="GLOB"];
+  n24 [label="GLOB"];
+  n25 [label="ultra"];
+  n26 [label="ultraSen"];
+  n27 [label="GLOB"];
+  n27 [label="GLOB"];
+  n28 [label="touch"];
+  n29 [label="touchSen1"];
+  n30 [label="GLOB"];
+  n30 [label="GLOB"];
+  n31 [label="touch"];
+  n32 [label="touchSen2"];
+  n33 [label="GLOB"];
+  n33 [label="GLOB"];
+  n34 [label="int"];
+  n35 [label="limiteUS"];
+  n36 [label="LIST_FUNCTIONS"];
+  n36 [label="LIST_FUNCTIONS"];
+  n37 [label="FUNC"];
+  n37 [label="FUNC"];
+  n38 [label="bool"];
+  n39 [label="checkSensors"];
+  n40 [label="PARAMS"];
+  n41 [label="LIST_INSTR"];
+  n41 [label="LIST_INSTR"];
+  n42 [label=":="];
+  n42 [label=":="];
+  n43 [label="ret"];
+  n44 [label="false"];
+  n45 [label="if"];
+  n45 [label="if"];
+  n46 [label="and"];
+  n46 [label="and"];
+  n47 [label="and"];
+  n47 [label="and"];
+  n48 [label="<"];
+  n48 [label="<"];
+  n49 [label="GSENSOR"];
+  n49 [label="GSENSOR"];
+  n50 [label="getUltrasonic"];
+  n51 [label="ultraSen"];
+  n52 [label="limiteUS"];
+  n53 [label="not"];
+  n53 [label="not"];
+  n54 [label="GSENSOR"];
+  n54 [label="GSENSOR"];
+  n55 [label="getTouch"];
+  n56 [label="touchSen1"];
+  n57 [label="not"];
+  n57 [label="not"];
+  n58 [label="GSENSOR"];
+  n58 [label="GSENSOR"];
+  n59 [label="getTouch"];
+  n60 [label="touchSen2"];
+  n61 [label="LIST_INSTR"];
+  n61 [label="LIST_INSTR"];
+  n62 [label=":="];
+  n62 [label=":="];
+  n63 [label="ret"];
+  n64 [label="true"];
+  n65 [label="return"];
+  n65 [label="return"];
+  n66 [label="ret"];
+  n67 [label="FUNC"];
+  n67 [label="FUNC"];
+  n68 [label="void"];
+  n69 [label="init"];
+  n70 [label="PARAMS"];
+  n70 [label="PARAMS"];
+  n71 [label="PVALUE"];
+  n71 [label="PVALUE"];
+  n72 [label="motor"];
+  n73 [label="mizq"];
+  n74 [label="PVALUE"];
+  n74 [label="PVALUE"];
+  n75 [label="motor"];
+  n76 [label="mder"];
+  n77 [label="PVALUE"];
+  n77 [label="PVALUE"];
+  n78 [label="int"];
+  n79 [label="s"];
+  n80 [label="PVALUE"];
+  n80 [label="PVALUE"];
+  n81 [label="int"];
+  n82 [label="e"];
+  n83 [label="PVALUE"];
+  n83 [label="PVALUE"];
+  n84 [label="int"];
+  n85 [label="r"];
+  n86 [label="LIST_INSTR"];
+  n86 [label="LIST_INSTR"];
+  n87 [label=":="];
+  n87 [label=":="];
+  n88 [label="izq"];
+  n89 [label="mizq"];
+  n90 [label=":="];
+  n90 [label=":="];
+  n91 [label="der"];
+  n92 [label="mder"];
+  n93 [label=":="];
+  n93 [label=":="];
+  n94 [label="radio"];
+  n95 [label="r"];
+  n96 [label=":="];
+  n96 [label=":="];
+  n97 [label="sep"];
+  n98 [label="s"];
+  n99 [label=":="];
+  n99 [label=":="];
+  n100 [label="eje"];
+  n101 [label="e"];
+  n102 [label=":="];
+  n102 [label=":="];
+  n103 [label="relacion"];
+  n104 [label="/"];
+  n104 [label="/"];
+  n105 [label="eje"];
+  n106 [label="radio"];
+  n107 [label=":="];
+  n107 [label=":="];
+  n108 [label="limiteUS"];
+  n109 [label="-1"];
+  n110 [label=":="];
+  n110 [label=":="];
+  n111 [label="ultraSen"];
+  n112 [label="ULTRA1"];
+  n113 [label=":="];
+  n113 [label=":="];
+  n114 [label="coloSen"];
+  n115 [label="COLOR1"];
+  n116 [label=":="];
+  n116 [label=":="];
+  n117 [label="touchSen1"];
+  n118 [label="TOUCH1"];
+  n119 [label=":="];
+  n119 [label=":="];
+  n120 [label="touchSen2"];
+  n121 [label="TOUCH1"];
+  n122 [label="FUNC"];
+  n122 [label="FUNC"];
+  n123 [label="void"];
+  n124 [label="setLimitUS"];
+  n125 [label="PARAMS"];
+  n125 [label="PARAMS"];
+  n126 [label="PVALUE"];
+  n126 [label="PVALUE"];
+  n127 [label="int"];
+  n128 [label="lim"];
+  n129 [label="LIST_INSTR"];
+  n129 [label="LIST_INSTR"];
+  n130 [label=":="];
+  n130 [label=":="];
+  n131 [label="limiteUS"];
+  n132 [label="lim"];
+  n133 [label="FUNC"];
+  n133 [label="FUNC"];
+  n134 [label="void"];
+  n135 [label="girar"];
+  n136 [label="PARAMS"];
+  n136 [label="PARAMS"];
+  n137 [label="PVALUE"];
+  n137 [label="PVALUE"];
+  n138 [label="int"];
+  n139 [label="dire"];
+  n140 [label="PVALUE"];
+  n140 [label="PVALUE"];
+  n141 [label="int"];
+  n142 [label="grados"];
+  n143 [label="LIST_INSTR"];
+  n143 [label="LIST_INSTR"];
+  n144 [label="if"];
+  n144 [label="if"];
+  n145 [label=">="];
+  n145 [label=">="];
+  n146 [label="dire"];
+  n147 [label="0"];
+  n148 [label="LIST_INSTR"];
+  n148 [label="LIST_INSTR"];
+  n149 [label="SMOTOR"];
+  n149 [label="SMOTOR"];
+  n150 [label="avanzar"];
+  n151 [label="izq"];
+  n152 [label="*"];
+  n152 [label="*"];
+  n153 [label="*"];
+  n153 [label="*"];
+  n154 [label="relacion"];
+  n155 [label="2"];
+  n156 [label="grados"];
+  n157 [label="LIST_INSTR"];
+  n157 [label="LIST_INSTR"];
+  n158 [label="SMOTOR"];
+  n158 [label="SMOTOR"];
+  n159 [label="avanzar"];
+  n160 [label="der"];
+  n161 [label="*"];
+  n161 [label="*"];
+  n162 [label="*"];
+  n162 [label="*"];
+  n163 [label="relacion"];
+  n164 [label="2"];
+  n165 [label="grados"];
+  n166 [label="FUNC"];
+  n166 [label="FUNC"];
+  n167 [label="void"];
+  n168 [label="girarInSitu"];
+  n169 [label="PARAMS"];
+  n169 [label="PARAMS"];
+  n170 [label="PVALUE"];
+  n170 [label="PVALUE"];
+  n171 [label="int"];
+  n172 [label="dire"];
+  n173 [label="PVALUE"];
+  n173 [label="PVALUE"];
+  n174 [label="int"];
+  n175 [label="grados"];
+  n176 [label="LIST_INSTR"];
+  n176 [label="LIST_INSTR"];
+  n177 [label="if"];
+  n177 [label="if"];
+  n178 [label=">="];
+  n178 [label=">="];
+  n179 [label="dire"];
+  n180 [label="0"];
+  n181 [label="LIST_INSTR"];
+  n181 [label="LIST_INSTR"];
+  n182 [label="SMOTOR"];
+  n182 [label="SMOTOR"];
+  n183 [label="avanzar"];
+  n184 [label="izq"];
+  n185 [label="*"];
+  n185 [label="*"];
+  n186 [label="relacion"];
+  n187 [label="grados"];
+  n188 [label="true"];
+  n189 [label="SMOTOR"];
+  n189 [label="SMOTOR"];
+  n190 [label="retroceder"];
+  n191 [label="der"];
+  n192 [label="*"];
+  n192 [label="*"];
+  n193 [label="relacion"];
+  n194 [label="grados"];
+  n195 [label="true"];
+  n196 [label="LIST_INSTR"];
+  n196 [label="LIST_INSTR"];
+  n197 [label="SMOTOR"];
+  n197 [label="SMOTOR"];
+  n198 [label="avanzar"];
+  n199 [label="der"];
+  n200 [label="*"];
+  n200 [label="*"];
+  n201 [label="relacion"];
+  n202 [label="grados"];
+  n203 [label="true"];
+  n204 [label="SMOTOR"];
+  n204 [label="SMOTOR"];
+  n205 [label="retroceder"];
+  n206 [label="izq"];
+  n207 [label="*"];
+  n207 [label="*"];
+  n208 [label="relacion"];
+  n209 [label="grados"];
+  n210 [label="true"];
+  n211 [label="while"];
+  n211 [label="while"];
+  n212 [label="and"];
+  n212 [label="and"];
+  n213 [label="and"];
+  n213 [label="and"];
+  n214 [label="GMOTOR"];
+  n214 [label="GMOTOR"];
+  n215 [label="isMoving"];
+  n216 [label="der"];
+  n217 [label="GMOTOR"];
+  n217 [label="GMOTOR"];
+  n218 [label="isMoving"];
+  n219 [label="izq"];
+  n220 [label="FUNCALL"];
+  n220 [label="FUNCALL"];
+  n221 [label="checkSensors"];
+  n222 [label="ARGLIST"];
+  n223 [label="LIST_INSTR"];
+  n223 [label="LIST_INSTR"];
+  n224 [label="SSLEEP"];
+  n224 [label="SSLEEP"];
+  n225 [label="1"];
+
+  n0 -> n1 // "PROG" -> "LIST_INCLUDES"
+  n0 -> n2 // "PROG" -> "LIST_GLOBALS"
+  n2 -> n3 // "LIST_GLOBALS" -> "GLOB"
+  n3 -> n4 // "GLOB" -> "int"
+  n3 -> n5 // "GLOB" -> "sep"
+  n2 -> n6 // "LIST_GLOBALS" -> "GLOB"
+  n6 -> n7 // "GLOB" -> "int"
+  n6 -> n8 // "GLOB" -> "eje"
+  n2 -> n9 // "LIST_GLOBALS" -> "GLOB"
+  n9 -> n10 // "GLOB" -> "int"
+  n9 -> n11 // "GLOB" -> "radio"
+  n2 -> n12 // "LIST_GLOBALS" -> "GLOB"
+  n12 -> n13 // "GLOB" -> "int"
+  n12 -> n14 // "GLOB" -> "relacion"
+  n2 -> n15 // "LIST_GLOBALS" -> "GLOB"
+  n15 -> n16 // "GLOB" -> "motor"
+  n15 -> n17 // "GLOB" -> "izq"
+  n2 -> n18 // "LIST_GLOBALS" -> "GLOB"
+  n18 -> n19 // "GLOB" -> "motor"
+  n18 -> n20 // "GLOB" -> "der"
+  n2 -> n21 // "LIST_GLOBALS" -> "GLOB"
+  n21 -> n22 // "GLOB" -> "color"
+  n21 -> n23 // "GLOB" -> "coloSen"
+  n2 -> n24 // "LIST_GLOBALS" -> "GLOB"
+  n24 -> n25 // "GLOB" -> "ultra"
+  n24 -> n26 // "GLOB" -> "ultraSen"
+  n2 -> n27 // "LIST_GLOBALS" -> "GLOB"
+  n27 -> n28 // "GLOB" -> "touch"
+  n27 -> n29 // "GLOB" -> "touchSen1"
+  n2 -> n30 // "LIST_GLOBALS" -> "GLOB"
+  n30 -> n31 // "GLOB" -> "touch"
+  n30 -> n32 // "GLOB" -> "touchSen2"
+  n2 -> n33 // "LIST_GLOBALS" -> "GLOB"
+  n33 -> n34 // "GLOB" -> "int"
+  n33 -> n35 // "GLOB" -> "limiteUS"
+  n0 -> n36 // "PROG" -> "LIST_FUNCTIONS"
+  n36 -> n37 // "LIST_FUNCTIONS" -> "FUNC"
+  n37 -> n38 // "FUNC" -> "bool"
+  n37 -> n39 // "FUNC" -> "checkSensors"
+  n37 -> n40 // "FUNC" -> "PARAMS"
+  n37 -> n41 // "FUNC" -> "LIST_INSTR"
+  n41 -> n42 // "LIST_INSTR" -> ":="
+  n42 -> n43 // ":=" -> "ret"
+  n42 -> n44 // ":=" -> "false"
+  n41 -> n45 // "LIST_INSTR" -> "if"
+  n45 -> n46 // "if" -> "and"
+  n46 -> n47 // "and" -> "and"
+  n47 -> n48 // "and" -> "<"
+  n48 -> n49 // "<" -> "GSENSOR"
+  n49 -> n50 // "GSENSOR" -> "getUltrasonic"
+  n49 -> n51 // "GSENSOR" -> "ultraSen"
+  n48 -> n52 // "<" -> "limiteUS"
+  n47 -> n53 // "and" -> "not"
+  n53 -> n54 // "not" -> "GSENSOR"
+  n54 -> n55 // "GSENSOR" -> "getTouch"
+  n54 -> n56 // "GSENSOR" -> "touchSen1"
+  n46 -> n57 // "and" -> "not"
+  n57 -> n58 // "not" -> "GSENSOR"
+  n58 -> n59 // "GSENSOR" -> "getTouch"
+  n58 -> n60 // "GSENSOR" -> "touchSen2"
+  n45 -> n61 // "if" -> "LIST_INSTR"
+  n61 -> n62 // "LIST_INSTR" -> ":="
+  n62 -> n63 // ":=" -> "ret"
+  n62 -> n64 // ":=" -> "true"
+  n37 -> n65 // "FUNC" -> "return"
+  n65 -> n66 // "return" -> "ret"
+  n36 -> n67 // "LIST_FUNCTIONS" -> "FUNC"
+  n67 -> n68 // "FUNC" -> "void"
+  n67 -> n69 // "FUNC" -> "init"
+  n67 -> n70 // "FUNC" -> "PARAMS"
+  n70 -> n71 // "PARAMS" -> "PVALUE"
+  n71 -> n72 // "PVALUE" -> "motor"
+  n71 -> n73 // "PVALUE" -> "mizq"
+  n70 -> n74 // "PARAMS" -> "PVALUE"
+  n74 -> n75 // "PVALUE" -> "motor"
+  n74 -> n76 // "PVALUE" -> "mder"
+  n70 -> n77 // "PARAMS" -> "PVALUE"
+  n77 -> n78 // "PVALUE" -> "int"
+  n77 -> n79 // "PVALUE" -> "s"
+  n70 -> n80 // "PARAMS" -> "PVALUE"
+  n80 -> n81 // "PVALUE" -> "int"
+  n80 -> n82 // "PVALUE" -> "e"
+  n70 -> n83 // "PARAMS" -> "PVALUE"
+  n83 -> n84 // "PVALUE" -> "int"
+  n83 -> n85 // "PVALUE" -> "r"
+  n67 -> n86 // "FUNC" -> "LIST_INSTR"
+  n86 -> n87 // "LIST_INSTR" -> ":="
+  n87 -> n88 // ":=" -> "izq"
+  n87 -> n89 // ":=" -> "mizq"
+  n86 -> n90 // "LIST_INSTR" -> ":="
+  n90 -> n91 // ":=" -> "der"
+  n90 -> n92 // ":=" -> "mder"
+  n86 -> n93 // "LIST_INSTR" -> ":="
+  n93 -> n94 // ":=" -> "radio"
+  n93 -> n95 // ":=" -> "r"
+  n86 -> n96 // "LIST_INSTR" -> ":="
+  n96 -> n97 // ":=" -> "sep"
+  n96 -> n98 // ":=" -> "s"
+  n86 -> n99 // "LIST_INSTR" -> ":="
+  n99 -> n100 // ":=" -> "eje"
+  n99 -> n101 // ":=" -> "e"
+  n86 -> n102 // "LIST_INSTR" -> ":="
+  n102 -> n103 // ":=" -> "relacion"
+  n102 -> n104 // ":=" -> "/"
+  n104 -> n105 // "/" -> "eje"
+  n104 -> n106 // "/" -> "radio"
+  n86 -> n107 // "LIST_INSTR" -> ":="
+  n107 -> n108 // ":=" -> "limiteUS"
+  n107 -> n109 // ":=" -> "-1"
+  n86 -> n110 // "LIST_INSTR" -> ":="
+  n110 -> n111 // ":=" -> "ultraSen"
+  n110 -> n112 // ":=" -> "ULTRA1"
+  n86 -> n113 // "LIST_INSTR" -> ":="
+  n113 -> n114 // ":=" -> "coloSen"
+  n113 -> n115 // ":=" -> "COLOR1"
+  n86 -> n116 // "LIST_INSTR" -> ":="
+  n116 -> n117 // ":=" -> "touchSen1"
+  n116 -> n118 // ":=" -> "TOUCH1"
+  n86 -> n119 // "LIST_INSTR" -> ":="
+  n119 -> n120 // ":=" -> "touchSen2"
+  n119 -> n121 // ":=" -> "TOUCH1"
+  n36 -> n122 // "LIST_FUNCTIONS" -> "FUNC"
+  n122 -> n123 // "FUNC" -> "void"
+  n122 -> n124 // "FUNC" -> "setLimitUS"
+  n122 -> n125 // "FUNC" -> "PARAMS"
+  n125 -> n126 // "PARAMS" -> "PVALUE"
+  n126 -> n127 // "PVALUE" -> "int"
+  n126 -> n128 // "PVALUE" -> "lim"
+  n122 -> n129 // "FUNC" -> "LIST_INSTR"
+  n129 -> n130 // "LIST_INSTR" -> ":="
+  n130 -> n131 // ":=" -> "limiteUS"
+  n130 -> n132 // ":=" -> "lim"
+  n36 -> n133 // "LIST_FUNCTIONS" -> "FUNC"
+  n133 -> n134 // "FUNC" -> "void"
+  n133 -> n135 // "FUNC" -> "girar"
+  n133 -> n136 // "FUNC" -> "PARAMS"
+  n136 -> n137 // "PARAMS" -> "PVALUE"
+  n137 -> n138 // "PVALUE" -> "int"
+  n137 -> n139 // "PVALUE" -> "dire"
+  n136 -> n140 // "PARAMS" -> "PVALUE"
+  n140 -> n141 // "PVALUE" -> "int"
+  n140 -> n142 // "PVALUE" -> "grados"
+  n133 -> n143 // "FUNC" -> "LIST_INSTR"
+  n143 -> n144 // "LIST_INSTR" -> "if"
+  n144 -> n145 // "if" -> ">="
+  n145 -> n146 // ">=" -> "dire"
+  n145 -> n147 // ">=" -> "0"
+  n144 -> n148 // "if" -> "LIST_INSTR"
+  n148 -> n149 // "LIST_INSTR" -> "SMOTOR"
+  n149 -> n150 // "SMOTOR" -> "avanzar"
+  n149 -> n151 // "SMOTOR" -> "izq"
+  n149 -> n152 // "SMOTOR" -> "*"
+  n152 -> n153 // "*" -> "*"
+  n153 -> n154 // "*" -> "relacion"
+  n153 -> n155 // "*" -> "2"
+  n152 -> n156 // "*" -> "grados"
+  n144 -> n157 // "if" -> "LIST_INSTR"
+  n157 -> n158 // "LIST_INSTR" -> "SMOTOR"
+  n158 -> n159 // "SMOTOR" -> "avanzar"
+  n158 -> n160 // "SMOTOR" -> "der"
+  n158 -> n161 // "SMOTOR" -> "*"
+  n161 -> n162 // "*" -> "*"
+  n162 -> n163 // "*" -> "relacion"
+  n162 -> n164 // "*" -> "2"
+  n161 -> n165 // "*" -> "grados"
+  n36 -> n166 // "LIST_FUNCTIONS" -> "FUNC"
+  n166 -> n167 // "FUNC" -> "void"
+  n166 -> n168 // "FUNC" -> "girarInSitu"
+  n166 -> n169 // "FUNC" -> "PARAMS"
+  n169 -> n170 // "PARAMS" -> "PVALUE"
+  n170 -> n171 // "PVALUE" -> "int"
+  n170 -> n172 // "PVALUE" -> "dire"
+  n169 -> n173 // "PARAMS" -> "PVALUE"
+  n173 -> n174 // "PVALUE" -> "int"
+  n173 -> n175 // "PVALUE" -> "grados"
+  n166 -> n176 // "FUNC" -> "LIST_INSTR"
+  n176 -> n177 // "LIST_INSTR" -> "if"
+  n177 -> n178 // "if" -> ">="
+  n178 -> n179 // ">=" -> "dire"
+  n178 -> n180 // ">=" -> "0"
+  n177 -> n181 // "if" -> "LIST_INSTR"
+  n181 -> n182 // "LIST_INSTR" -> "SMOTOR"
+  n182 -> n183 // "SMOTOR" -> "avanzar"
+  n182 -> n184 // "SMOTOR" -> "izq"
+  n182 -> n185 // "SMOTOR" -> "*"
+  n185 -> n186 // "*" -> "relacion"
+  n185 -> n187 // "*" -> "grados"
+  n182 -> n188 // "SMOTOR" -> "true"
+  n181 -> n189 // "LIST_INSTR" -> "SMOTOR"
+  n189 -> n190 // "SMOTOR" -> "retroceder"
+  n189 -> n191 // "SMOTOR" -> "der"
+  n189 -> n192 // "SMOTOR" -> "*"
+  n192 -> n193 // "*" -> "relacion"
+  n192 -> n194 // "*" -> "grados"
+  n189 -> n195 // "SMOTOR" -> "true"
+  n177 -> n196 // "if" -> "LIST_INSTR"
+  n196 -> n197 // "LIST_INSTR" -> "SMOTOR"
+  n197 -> n198 // "SMOTOR" -> "avanzar"
+  n197 -> n199 // "SMOTOR" -> "der"
+  n197 -> n200 // "SMOTOR" -> "*"
+  n200 -> n201 // "*" -> "relacion"
+  n200 -> n202 // "*" -> "grados"
+  n197 -> n203 // "SMOTOR" -> "true"
+  n196 -> n204 // "LIST_INSTR" -> "SMOTOR"
+  n204 -> n205 // "SMOTOR" -> "retroceder"
+  n204 -> n206 // "SMOTOR" -> "izq"
+  n204 -> n207 // "SMOTOR" -> "*"
+  n207 -> n208 // "*" -> "relacion"
+  n207 -> n209 // "*" -> "grados"
+  n204 -> n210 // "SMOTOR" -> "true"
+  n176 -> n211 // "LIST_INSTR" -> "while"
+  n211 -> n212 // "while" -> "and"
+  n212 -> n213 // "and" -> "and"
+  n213 -> n214 // "and" -> "GMOTOR"
+  n214 -> n215 // "GMOTOR" -> "isMoving"
+  n214 -> n216 // "GMOTOR" -> "der"
+  n213 -> n217 // "and" -> "GMOTOR"
+  n217 -> n218 // "GMOTOR" -> "isMoving"
+  n217 -> n219 // "GMOTOR" -> "izq"
+  n212 -> n220 // "and" -> "FUNCALL"
+  n220 -> n221 // "FUNCALL" -> "checkSensors"
+  n220 -> n222 // "FUNCALL" -> "ARGLIST"
+  n211 -> n223 // "while" -> "LIST_INSTR"
+  n223 -> n224 // "LIST_INSTR" -> "SSLEEP"
+  n224 -> n225 // "SSLEEP" -> "1"
+
+}

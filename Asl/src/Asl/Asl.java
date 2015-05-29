@@ -89,7 +89,7 @@ public class Asl{
         // Start interpretation (only if execution required)
         if (execute) {
             // Creates and prepares the interpreter
-            funcMapped = null;
+            funcMapped = new HashMap<String,HashMap<String,AslTree> >();
             AslTree incls = t.getChild(0);
             for (int i = 0;i<incls.getChildCount();++i){
                 String fn = incls.getChild(i).getChild(1).getText();

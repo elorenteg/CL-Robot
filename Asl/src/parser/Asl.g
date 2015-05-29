@@ -138,7 +138,7 @@ motor   : ID '.' AVANZAR '(' (e1=expr (','e2=expr)?)? ')' -> ^(SMOTOR AVANZAR ID
         | ID '.' MSETTER '(' expr ')' -> ^(SMOTOR MSETTER ID expr)
         ;
         
-sleep   : SLEEP '(' expr ')' -> ^(SSLEEP expr)
+sleep   : SLEEP '(' expr? ')' -> ^(SSLEEP expr?)
         ;
 
 // Assignment

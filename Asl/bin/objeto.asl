@@ -1,6 +1,6 @@
 include paquete/piloto
 include paquete/sensor
-
+include basic/mate
 int a;
 piloto pil;
 
@@ -15,11 +15,14 @@ void main()
     m1 = ejemplo2();
     m2 = MOTOR(2);
     m3 = ejemplo2();
+    matem = OBJECT(mate);
+    n = matem.exponenciacion(2,5);
     o.girar(m1,m2,45);
     o.sensor();
     b.girar(m2,m1,20);
     girar(10,m1,o);
-    
+    sleep();
+    sleep(10);
 
 endfunc
 
