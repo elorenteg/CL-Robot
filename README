@@ -1,0 +1,13 @@
+Descripcion de los directorios
+==============================
+
+DOCS:    informe de la practica
+FONT:    codigo fuente de la practica
+
+
+Ejecucion:
+==========
+
+Dentro del directorio FONT/bin
+
+    ./Asl <fichero_principal>
