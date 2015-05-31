@@ -1,0 +1,842 @@
+digraph {
+
+	ordering=out;
+	ranksep=.4;
+	bgcolor="lightgrey"; node [shape=box, fixedsize=false, fontsize=12, fontname="Helvetica-bold", fontcolor="blue"
+		width=.25, height=.25, color="black", fillcolor="white", style="filled, solid, bold"];
+	edge [arrowsize=.5, color="black", style="bold"]
+
+  n0 [label="PROG"];
+  n1 [label="LIST_INCLUDES"];
+  n2 [label="LIST_GLOBALS"];
+  n2 [label="LIST_GLOBALS"];
+  n3 [label="GLOB"];
+  n3 [label="GLOB"];
+  n4 [label="ultra"];
+  n5 [label="U"];
+  n6 [label="GLOB"];
+  n6 [label="GLOB"];
+  n7 [label="motor"];
+  n8 [label="M"];
+  n9 [label="GLOB"];
+  n9 [label="GLOB"];
+  n10 [label="motor"];
+  n11 [label="M1"];
+  n12 [label="GLOB"];
+  n12 [label="GLOB"];
+  n13 [label="motor"];
+  n14 [label="M2"];
+  n15 [label="LIST_FUNCTIONS"];
+  n15 [label="LIST_FUNCTIONS"];
+  n16 [label="FUNC"];
+  n16 [label="FUNC"];
+  n17 [label="void"];
+  n18 [label="init"];
+  n19 [label="PARAMS"];
+  n19 [label="PARAMS"];
+  n20 [label="PVALUE"];
+  n20 [label="PVALUE"];
+  n21 [label="motor"];
+  n22 [label="m1"];
+  n23 [label="PVALUE"];
+  n23 [label="PVALUE"];
+  n24 [label="motor"];
+  n25 [label="m2"];
+  n26 [label="PVALUE"];
+  n26 [label="PVALUE"];
+  n27 [label="motor"];
+  n28 [label="mu"];
+  n29 [label="PVALUE"];
+  n29 [label="PVALUE"];
+  n30 [label="ultra"];
+  n31 [label="u"];
+  n32 [label="LIST_INSTR"];
+  n32 [label="LIST_INSTR"];
+  n33 [label=":="];
+  n33 [label=":="];
+  n34 [label="U"];
+  n35 [label="u"];
+  n36 [label=":="];
+  n36 [label=":="];
+  n37 [label="M"];
+  n38 [label="mu"];
+  n39 [label="SMOTOR"];
+  n39 [label="SMOTOR"];
+  n40 [label="setSpeed"];
+  n41 [label="M"];
+  n42 [label="180"];
+  n43 [label=":="];
+  n43 [label=":="];
+  n44 [label="M1"];
+  n45 [label="m1"];
+  n46 [label=":="];
+  n46 [label=":="];
+  n47 [label="M2"];
+  n48 [label="m2"];
+  n49 [label="SMOTOR"];
+  n49 [label="SMOTOR"];
+  n50 [label="setSpeed"];
+  n51 [label="M1"];
+  n52 [label="180"];
+  n53 [label="SMOTOR"];
+  n53 [label="SMOTOR"];
+  n54 [label="setSpeed"];
+  n55 [label="M2"];
+  n56 [label="180"];
+  n57 [label="FUNC"];
+  n57 [label="FUNC"];
+  n58 [label="void"];
+  n59 [label="girarUltra"];
+  n60 [label="PARAMS"];
+  n60 [label="PARAMS"];
+  n61 [label="PVALUE"];
+  n61 [label="PVALUE"];
+  n62 [label="int"];
+  n63 [label="g"];
+  n64 [label="LIST_INSTR"];
+  n64 [label="LIST_INSTR"];
+  n65 [label="SMOTOR"];
+  n65 [label="SMOTOR"];
+  n66 [label="avanzar"];
+  n67 [label="M"];
+  n68 [label="g"];
+  n69 [label="true"];
+  n70 [label="SMOTOR"];
+  n70 [label="SMOTOR"];
+  n71 [label="retroceder"];
+  n72 [label="M"];
+  n73 [label="g"];
+  n74 [label="false"];
+  n75 [label="FUNC"];
+  n75 [label="FUNC"];
+  n76 [label="void"];
+  n77 [label="laberinto"];
+  n78 [label="PARAMS"];
+  n78 [label="PARAMS"];
+  n79 [label="PVALUE"];
+  n79 [label="PVALUE"];
+  n80 [label="int"];
+  n81 [label="lim"];
+  n82 [label="LIST_INSTR"];
+  n82 [label="LIST_INSTR"];
+  n83 [label=":="];
+  n83 [label=":="];
+  n84 [label="i"];
+  n85 [label="0"];
+  n86 [label="while"];
+  n86 [label="while"];
+  n87 [label="<"];
+  n87 [label="<"];
+  n88 [label="i"];
+  n89 [label="lim"];
+  n90 [label="LIST_INSTR"];
+  n90 [label="LIST_INSTR"];
+  n91 [label=":="];
+  n91 [label=":="];
+  n92 [label="g"];
+  n93 [label="FUNCALL"];
+  n93 [label="FUNCALL"];
+  n94 [label="grados"];
+  n95 [label="ARGLIST"];
+  n96 [label="write"];
+  n96 [label="write"];
+  n97 [label="g"];
+  n98 [label="SMOTOR"];
+  n98 [label="SMOTOR"];
+  n99 [label="retroceder"];
+  n100 [label="M1"];
+  n101 [label="*"];
+  n101 [label="*"];
+  n102 [label="2"];
+  n103 [label="g"];
+  n104 [label="true"];
+  n105 [label="SMOTOR"];
+  n105 [label="SMOTOR"];
+  n106 [label="avanzar"];
+  n107 [label="M2"];
+  n108 [label="*"];
+  n108 [label="*"];
+  n109 [label="2"];
+  n110 [label="g"];
+  n111 [label="false"];
+  n112 [label="if"];
+  n112 [label="if"];
+  n113 [label="!="];
+  n113 [label="!="];
+  n114 [label="g"];
+  n115 [label="180"];
+  n116 [label="LIST_INSTR"];
+  n116 [label="LIST_INSTR"];
+  n117 [label="SMOTOR"];
+  n117 [label="SMOTOR"];
+  n118 [label="avanzar"];
+  n119 [label="M1"];
+  n120 [label="100"];
+  n121 [label="true"];
+  n122 [label="SMOTOR"];
+  n122 [label="SMOTOR"];
+  n123 [label="avanzar"];
+  n124 [label="M2"];
+  n125 [label="100"];
+  n126 [label="false"];
+  n127 [label=":="];
+  n127 [label=":="];
+  n128 [label="i"];
+  n129 [label="+"];
+  n129 [label="+"];
+  n130 [label="i"];
+  n131 [label="1"];
+  n132 [label="FUNC"];
+  n132 [label="FUNC"];
+  n133 [label="int"];
+  n134 [label="grados"];
+  n135 [label="PARAMS"];
+  n136 [label="LIST_INSTR"];
+  n136 [label="LIST_INSTR"];
+  n137 [label="FUNCALL"];
+  n137 [label="FUNCALL"];
+  n138 [label="girarUltra"];
+  n139 [label="ARGLIST"];
+  n139 [label="ARGLIST"];
+  n140 [label="-"];
+  n140 [label="-"];
+  n141 [label="75"];
+  n142 [label=":="];
+  n142 [label=":="];
+  n143 [label="grad"];
+  n144 [label="0"];
+  n145 [label=":="];
+  n145 [label=":="];
+  n146 [label="dist"];
+  n147 [label="0"];
+  n148 [label=":="];
+  n148 [label=":="];
+  n149 [label="i"];
+  n150 [label="-65"];
+  n151 [label=":="];
+  n151 [label=":="];
+  n152 [label="cerca"];
+  n153 [label="true"];
+  n154 [label="while"];
+  n154 [label="while"];
+  n155 [label="<="];
+  n155 [label="<="];
+  n156 [label="i"];
+  n157 [label="75"];
+  n158 [label="LIST_INSTR"];
+  n158 [label="LIST_INSTR"];
+  n159 [label="if"];
+  n159 [label="if"];
+  n160 [label=">"];
+  n160 [label=">"];
+  n161 [label="GSENSOR"];
+  n161 [label="GSENSOR"];
+  n162 [label="getUltrasonic"];
+  n163 [label="U"];
+  n164 [label="dist"];
+  n165 [label="LIST_INSTR"];
+  n165 [label="LIST_INSTR"];
+  n166 [label=":="];
+  n166 [label=":="];
+  n167 [label="dist"];
+  n168 [label="GSENSOR"];
+  n168 [label="GSENSOR"];
+  n169 [label="getUltrasonic"];
+  n170 [label="U"];
+  n171 [label=":="];
+  n171 [label=":="];
+  n172 [label="grad"];
+  n173 [label="i"];
+  n174 [label="if"];
+  n174 [label="if"];
+  n175 [label=">"];
+  n175 [label=">"];
+  n176 [label="GSENSOR"];
+  n176 [label="GSENSOR"];
+  n177 [label="getUltrasonic"];
+  n178 [label="U"];
+  n179 [label="50"];
+  n180 [label="LIST_INSTR"];
+  n180 [label="LIST_INSTR"];
+  n181 [label=":="];
+  n181 [label=":="];
+  n182 [label="cerca"];
+  n183 [label="false"];
+  n184 [label="FUNCALL"];
+  n184 [label="FUNCALL"];
+  n185 [label="girarUltra"];
+  n186 [label="ARGLIST"];
+  n186 [label="ARGLIST"];
+  n187 [label="10"];
+  n188 [label=":="];
+  n188 [label=":="];
+  n189 [label="i"];
+  n190 [label="+"];
+  n190 [label="+"];
+  n191 [label="i"];
+  n192 [label="10"];
+  n193 [label="FUNCALL"];
+  n193 [label="FUNCALL"];
+  n194 [label="girarUltra"];
+  n195 [label="ARGLIST"];
+  n195 [label="ARGLIST"];
+  n196 [label="-"];
+  n196 [label="-"];
+  n197 [label="65"];
+  n198 [label="if"];
+  n198 [label="if"];
+  n199 [label="cerca"];
+  n200 [label="LIST_INSTR"];
+  n200 [label="LIST_INSTR"];
+  n201 [label=":="];
+  n201 [label=":="];
+  n202 [label="grad"];
+  n203 [label="180"];
+  n204 [label="return"];
+  n204 [label="return"];
+  n205 [label="grad"];
+  n206 [label="FUNC"];
+  n206 [label="FUNC"];
+  n207 [label="void"];
+  n208 [label="sigueObjeto"];
+  n209 [label="PARAMS"];
+  n209 [label="PARAMS"];
+  n210 [label="PVALUE"];
+  n210 [label="PVALUE"];
+  n211 [label="int"];
+  n212 [label="lim"];
+  n213 [label="LIST_INSTR"];
+  n213 [label="LIST_INSTR"];
+  n214 [label=":="];
+  n214 [label=":="];
+  n215 [label="i"];
+  n216 [label="0"];
+  n217 [label="while"];
+  n217 [label="while"];
+  n218 [label="<"];
+  n218 [label="<"];
+  n219 [label="i"];
+  n220 [label="lim"];
+  n221 [label="LIST_INSTR"];
+  n221 [label="LIST_INSTR"];
+  n222 [label=":="];
+  n222 [label=":="];
+  n223 [label="g"];
+  n224 [label="FUNCALL"];
+  n224 [label="FUNCALL"];
+  n225 [label="gradosObjeto"];
+  n226 [label="ARGLIST"];
+  n227 [label="write"];
+  n227 [label="write"];
+  n228 [label="g"];
+  n229 [label="SMOTOR"];
+  n229 [label="SMOTOR"];
+  n230 [label="retroceder"];
+  n231 [label="M1"];
+  n232 [label="*"];
+  n232 [label="*"];
+  n233 [label="2"];
+  n234 [label="g"];
+  n235 [label="true"];
+  n236 [label="SMOTOR"];
+  n236 [label="SMOTOR"];
+  n237 [label="avanzar"];
+  n238 [label="M2"];
+  n239 [label="*"];
+  n239 [label="*"];
+  n240 [label="2"];
+  n241 [label="g"];
+  n242 [label="false"];
+  n243 [label="if"];
+  n243 [label="if"];
+  n244 [label="and"];
+  n244 [label="and"];
+  n245 [label="!="];
+  n245 [label="!="];
+  n246 [label="g"];
+  n247 [label="180"];
+  n248 [label=">"];
+  n248 [label=">"];
+  n249 [label="GSENSOR"];
+  n249 [label="GSENSOR"];
+  n250 [label="getUltrasonic"];
+  n251 [label="U"];
+  n252 [label="10"];
+  n253 [label="LIST_INSTR"];
+  n253 [label="LIST_INSTR"];
+  n254 [label="SMOTOR"];
+  n254 [label="SMOTOR"];
+  n255 [label="avanzar"];
+  n256 [label="M1"];
+  n257 [label="100"];
+  n258 [label="true"];
+  n259 [label="SMOTOR"];
+  n259 [label="SMOTOR"];
+  n260 [label="avanzar"];
+  n261 [label="M2"];
+  n262 [label="100"];
+  n263 [label="false"];
+  n264 [label=":="];
+  n264 [label=":="];
+  n265 [label="i"];
+  n266 [label="+"];
+  n266 [label="+"];
+  n267 [label="i"];
+  n268 [label="1"];
+  n269 [label="FUNC"];
+  n269 [label="FUNC"];
+  n270 [label="int"];
+  n271 [label="gradosObjeto"];
+  n272 [label="PARAMS"];
+  n273 [label="LIST_INSTR"];
+  n273 [label="LIST_INSTR"];
+  n274 [label="FUNCALL"];
+  n274 [label="FUNCALL"];
+  n275 [label="girarUltra"];
+  n276 [label="ARGLIST"];
+  n276 [label="ARGLIST"];
+  n277 [label="-"];
+  n277 [label="-"];
+  n278 [label="75"];
+  n279 [label=":="];
+  n279 [label=":="];
+  n280 [label="grad"];
+  n281 [label="0"];
+  n282 [label=":="];
+  n282 [label=":="];
+  n283 [label="dist"];
+  n284 [label="255"];
+  n285 [label=":="];
+  n285 [label=":="];
+  n286 [label="i"];
+  n287 [label="-65"];
+  n288 [label=":="];
+  n288 [label=":="];
+  n289 [label="cerca"];
+  n290 [label="false"];
+  n291 [label="while"];
+  n291 [label="while"];
+  n292 [label="<="];
+  n292 [label="<="];
+  n293 [label="i"];
+  n294 [label="75"];
+  n295 [label="LIST_INSTR"];
+  n295 [label="LIST_INSTR"];
+  n296 [label="if"];
+  n296 [label="if"];
+  n297 [label="<"];
+  n297 [label="<"];
+  n298 [label="GSENSOR"];
+  n298 [label="GSENSOR"];
+  n299 [label="getUltrasonic"];
+  n300 [label="U"];
+  n301 [label="dist"];
+  n302 [label="LIST_INSTR"];
+  n302 [label="LIST_INSTR"];
+  n303 [label=":="];
+  n303 [label=":="];
+  n304 [label="dist"];
+  n305 [label="GSENSOR"];
+  n305 [label="GSENSOR"];
+  n306 [label="getUltrasonic"];
+  n307 [label="U"];
+  n308 [label=":="];
+  n308 [label=":="];
+  n309 [label="grad"];
+  n310 [label="i"];
+  n311 [label="if"];
+  n311 [label="if"];
+  n312 [label="<"];
+  n312 [label="<"];
+  n313 [label="GSENSOR"];
+  n313 [label="GSENSOR"];
+  n314 [label="getUltrasonic"];
+  n315 [label="U"];
+  n316 [label="100"];
+  n317 [label="LIST_INSTR"];
+  n317 [label="LIST_INSTR"];
+  n318 [label=":="];
+  n318 [label=":="];
+  n319 [label="cerca"];
+  n320 [label="true"];
+  n321 [label="FUNCALL"];
+  n321 [label="FUNCALL"];
+  n322 [label="girarUltra"];
+  n323 [label="ARGLIST"];
+  n323 [label="ARGLIST"];
+  n324 [label="10"];
+  n325 [label=":="];
+  n325 [label=":="];
+  n326 [label="i"];
+  n327 [label="+"];
+  n327 [label="+"];
+  n328 [label="i"];
+  n329 [label="10"];
+  n330 [label="FUNCALL"];
+  n330 [label="FUNCALL"];
+  n331 [label="girarUltra"];
+  n332 [label="ARGLIST"];
+  n332 [label="ARGLIST"];
+  n333 [label="-"];
+  n333 [label="-"];
+  n334 [label="65"];
+  n335 [label="if"];
+  n335 [label="if"];
+  n336 [label="not"];
+  n336 [label="not"];
+  n337 [label="cerca"];
+  n338 [label="LIST_INSTR"];
+  n338 [label="LIST_INSTR"];
+  n339 [label=":="];
+  n339 [label=":="];
+  n340 [label="grad"];
+  n341 [label="180"];
+  n342 [label="return"];
+  n342 [label="return"];
+  n343 [label="grad"];
+
+  n0 -> n1 // "PROG" -> "LIST_INCLUDES"
+  n0 -> n2 // "PROG" -> "LIST_GLOBALS"
+  n2 -> n3 // "LIST_GLOBALS" -> "GLOB"
+  n3 -> n4 // "GLOB" -> "ultra"
+  n3 -> n5 // "GLOB" -> "U"
+  n2 -> n6 // "LIST_GLOBALS" -> "GLOB"
+  n6 -> n7 // "GLOB" -> "motor"
+  n6 -> n8 // "GLOB" -> "M"
+  n2 -> n9 // "LIST_GLOBALS" -> "GLOB"
+  n9 -> n10 // "GLOB" -> "motor"
+  n9 -> n11 // "GLOB" -> "M1"
+  n2 -> n12 // "LIST_GLOBALS" -> "GLOB"
+  n12 -> n13 // "GLOB" -> "motor"
+  n12 -> n14 // "GLOB" -> "M2"
+  n0 -> n15 // "PROG" -> "LIST_FUNCTIONS"
+  n15 -> n16 // "LIST_FUNCTIONS" -> "FUNC"
+  n16 -> n17 // "FUNC" -> "void"
+  n16 -> n18 // "FUNC" -> "init"
+  n16 -> n19 // "FUNC" -> "PARAMS"
+  n19 -> n20 // "PARAMS" -> "PVALUE"
+  n20 -> n21 // "PVALUE" -> "motor"
+  n20 -> n22 // "PVALUE" -> "m1"
+  n19 -> n23 // "PARAMS" -> "PVALUE"
+  n23 -> n24 // "PVALUE" -> "motor"
+  n23 -> n25 // "PVALUE" -> "m2"
+  n19 -> n26 // "PARAMS" -> "PVALUE"
+  n26 -> n27 // "PVALUE" -> "motor"
+  n26 -> n28 // "PVALUE" -> "mu"
+  n19 -> n29 // "PARAMS" -> "PVALUE"
+  n29 -> n30 // "PVALUE" -> "ultra"
+  n29 -> n31 // "PVALUE" -> "u"
+  n16 -> n32 // "FUNC" -> "LIST_INSTR"
+  n32 -> n33 // "LIST_INSTR" -> ":="
+  n33 -> n34 // ":=" -> "U"
+  n33 -> n35 // ":=" -> "u"
+  n32 -> n36 // "LIST_INSTR" -> ":="
+  n36 -> n37 // ":=" -> "M"
+  n36 -> n38 // ":=" -> "mu"
+  n32 -> n39 // "LIST_INSTR" -> "SMOTOR"
+  n39 -> n40 // "SMOTOR" -> "setSpeed"
+  n39 -> n41 // "SMOTOR" -> "M"
+  n39 -> n42 // "SMOTOR" -> "180"
+  n32 -> n43 // "LIST_INSTR" -> ":="
+  n43 -> n44 // ":=" -> "M1"
+  n43 -> n45 // ":=" -> "m1"
+  n32 -> n46 // "LIST_INSTR" -> ":="
+  n46 -> n47 // ":=" -> "M2"
+  n46 -> n48 // ":=" -> "m2"
+  n32 -> n49 // "LIST_INSTR" -> "SMOTOR"
+  n49 -> n50 // "SMOTOR" -> "setSpeed"
+  n49 -> n51 // "SMOTOR" -> "M1"
+  n49 -> n52 // "SMOTOR" -> "180"
+  n32 -> n53 // "LIST_INSTR" -> "SMOTOR"
+  n53 -> n54 // "SMOTOR" -> "setSpeed"
+  n53 -> n55 // "SMOTOR" -> "M2"
+  n53 -> n56 // "SMOTOR" -> "180"
+  n15 -> n57 // "LIST_FUNCTIONS" -> "FUNC"
+  n57 -> n58 // "FUNC" -> "void"
+  n57 -> n59 // "FUNC" -> "girarUltra"
+  n57 -> n60 // "FUNC" -> "PARAMS"
+  n60 -> n61 // "PARAMS" -> "PVALUE"
+  n61 -> n62 // "PVALUE" -> "int"
+  n61 -> n63 // "PVALUE" -> "g"
+  n57 -> n64 // "FUNC" -> "LIST_INSTR"
+  n64 -> n65 // "LIST_INSTR" -> "SMOTOR"
+  n65 -> n66 // "SMOTOR" -> "avanzar"
+  n65 -> n67 // "SMOTOR" -> "M"
+  n65 -> n68 // "SMOTOR" -> "g"
+  n65 -> n69 // "SMOTOR" -> "true"
+  n64 -> n70 // "LIST_INSTR" -> "SMOTOR"
+  n70 -> n71 // "SMOTOR" -> "retroceder"
+  n70 -> n72 // "SMOTOR" -> "M"
+  n70 -> n73 // "SMOTOR" -> "g"
+  n70 -> n74 // "SMOTOR" -> "false"
+  n15 -> n75 // "LIST_FUNCTIONS" -> "FUNC"
+  n75 -> n76 // "FUNC" -> "void"
+  n75 -> n77 // "FUNC" -> "laberinto"
+  n75 -> n78 // "FUNC" -> "PARAMS"
+  n78 -> n79 // "PARAMS" -> "PVALUE"
+  n79 -> n80 // "PVALUE" -> "int"
+  n79 -> n81 // "PVALUE" -> "lim"
+  n75 -> n82 // "FUNC" -> "LIST_INSTR"
+  n82 -> n83 // "LIST_INSTR" -> ":="
+  n83 -> n84 // ":=" -> "i"
+  n83 -> n85 // ":=" -> "0"
+  n82 -> n86 // "LIST_INSTR" -> "while"
+  n86 -> n87 // "while" -> "<"
+  n87 -> n88 // "<" -> "i"
+  n87 -> n89 // "<" -> "lim"
+  n86 -> n90 // "while" -> "LIST_INSTR"
+  n90 -> n91 // "LIST_INSTR" -> ":="
+  n91 -> n92 // ":=" -> "g"
+  n91 -> n93 // ":=" -> "FUNCALL"
+  n93 -> n94 // "FUNCALL" -> "grados"
+  n93 -> n95 // "FUNCALL" -> "ARGLIST"
+  n90 -> n96 // "LIST_INSTR" -> "write"
+  n96 -> n97 // "write" -> "g"
+  n90 -> n98 // "LIST_INSTR" -> "SMOTOR"
+  n98 -> n99 // "SMOTOR" -> "retroceder"
+  n98 -> n100 // "SMOTOR" -> "M1"
+  n98 -> n101 // "SMOTOR" -> "*"
+  n101 -> n102 // "*" -> "2"
+  n101 -> n103 // "*" -> "g"
+  n98 -> n104 // "SMOTOR" -> "true"
+  n90 -> n105 // "LIST_INSTR" -> "SMOTOR"
+  n105 -> n106 // "SMOTOR" -> "avanzar"
+  n105 -> n107 // "SMOTOR" -> "M2"
+  n105 -> n108 // "SMOTOR" -> "*"
+  n108 -> n109 // "*" -> "2"
+  n108 -> n110 // "*" -> "g"
+  n105 -> n111 // "SMOTOR" -> "false"
+  n90 -> n112 // "LIST_INSTR" -> "if"
+  n112 -> n113 // "if" -> "!="
+  n113 -> n114 // "!=" -> "g"
+  n113 -> n115 // "!=" -> "180"
+  n112 -> n116 // "if" -> "LIST_INSTR"
+  n116 -> n117 // "LIST_INSTR" -> "SMOTOR"
+  n117 -> n118 // "SMOTOR" -> "avanzar"
+  n117 -> n119 // "SMOTOR" -> "M1"
+  n117 -> n120 // "SMOTOR" -> "100"
+  n117 -> n121 // "SMOTOR" -> "true"
+  n116 -> n122 // "LIST_INSTR" -> "SMOTOR"
+  n122 -> n123 // "SMOTOR" -> "avanzar"
+  n122 -> n124 // "SMOTOR" -> "M2"
+  n122 -> n125 // "SMOTOR" -> "100"
+  n122 -> n126 // "SMOTOR" -> "false"
+  n90 -> n127 // "LIST_INSTR" -> ":="
+  n127 -> n128 // ":=" -> "i"
+  n127 -> n129 // ":=" -> "+"
+  n129 -> n130 // "+" -> "i"
+  n129 -> n131 // "+" -> "1"
+  n15 -> n132 // "LIST_FUNCTIONS" -> "FUNC"
+  n132 -> n133 // "FUNC" -> "int"
+  n132 -> n134 // "FUNC" -> "grados"
+  n132 -> n135 // "FUNC" -> "PARAMS"
+  n132 -> n136 // "FUNC" -> "LIST_INSTR"
+  n136 -> n137 // "LIST_INSTR" -> "FUNCALL"
+  n137 -> n138 // "FUNCALL" -> "girarUltra"
+  n137 -> n139 // "FUNCALL" -> "ARGLIST"
+  n139 -> n140 // "ARGLIST" -> "-"
+  n140 -> n141 // "-" -> "75"
+  n136 -> n142 // "LIST_INSTR" -> ":="
+  n142 -> n143 // ":=" -> "grad"
+  n142 -> n144 // ":=" -> "0"
+  n136 -> n145 // "LIST_INSTR" -> ":="
+  n145 -> n146 // ":=" -> "dist"
+  n145 -> n147 // ":=" -> "0"
+  n136 -> n148 // "LIST_INSTR" -> ":="
+  n148 -> n149 // ":=" -> "i"
+  n148 -> n150 // ":=" -> "-65"
+  n136 -> n151 // "LIST_INSTR" -> ":="
+  n151 -> n152 // ":=" -> "cerca"
+  n151 -> n153 // ":=" -> "true"
+  n136 -> n154 // "LIST_INSTR" -> "while"
+  n154 -> n155 // "while" -> "<="
+  n155 -> n156 // "<=" -> "i"
+  n155 -> n157 // "<=" -> "75"
+  n154 -> n158 // "while" -> "LIST_INSTR"
+  n158 -> n159 // "LIST_INSTR" -> "if"
+  n159 -> n160 // "if" -> ">"
+  n160 -> n161 // ">" -> "GSENSOR"
+  n161 -> n162 // "GSENSOR" -> "getUltrasonic"
+  n161 -> n163 // "GSENSOR" -> "U"
+  n160 -> n164 // ">" -> "dist"
+  n159 -> n165 // "if" -> "LIST_INSTR"
+  n165 -> n166 // "LIST_INSTR" -> ":="
+  n166 -> n167 // ":=" -> "dist"
+  n166 -> n168 // ":=" -> "GSENSOR"
+  n168 -> n169 // "GSENSOR" -> "getUltrasonic"
+  n168 -> n170 // "GSENSOR" -> "U"
+  n165 -> n171 // "LIST_INSTR" -> ":="
+  n171 -> n172 // ":=" -> "grad"
+  n171 -> n173 // ":=" -> "i"
+  n158 -> n174 // "LIST_INSTR" -> "if"
+  n174 -> n175 // "if" -> ">"
+  n175 -> n176 // ">" -> "GSENSOR"
+  n176 -> n177 // "GSENSOR" -> "getUltrasonic"
+  n176 -> n178 // "GSENSOR" -> "U"
+  n175 -> n179 // ">" -> "50"
+  n174 -> n180 // "if" -> "LIST_INSTR"
+  n180 -> n181 // "LIST_INSTR" -> ":="
+  n181 -> n182 // ":=" -> "cerca"
+  n181 -> n183 // ":=" -> "false"
+  n158 -> n184 // "LIST_INSTR" -> "FUNCALL"
+  n184 -> n185 // "FUNCALL" -> "girarUltra"
+  n184 -> n186 // "FUNCALL" -> "ARGLIST"
+  n186 -> n187 // "ARGLIST" -> "10"
+  n158 -> n188 // "LIST_INSTR" -> ":="
+  n188 -> n189 // ":=" -> "i"
+  n188 -> n190 // ":=" -> "+"
+  n190 -> n191 // "+" -> "i"
+  n190 -> n192 // "+" -> "10"
+  n136 -> n193 // "LIST_INSTR" -> "FUNCALL"
+  n193 -> n194 // "FUNCALL" -> "girarUltra"
+  n193 -> n195 // "FUNCALL" -> "ARGLIST"
+  n195 -> n196 // "ARGLIST" -> "-"
+  n196 -> n197 // "-" -> "65"
+  n136 -> n198 // "LIST_INSTR" -> "if"
+  n198 -> n199 // "if" -> "cerca"
+  n198 -> n200 // "if" -> "LIST_INSTR"
+  n200 -> n201 // "LIST_INSTR" -> ":="
+  n201 -> n202 // ":=" -> "grad"
+  n201 -> n203 // ":=" -> "180"
+  n132 -> n204 // "FUNC" -> "return"
+  n204 -> n205 // "return" -> "grad"
+  n15 -> n206 // "LIST_FUNCTIONS" -> "FUNC"
+  n206 -> n207 // "FUNC" -> "void"
+  n206 -> n208 // "FUNC" -> "sigueObjeto"
+  n206 -> n209 // "FUNC" -> "PARAMS"
+  n209 -> n210 // "PARAMS" -> "PVALUE"
+  n210 -> n211 // "PVALUE" -> "int"
+  n210 -> n212 // "PVALUE" -> "lim"
+  n206 -> n213 // "FUNC" -> "LIST_INSTR"
+  n213 -> n214 // "LIST_INSTR" -> ":="
+  n214 -> n215 // ":=" -> "i"
+  n214 -> n216 // ":=" -> "0"
+  n213 -> n217 // "LIST_INSTR" -> "while"
+  n217 -> n218 // "while" -> "<"
+  n218 -> n219 // "<" -> "i"
+  n218 -> n220 // "<" -> "lim"
+  n217 -> n221 // "while" -> "LIST_INSTR"
+  n221 -> n222 // "LIST_INSTR" -> ":="
+  n222 -> n223 // ":=" -> "g"
+  n222 -> n224 // ":=" -> "FUNCALL"
+  n224 -> n225 // "FUNCALL" -> "gradosObjeto"
+  n224 -> n226 // "FUNCALL" -> "ARGLIST"
+  n221 -> n227 // "LIST_INSTR" -> "write"
+  n227 -> n228 // "write" -> "g"
+  n221 -> n229 // "LIST_INSTR" -> "SMOTOR"
+  n229 -> n230 // "SMOTOR" -> "retroceder"
+  n229 -> n231 // "SMOTOR" -> "M1"
+  n229 -> n232 // "SMOTOR" -> "*"
+  n232 -> n233 // "*" -> "2"
+  n232 -> n234 // "*" -> "g"
+  n229 -> n235 // "SMOTOR" -> "true"
+  n221 -> n236 // "LIST_INSTR" -> "SMOTOR"
+  n236 -> n237 // "SMOTOR" -> "avanzar"
+  n236 -> n238 // "SMOTOR" -> "M2"
+  n236 -> n239 // "SMOTOR" -> "*"
+  n239 -> n240 // "*" -> "2"
+  n239 -> n241 // "*" -> "g"
+  n236 -> n242 // "SMOTOR" -> "false"
+  n221 -> n243 // "LIST_INSTR" -> "if"
+  n243 -> n244 // "if" -> "and"
+  n244 -> n245 // "and" -> "!="
+  n245 -> n246 // "!=" -> "g"
+  n245 -> n247 // "!=" -> "180"
+  n244 -> n248 // "and" -> ">"
+  n248 -> n249 // ">" -> "GSENSOR"
+  n249 -> n250 // "GSENSOR" -> "getUltrasonic"
+  n249 -> n251 // "GSENSOR" -> "U"
+  n248 -> n252 // ">" -> "10"
+  n243 -> n253 // "if" -> "LIST_INSTR"
+  n253 -> n254 // "LIST_INSTR" -> "SMOTOR"
+  n254 -> n255 // "SMOTOR" -> "avanzar"
+  n254 -> n256 // "SMOTOR" -> "M1"
+  n254 -> n257 // "SMOTOR" -> "100"
+  n254 -> n258 // "SMOTOR" -> "true"
+  n253 -> n259 // "LIST_INSTR" -> "SMOTOR"
+  n259 -> n260 // "SMOTOR" -> "avanzar"
+  n259 -> n261 // "SMOTOR" -> "M2"
+  n259 -> n262 // "SMOTOR" -> "100"
+  n259 -> n263 // "SMOTOR" -> "false"
+  n221 -> n264 // "LIST_INSTR" -> ":="
+  n264 -> n265 // ":=" -> "i"
+  n264 -> n266 // ":=" -> "+"
+  n266 -> n267 // "+" -> "i"
+  n266 -> n268 // "+" -> "1"
+  n15 -> n269 // "LIST_FUNCTIONS" -> "FUNC"
+  n269 -> n270 // "FUNC" -> "int"
+  n269 -> n271 // "FUNC" -> "gradosObjeto"
+  n269 -> n272 // "FUNC" -> "PARAMS"
+  n269 -> n273 // "FUNC" -> "LIST_INSTR"
+  n273 -> n274 // "LIST_INSTR" -> "FUNCALL"
+  n274 -> n275 // "FUNCALL" -> "girarUltra"
+  n274 -> n276 // "FUNCALL" -> "ARGLIST"
+  n276 -> n277 // "ARGLIST" -> "-"
+  n277 -> n278 // "-" -> "75"
+  n273 -> n279 // "LIST_INSTR" -> ":="
+  n279 -> n280 // ":=" -> "grad"
+  n279 -> n281 // ":=" -> "0"
+  n273 -> n282 // "LIST_INSTR" -> ":="
+  n282 -> n283 // ":=" -> "dist"
+  n282 -> n284 // ":=" -> "255"
+  n273 -> n285 // "LIST_INSTR" -> ":="
+  n285 -> n286 // ":=" -> "i"
+  n285 -> n287 // ":=" -> "-65"
+  n273 -> n288 // "LIST_INSTR" -> ":="
+  n288 -> n289 // ":=" -> "cerca"
+  n288 -> n290 // ":=" -> "false"
+  n273 -> n291 // "LIST_INSTR" -> "while"
+  n291 -> n292 // "while" -> "<="
+  n292 -> n293 // "<=" -> "i"
+  n292 -> n294 // "<=" -> "75"
+  n291 -> n295 // "while" -> "LIST_INSTR"
+  n295 -> n296 // "LIST_INSTR" -> "if"
+  n296 -> n297 // "if" -> "<"
+  n297 -> n298 // "<" -> "GSENSOR"
+  n298 -> n299 // "GSENSOR" -> "getUltrasonic"
+  n298 -> n300 // "GSENSOR" -> "U"
+  n297 -> n301 // "<" -> "dist"
+  n296 -> n302 // "if" -> "LIST_INSTR"
+  n302 -> n303 // "LIST_INSTR" -> ":="
+  n303 -> n304 // ":=" -> "dist"
+  n303 -> n305 // ":=" -> "GSENSOR"
+  n305 -> n306 // "GSENSOR" -> "getUltrasonic"
+  n305 -> n307 // "GSENSOR" -> "U"
+  n302 -> n308 // "LIST_INSTR" -> ":="
+  n308 -> n309 // ":=" -> "grad"
+  n308 -> n310 // ":=" -> "i"
+  n295 -> n311 // "LIST_INSTR" -> "if"
+  n311 -> n312 // "if" -> "<"
+  n312 -> n313 // "<" -> "GSENSOR"
+  n313 -> n314 // "GSENSOR" -> "getUltrasonic"
+  n313 -> n315 // "GSENSOR" -> "U"
+  n312 -> n316 // "<" -> "100"
+  n311 -> n317 // "if" -> "LIST_INSTR"
+  n317 -> n318 // "LIST_INSTR" -> ":="
+  n318 -> n319 // ":=" -> "cerca"
+  n318 -> n320 // ":=" -> "true"
+  n295 -> n321 // "LIST_INSTR" -> "FUNCALL"
+  n321 -> n322 // "FUNCALL" -> "girarUltra"
+  n321 -> n323 // "FUNCALL" -> "ARGLIST"
+  n323 -> n324 // "ARGLIST" -> "10"
+  n295 -> n325 // "LIST_INSTR" -> ":="
+  n325 -> n326 // ":=" -> "i"
+  n325 -> n327 // ":=" -> "+"
+  n327 -> n328 // "+" -> "i"
+  n327 -> n329 // "+" -> "10"
+  n273 -> n330 // "LIST_INSTR" -> "FUNCALL"
+  n330 -> n331 // "FUNCALL" -> "girarUltra"
+  n330 -> n332 // "FUNCALL" -> "ARGLIST"
+  n332 -> n333 // "ARGLIST" -> "-"
+  n333 -> n334 // "-" -> "65"
+  n273 -> n335 // "LIST_INSTR" -> "if"
+  n335 -> n336 // "if" -> "not"
+  n336 -> n337 // "not" -> "cerca"
+  n335 -> n338 // "if" -> "LIST_INSTR"
+  n338 -> n339 // "LIST_INSTR" -> ":="
+  n339 -> n340 // ":=" -> "grad"
+  n339 -> n341 // ":=" -> "180"
+  n269 -> n342 // "FUNC" -> "return"
+  n342 -> n343 // "return" -> "grad"
+
+}

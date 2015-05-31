@@ -30,8 +30,8 @@ void laberinto(int lim)
         g = grados();
         write g;
         
-        M1.avanzar(g,true);
-        M2.retroceder(g,false);
+        M1.retroceder(2 * g,true);
+        M2.avanzar(2 * g,false);
         
         if (g != 180) then
             M1.avanzar(100,true);
@@ -79,8 +79,8 @@ void sigueObjeto(int lim)
         g = gradosObjeto();
         write g;
         
-        M1.avanzar(2 * g,true);
-        M2.retroceder(2 * g,false);
+        M1.retroceder(2 * g,true);
+        M2.avanzar(2 * g,false);
         
         if (g != 180 and U.getUltrasonic() > 10) then
             M1.avanzar(100,true);
@@ -95,7 +95,7 @@ int gradosObjeto()
     girarUltra(- 75);
     
     grad = 0;
-    dist = 0;
+    dist = 255;
     i = -65;
     cerca = false;
     while i <= 75 do

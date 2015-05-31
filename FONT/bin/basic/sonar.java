@@ -13,8 +13,8 @@ public class sonar {
         while((i < lim)) {
             int g = gradosObjeto();
             System.out.println(g);
-            M1.rotate((2 * g),true);
-            M2.rotate(-(2 * g),false);
+            M1.rotate(-(2 * g),true);
+            M2.rotate((2 * g),false);
             if(((g != 180) && (U.getDistance() > 10))) {
                 M1.rotate(100,true);
                 M2.rotate(100,false);
@@ -54,7 +54,7 @@ public class sonar {
     public static int gradosObjeto() {
         girarUltra(-75);
         int grad = 0;
-        int dist = 0;
+        int dist = 255;
         int i = -65;
         boolean cerca = false;
         while((i <= 75)) {
@@ -83,8 +83,8 @@ public class sonar {
         while((i < lim)) {
             int g = grados();
             System.out.println(g);
-            M1.rotate(g,true);
-            M2.rotate(-g,false);
+            M1.rotate(-g,true);
+            M2.rotate(g,false);
             if((g != 180)) {
                 M1.rotate(100,true);
                 M2.rotate(100,false);
