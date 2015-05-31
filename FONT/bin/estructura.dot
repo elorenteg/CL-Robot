@@ -1,0 +1,54 @@
+digraph {
+
+	ordering=out;
+	ranksep=.4;
+	bgcolor="lightgrey"; node [shape=box, fixedsize=false, fontsize=12, fontname="Helvetica-bold", fontcolor="blue"
+		width=.25, height=.25, color="black", fillcolor="white", style="filled, solid, bold"];
+	edge [arrowsize=.5, color="black", style="bold"]
+
+  n0 [label="PROG"];
+  n1 [label="LIST_INCLUDES"];
+  n1 [label="LIST_INCLUDES"];
+  n2 [label="INCL"];
+  n2 [label="INCL"];
+  n3 [label="basic"];
+  n4 [label="mate"];
+  n5 [label="LIST_GLOBALS"];
+  n5 [label="LIST_GLOBALS"];
+  n6 [label="GLOB"];
+  n6 [label="GLOB"];
+  n7 [label="int"];
+  n8 [label="a"];
+  n9 [label="LIST_FUNCTIONS"];
+  n9 [label="LIST_FUNCTIONS"];
+  n10 [label="FUNC"];
+  n10 [label="FUNC"];
+  n11 [label="void"];
+  n12 [label="main"];
+  n13 [label="PARAMS"];
+  n14 [label="LIST_INSTR"];
+  n14 [label="LIST_INSTR"];
+  n15 [label=":="];
+  n15 [label=":="];
+  n16 [label="a"];
+  n17 [label="10"];
+
+  n0 -> n1 // "PROG" -> "LIST_INCLUDES"
+  n1 -> n2 // "LIST_INCLUDES" -> "INCL"
+  n2 -> n3 // "INCL" -> "basic"
+  n2 -> n4 // "INCL" -> "mate"
+  n0 -> n5 // "PROG" -> "LIST_GLOBALS"
+  n5 -> n6 // "LIST_GLOBALS" -> "GLOB"
+  n6 -> n7 // "GLOB" -> "int"
+  n6 -> n8 // "GLOB" -> "a"
+  n0 -> n9 // "PROG" -> "LIST_FUNCTIONS"
+  n9 -> n10 // "LIST_FUNCTIONS" -> "FUNC"
+  n10 -> n11 // "FUNC" -> "void"
+  n10 -> n12 // "FUNC" -> "main"
+  n10 -> n13 // "FUNC" -> "PARAMS"
+  n10 -> n14 // "FUNC" -> "LIST_INSTR"
+  n14 -> n15 // "LIST_INSTR" -> ":="
+  n15 -> n16 // ":=" -> "a"
+  n15 -> n17 // ":=" -> "10"
+
+}
