@@ -8,6 +8,22 @@ public class sonar {
     private static NXTRegulatedMotor M2;
     private static NXTRegulatedMotor M1;
 
+    public static void sigueObjeto(int lim) {
+        int i = 0;
+        while((i < lim)) {
+            int g = gradosObjeto();
+            System.out.println(g);
+            M1.rotate((2 * g),true);
+            M2.rotate(-(2 * g),false);
+            if(((g != 180) && (U.getDistance() > 10))) {
+                M1.rotate(100,true);
+                M2.rotate(100,false);
+            }
+
+            i = (i + 1);
+        }
+    }
+
     public static int grados() {
         girarUltra(-75);
         int grad = 0;
@@ -29,6 +45,33 @@ public class sonar {
         }
         girarUltra(-65);
         if(cerca) {
+            grad = 180;
+        }
+
+        return grad;
+    }
+
+    public static int gradosObjeto() {
+        girarUltra(-75);
+        int grad = 0;
+        int dist = 0;
+        int i = -65;
+        boolean cerca = false;
+        while((i <= 75)) {
+            if((U.getDistance() < dist)) {
+                dist = U.getDistance();
+                grad = i;
+            }
+
+            if((U.getDistance() < 100)) {
+                cerca = true;
+            }
+
+            girarUltra(10);
+            i = (i + 10);
+        }
+        girarUltra(-65);
+        if(!cerca) {
             grad = 180;
         }
 

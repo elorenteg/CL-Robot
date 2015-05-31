@@ -77,9 +77,10 @@ clean:
 	rm -rf $(PARSER)/*.java $(PARSER)/*.tokens $(PARSER)/*~
 	rm -rf $(CLASSDIR)
 	rm -rf $(JAVADOC)
-	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~
-	rm -rf *~ *.java.orig *.class
-	rm -rf $(INTERP)/*~
+	rm -rf $(BIN)/*.dot $(BIN)/*.jar $(BIN)/*.txt $(BIN)/Asl $(BIN)/*~ $(BIN)/*.java.orig $(BIN)/*.class
+	rm -rf $(BIN)/*/*.dot $(BIN)/*/*.jar $(BIN)/*/*.txt $(BIN)/*/Asl $(BIN)/*/*~ $(BIN)/*/*.java.orig $(BIN)/*/*.class
+	rm -rf $(INTERP)/*~ $(INTERP)/*.java.orig
+	rm -rf $(SRCDIR)/Asl/*~ $(SRCDIR)/Asl/*.java.orig
 	
 cleanJAVADOC:
 	rm -rf $(PARSER)/*.java $(PARSER)/*.tokens $(PARSER)/*~
