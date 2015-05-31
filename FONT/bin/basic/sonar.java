@@ -83,8 +83,8 @@ public class sonar {
         while((i < lim)) {
             int g = grados();
             System.out.println(g);
-            M1.rotate(-g,true);
-            M2.rotate(g,false);
+            M1.rotate(-(2 * g),true);
+            M2.rotate((2 * g),false);
             if((g != 180)) {
                 M1.rotate(100,true);
                 M2.rotate(100,false);
