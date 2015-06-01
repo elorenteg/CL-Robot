@@ -18,23 +18,23 @@ void main()
     p.setSensors(TOUCH(2),TOUCH(3),COLOR(1),ULTRA(4));
     
     
-    ret = baileCL();
+    ret = baileCL(p);
     
     if ret then
         write "baile realizado con exito"
     endif;
     
-    write "pasamos a modo SEGUIMIENTO"
+    write "pasamos a modo SEGUIMIENTO";
     
     
     p.readColorAndSet();
     ret = p.followBiColor(true);
     
-    if ret = false then
-        write "linea acabada o no he podido recuperarme :S"
+    if not ret  then
+        write "linea acabada o no he podido recuperarme :S";
     endif;
     
-    write "pulsa cualquier boton para salir de este programa"
+    write "pulsa cualquier boton para salir de este programa";
     sleep();
     
 
@@ -46,7 +46,7 @@ bool baileCL(piloto p1)
     ret = true;
     vel = p1.getVelo();
     
-    write "baile bienvenida demostracion CL"
+    write "baile bienvenida demostracion CL";
     
     p1.setVelo(720);
     ret = p1.girarInSitu(1,720,true);
@@ -88,5 +88,5 @@ bool baileCL(piloto p1)
     ret = p1.girarInSitu(1,1440,true);
     
     p1.setVelo(vel);
-    return ret
+    return ret;
 endfunc

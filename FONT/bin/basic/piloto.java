@@ -4,19 +4,18 @@ import lejos.util.Delay;
 
 public class piloto {
     private static TouchSensor touchSen2;
-    private static UltrasonicSensor ultraSen;
-    private static TouchSensor touchSen1;
     private static NXTRegulatedMotor der;
-    private static int relacion;
-    private static int colorToFollow;
-    private static int radio;
-    private static int sep;
-    private static int limiteUS;
-    private static ColorSensor coloSen;
-    private static NXTRegulatedMotor izq;
+    private static TouchSensor touchSen1;
     private static int eje;
-
-
+    private static int colorToF2;
+    private static UltrasonicSensor ultraSen;
+    private static int relacion;
+    private static int colorToF1;
+    private static int sep;
+    private static int radio;
+    private static int limiteUS;
+    private static ColorSensor colorSen;
+    private static NXTRegulatedMotor izq;
 
     public static boolean girar(int dire, int grados, boolean check) {
         if((dire >= 0)) {
@@ -38,12 +37,6 @@ public class piloto {
         return checkeo;
     }
 
-    public static void setSensors(TouchSensor t1, TouchSensor t2, ColorSensor c, UltrasonicSensor u) {
-        setTouchs(t1, t2);
-        setColorSen(c);
-        setUltra(u);
-    }
-
     public static boolean girarInSitu(int dire, int grados, boolean check) {
         if((dire < 0)) {
             grados = (-1 * grados);
@@ -54,27 +47,33 @@ public class piloto {
         return checkMotorSensor(check);
     }
 
+    public static void setSensors(TouchSensor t1, TouchSensor t2, ColorSensor c, UltrasonicSensor u) {
+        setTouchs(t1, t2);
+        setColorSen(c);
+        setUltra(u);
+    }
+
     public static boolean barrido2(int maxAngle, boolean check) {
         System.out.println("entro barrido");
         int mult = 0;
-        int grad = 5;
+        int grad = 10;
         int vel = izq.getSpeed();
         boolean ret = false;
-        int a = coloSen.getColorID();
-        while((((a != colorToFollow) && ((check && checkSensors()) || !check)) && ((grad * mult) < (maxAngle * relacion)))) {
+        int a = colorSen.getColorID();
+        while((((a != colorToF1) && ((check && checkSensors()) || !check)) && ((grad * mult) < (maxAngle * relacion)))) {
             der.rotate(-grad,false);
-            a = coloSen.getColorID();
+            a = colorSen.getColorID();
             mult = (mult + 1);
         }
-        if((a == colorToFollow)) {
+        if((a == colorToF1)) {
             ret = true;
             mult = 0;
-            while(((a == colorToFollow) && ((check && checkSensors()) || !check))) {
+            while(((a == colorToF1) && ((check && checkSensors()) || !check))) {
                 der.rotate(-grad,false);
-                a = coloSen.getColorID();
+                a = colorSen.getColorID();
                 mult = (mult + 1);
             }
-            if((a != colorToFollow)) {
+            if((a != colorToF1)) {
                 der.rotate(((grad * mult) / 2),false);
             } else {
                 ret = false;
@@ -82,21 +81,21 @@ public class piloto {
         } else {
             der.rotate((mult * grad),false);
             mult = 0;
-            a = coloSen.getColorID();
-            while((((a != colorToFollow) && ((check && checkSensors()) || !check)) && ((mult * grad) < (maxAngle * relacion)))) {
+            a = colorSen.getColorID();
+            while((((a != colorToF1) && ((check && checkSensors()) || !check)) && ((mult * grad) < (maxAngle * relacion)))) {
                 izq.rotate(-grad,false);
-                a = coloSen.getColorID();
+                a = colorSen.getColorID();
                 mult = (mult + 1);
             }
-            if((a == colorToFollow)) {
+            if((a == colorToF1)) {
                 ret = true;
                 mult = 0;
-                while(((a == colorToFollow) && ((check && checkSensors()) || !check))) {
+                while(((a == colorToF1) && ((check && checkSensors()) || !check))) {
                     izq.rotate(-grad,false);
-                    a = coloSen.getColorID();
+                    a = colorSen.getColorID();
                     mult = (mult + 1);
                 }
-                if((a != colorToFollow)) {
+                if((a != colorToF1)) {
                     izq.rotate(((grad * mult) / 2),false);
                 } else {
                     ret = false;
@@ -145,10 +144,11 @@ public class piloto {
         relacion = (eje / radio);
         limiteUS = -1;
         ultraSen = new UltrasonicSensor(SensorPort.S4);
-        coloSen = new ColorSensor(SensorPort.S4);
+        ColorSensor coloSen = new ColorSensor(SensorPort.S4);
         touchSen1 = new TouchSensor(SensorPort.S4);
         touchSen2 = new TouchSensor(SensorPort.S4);
-        colorToFollow = -1;
+        colorToF1 = -1;
+        colorToF2 = -1;
     }
 
     public static void setTouch1(TouchSensor t) {
@@ -158,6 +158,11 @@ public class piloto {
     public static void setTouchs(TouchSensor t1, TouchSensor t2) {
         setTouch1(t1);
         setTouch2(t2);
+    }
+
+    public static int getVelo() {
+        int vel = izq.getSpeed();
+        return vel;
     }
 
     public static void moverNoLimit(int dire) {
@@ -170,50 +175,92 @@ public class piloto {
         }
     }
 
-    public static void setColorToFollow(int col) {
-        colorToFollow = col;
-    }
-
-    public static boolean barrido(int maxAngle, boolean check) {
-        System.out.println("entro barrido");
-        int vel = izq.getSpeed();
-        boolean ret = false;
-        izq.setSpeed(25);
-        der.setSpeed(25);
-        der.rotate(-(maxAngle * relacion),true);
-        Delay.msDelay(25);
-        int a = coloSen.getColorID();
-        while((((a != colorToFollow) && der.isMoving()) && ((check && checkSensors()) || !check))) {
-            Delay.msDelay(25);
-            a = coloSen.getColorID();
-        }
-        stopMov();
+    public static void setVelo(int vel) {
         izq.setSpeed(vel);
         der.setSpeed(vel);
-        if((a == colorToFollow)) {
-            ret = true;
+    }
+
+    public static void setColorToFollow(int col, int col2) {
+        colorToF1 = col;
+        colorToF2 = col2;
+    }
+
+    public static boolean followBiColor(boolean check) {
+        boolean ret = true;
+        if(((colorToF1 != -1) && (colorToF1 != colorToF2))) {
+            while(ret) {
+                int estadoAct = colorSen.getColorID();
+                int estadoAnt = -1;
+                boolean movi = ((check && checkSensors()) || !check);
+                while(((movi && ((estadoAct == colorToF1) || (estadoAct == colorToF2))) && ret)) {
+                    movi = mover(1, 10, check);
+                    estadoAnt = estadoAct;
+                    estadoAct = colorSen.getColorID();
+                }
+                if(movi) {
+                    int cont = 0;
+                    if((estadoAnt == colorToF2)) {
+                        while((((movi && (estadoAct != colorToF2)) && ret) && (cont < 17))) {
+                            movi = girar(1, -10, check);
+                            cont = (cont + 1);
+                            estadoAnt = estadoAct;
+                            estadoAct = colorSen.getColorID();
+                        }
+                        if(((cont == 17) || !movi)) {
+                            ret = false;
+                        } else {
+                            while((((movi && (estadoAct == colorToF2)) && ret) && (cont < 17))) {
+                                movi = girar(1, -10, check);
+                                cont = (cont + 1);
+                                estadoAnt = estadoAct;
+                                estadoAct = colorSen.getColorID();
+                            }
+                            if((((cont == 17) || !movi) || (estadoAct != colorToF1))) {
+                                ret = false;
+                            }
+
+                        }
+                    } else {
+                        while((((movi && (estadoAct != colorToF1)) && ret) && (cont < 17))) {
+                            movi = girar(-1, -10, check);
+                            cont = (cont + 1);
+                            estadoAnt = estadoAct;
+                            estadoAct = colorSen.getColorID();
+                        }
+                        if(((cont == 17) || !movi)) {
+                            ret = false;
+                        } else {
+                            while((((movi && (estadoAct == colorToF1)) && ret) && (cont < 17))) {
+                                movi = girar(-1, -10, check);
+                                cont = (cont + 1);
+                                estadoAnt = estadoAct;
+                                estadoAct = colorSen.getColorID();
+                            }
+                            if((((cont == 17) || !movi) || (estadoAct != colorToF2))) {
+                                ret = false;
+                            }
+
+                        }
+                    }
+                } else {
+                    ret = false;
+                }
+            }
         } else {
-            der.rotate((maxAngle * relacion),false);
-            izq.setSpeed(25);
-            der.setSpeed(25);
-            izq.rotate(-(maxAngle * relacion),true);
-            Delay.msDelay(25);
-            a = coloSen.getColorID();
-            while((((a != colorToFollow) && izq.isMoving()) && ((check && checkSensors()) || !check))) {
-                Delay.msDelay(25);
-                a = coloSen.getColorID();
-            }
-            stopMov();
-            izq.setSpeed(vel);
-            der.setSpeed(vel);
-            if((a == colorToFollow)) {
-                ret = true;
-            } else {
-                izq.rotate((maxAngle * relacion),false);
-            }
+            System.out.println("Colors To follow not defined or defined same color on both");
         }
-        System.out.println("salgo barrido");
         return ret;
+    }
+
+    public static void readColorAndSet() {
+        System.out.println("press any button when ready to read left color");
+        Button.waitForAnyPress();
+        colorToF1 = colorSen.getColorID();
+        System.out.println(colorToF1);
+        System.out.println("press any button when ready to read right color");
+        Button.waitForAnyPress();
+        colorToF2 = colorSen.getColorID();
+        System.out.println(colorToF2);
     }
 
     public static void stopMov() {
@@ -239,17 +286,16 @@ public class piloto {
 
     public static boolean followColor(boolean check) {
         boolean ret = true;
-        if((colorToFollow != -1)) {
+        if((colorToF1 != -1)) {
             while((((check && checkSensors()) || !check) && ret)) {
-                System.out.println("ando");
                 moverNoLimit(1);
-                int a = coloSen.getColorID();
-                while(((a == colorToFollow) && ((check && checkSensors()) || !check))) {
+                int a = colorSen.getColorID();
+                while(((a == colorToF1) && ((check && checkSensors()) || !check))) {
                     Delay.msDelay(25);
-                    a = coloSen.getColorID();
+                    a = colorSen.getColorID();
                 }
                 stopMov();
-                if((a != colorToFollow)) {
+                if((a != colorToF1)) {
                     ret = barrido2(320, check);
                 }
 
@@ -269,6 +315,6 @@ public class piloto {
     }
 
     public static void setColorSen(ColorSensor c) {
-        coloSen = c;
+        colorSen = c;
     }
 }
