@@ -4,6 +4,10 @@ motor M;
 motor M1;
 motor M2;
 
+// funcion inicializadora del objeto sonar
+// m1 y m2: motor izquierdo y derecho del robot
+// mu: motor del sensor ultrasonico
+// u: sensor ultrasonico
 void init(motor m1, motor m2, motor mu, ultra u)
     U = u;
     M = mu;
@@ -16,14 +20,15 @@ void init(motor m1, motor m2, motor mu, ultra u)
 endfunc
 
 
-
+// gira g grados el motor del sensor ultrasonico
 void girarUltra(int g)
     M.avanzar(g,true);
     M.retroceder(g,false);
 endfunc
 
 
-
+// funcion principal de resolucion de un laberinto
+// lim: num. de movimientos maximo que puede realizar
 void laberinto(int lim)
     i = 0;
     while (i < lim) do
@@ -42,6 +47,8 @@ void laberinto(int lim)
     endwhile;
 endfunc
 
+// busca el angulo que han de girar los motores del robot para
+// ir al sitio mas despejado
 int grados()
     girarUltra(- 75);
     
@@ -72,7 +79,8 @@ int grados()
 endfunc
 
 
-
+// funcion principal para seguir un objeto cercano
+// lim: num. de movimientos maximo que puede realizar
 void sigueObjeto(int lim)
     i = 0;
     while (i < lim) do
@@ -91,6 +99,8 @@ void sigueObjeto(int lim)
     endwhile;
 endfunc
 
+// busca el angulo que han de girar los motores del robot para
+// seguir el objeto mas cercano
 int gradosObjeto()
     girarUltra(- 75);
     
