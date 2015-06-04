@@ -22,8 +22,7 @@ endfunc
 
 // gira g grados el motor del sensor ultrasonico
 void girarUltra(int g)
-    M.avanzar(g,true);
-    M.retroceder(g,false);
+    M.avanzar(g,false);
 endfunc
 
 

@@ -28,44 +28,44 @@ public class sonar {
         girarUltra(-75);
         int grad = 0;
         int dist = 0;
-        int i = -65;
+        int i = -75;
         boolean cerca = true;
         while((i <= 75)) {
-            if((U.getDistance() > dist)) {
-                dist = U.getDistance();
+	    int aux = U.getDistance();
+	    System.out.println(aux);
+	    //Button.waitForAnyPress();
+            if((aux > dist)) {
+                dist = aux;
                 grad = i;
             }
 
-            if((U.getDistance() > 50)) {
+            if((aux >= 30)) {
                 cerca = false;
             }
 
             girarUltra(10);
             i = (i + 10);
-            Delay.msDelay(500);
         }
-        girarUltra(-65);
+        girarUltra(-85);
         if(cerca) {
-            grad = 180;
+            grad = 90;
         }
 
         return grad;
     }
 
-    public static boolean mover(int grados) {
+    public static void mover(int grados) {
         M1.rotate(grados,true);
-        M2.rotate(grados,true);
-        return checkUltra();
+        M2.rotate(grados,false);
     }
 
     public static int gradosObjeto() {
-        girarUltra(-85);
-	//Button.waitForAnyPress();
+        girarUltra(-75);
         int grad = 0;
         int dist = 255;
-        int i = -85;
+        int i = -65;
         boolean cerca = false;
-        while((i <= 85)) {
+        while((i <= 75)) {
             if((U.getDistance() < dist)) {
                 dist = U.getDistance();
                 grad = i;
@@ -77,12 +77,10 @@ public class sonar {
 
             girarUltra(10);
             i = (i + 10);
-            //Delay.msDelay(100);
-
         }
-        girarUltra(-95);
+        girarUltra(-65);
         if(!cerca) {
-            grad = 180;
+            grad = 90;
         }
 
         return grad;
@@ -119,32 +117,9 @@ public class sonar {
         M2.setSpeed(180);
     }
 
-    public static void rapidoObj(int lim) {
-        int i = 0;
-        while((i < lim)) {
-            System.out.println("Caminando hasta encontrar objeto");
-            boolean despejado = checkUltra();
-            while(despejado) {
-                despejado = mover(50);
-            }
-            System.out.println("Objeto encontrado");
-            while(!despejado){
-		Delay.msDelay(1000);
-		despejado = checkUltra();
-	    }
-            System.out.println("Objeto movido");
-            int g = gradosObjeto();
-            System.out.println("Girando");
-            System.out.println(g);
-            M1.rotate(-(2 * g),true);
-            M2.rotate((2 * g),false);
-            i = (i + 1);
-        }
-    }
-
     public static void girarUltra(int g) {
-        M.rotate(g,true);
         M.rotate(-g,false);
+	Delay.msDelay(100);
     }
 
     public static void rapido(int lim) {
@@ -153,14 +128,15 @@ public class sonar {
             System.out.println("Caminando hasta tope");
             boolean despejado = checkUltra();
             while(despejado) {
-                despejado = mover(50);
+                mover(50);
+		despejado = checkUltra();
             }
             System.out.println("Tope encontrado");
             int g = grados();
             System.out.println("Girando");
             System.out.println(g);
-            M1.rotate(-(2 * g),true);
-            M2.rotate((2 * g),false);
+            M1.rotate(-(6 * g),true);
+            M2.rotate((6 * g),false);
             i = (i + 1);
         }
     }
