@@ -10,5 +10,5 @@ void main()
     U = ULTRA(4);
     s = OBJECT(sonar);
     s.init(M1,M2,MU,U);
-    s.sigueObjeto(10);
+    s.seguirRapido(10);
 endfunc 

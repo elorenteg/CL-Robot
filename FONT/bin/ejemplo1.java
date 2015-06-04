@@ -10,6 +10,6 @@ public class ejemplo1 {
         UltrasonicSensor U = new UltrasonicSensor(SensorPort.S4);
         sonar s = new sonar();
         s.init(M1, M2, MU, U);
-        s.laberinto(10);
+        s.laberintoRapido(10);
     }
 }

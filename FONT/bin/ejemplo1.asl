@@ -10,5 +10,5 @@ void main()
     U = ULTRA(4);
     s = OBJECT(sonar);
     s.init(M1,M2,MU,U);
-    s.laberinto(10);
+    s.laberintoRapido(10);
 endfunc 

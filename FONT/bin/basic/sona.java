@@ -8,25 +8,6 @@ public class sonar {
     private static NXTRegulatedMotor M2;
     private static NXTRegulatedMotor M1;
 
-    public static void laberintoRapido(int lim) {
-        int i = 0;
-        while((i < lim)) {
-            System.out.println("Caminando hasta tope");
-            boolean despejado = checkUltra(10);
-            while(despejado) {
-                mover(50);
-                despejado = checkUltra(10);
-            }
-            System.out.println("Tope encontrado");
-            int g = grados();
-            System.out.println("Girando");
-            System.out.println(g);
-            M1.rotate(-(6 * g),true);
-            M2.rotate((6 * g),false);
-            i = (i + 1);
-        }
-    }
-
     public static void sigueObjeto(int lim) {
         int i = 0;
         while((i < lim)) {
@@ -50,13 +31,15 @@ public class sonar {
         int i = -75;
         boolean cerca = true;
         while((i <= 75)) {
-            int d = U.getDistance();
-            if((d > dist)) {
-                dist = d;
+	    int aux = U.getDistance();
+	    System.out.println(aux);
+	    //Button.waitForAnyPress();
+            if((aux > dist)) {
+                dist = aux;
                 grad = i;
             }
 
-            if((d >= 30)) {
+            if((aux >= 30)) {
                 cerca = false;
             }
 
@@ -71,32 +54,31 @@ public class sonar {
         return grad;
     }
 
-    public static void mover(int g) {
-        M1.rotate(g,true);
-        M2.rotate(g,true);
+    public static void mover(int grados) {
+        M1.rotate(grados,true);
+        M2.rotate(grados,false);
     }
 
     public static int gradosObjeto() {
         girarUltra(-75);
         int grad = 0;
         int dist = 255;
-        int i = -75;
+        int i = -65;
         boolean cerca = false;
         while((i <= 75)) {
-            int d = U.getDistance();
-            if((d < dist)) {
-                dist = d;
+            if((U.getDistance() < dist)) {
+                dist = U.getDistance();
                 grad = i;
             }
 
-            if((d < 100)) {
+            if((U.getDistance() < 100)) {
                 cerca = true;
             }
 
             girarUltra(10);
             i = (i + 10);
         }
-        girarUltra(-85);
+        girarUltra(-65);
         if(!cerca) {
             grad = 90;
         }
@@ -104,9 +86,9 @@ public class sonar {
         return grad;
     }
 
-    public static boolean checkUltra(int tope) {
+    public static boolean checkUltra() {
         int d = U.getDistance();
-        return (d > tope);
+        return (d > 10);
     }
 
     public static void laberinto(int lim) {
@@ -125,30 +107,6 @@ public class sonar {
         }
     }
 
-    public static void seguirRapido(int lim) {
-        int i = 0;
-        while((i < lim)) {
-            System.out.println("Caminando hasta encontrar objeto");
-            boolean despejado = checkUltra(10);
-            while(despejado) {
-                mover(50);
-                despejado = checkUltra(10);
-            }
-            System.out.println("Objeto encontrado");
-            while(!despejado) {
-                Delay.msDelay(1000);
-                despejado = checkUltra(10);
-            }
-            System.out.println("Objeto movido");
-            int g = gradosObjeto();
-            System.out.println("Girando");
-            System.out.println(g);
-            M1.rotate(-(6 * g),true);
-            M2.rotate((6 * g),false);
-            i = (i + 1);
-        }
-    }
-
     public static void init(NXTRegulatedMotor m1, NXTRegulatedMotor m2, NXTRegulatedMotor mu, UltrasonicSensor u) {
         U = u;
         M = mu;
@@ -160,6 +118,26 @@ public class sonar {
     }
 
     public static void girarUltra(int g) {
-        M.rotate(g,false);
+        M.rotate(-g,false);
+	Delay.msDelay(100);
+    }
+
+    public static void rapido(int lim) {
+        int i = 0;
+        while((i < lim)) {
+            System.out.println("Caminando hasta tope");
+            boolean despejado = checkUltra();
+            while(despejado) {
+                mover(50);
+		despejado = checkUltra();
+            }
+            System.out.println("Tope encontrado");
+            int g = grados();
+            System.out.println("Girando");
+            System.out.println(g);
+            M1.rotate(-(6 * g),true);
+            M2.rotate((6 * g),false);
+            i = (i + 1);
+        }
     }
 }
