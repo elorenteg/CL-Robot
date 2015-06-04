@@ -129,3 +129,29 @@ int gradosObjeto()
     
     return grad;
 endfunc
+
+bool mover(int grados)
+    M1.avanzar(grados,true);
+    M2.avanzar(grados,true);
+    return U.getUltrasonic() > 10;
+endfunc
+
+void rapido(int lim)
+    i = 0;
+    while i < lim do
+        despejado = true;
+        write "Caminando hasta tope";
+        while(despejado) do
+            despejado = mover(50);
+        endwhile;
+        write "Tope encontrado";
+        
+        g = grados();
+        write "Girando";
+        write g;
+        M1.retroceder(2 * g, true);
+        M2.avanzar(2 * g, false);
+        
+        i = i + 1;
+    endwhile;
+endfunc
