@@ -192,28 +192,32 @@ public class piloto {
                 int estadoAct = colorSen.getColorID();
                 int estadoAnt = -1;
                 boolean movi = ((check && checkSensors()) || !check);
+                int i = 0;
                 while(((movi && ((estadoAct == colorToF1) || (estadoAct == colorToF2))) && ret)) {
                     movi = mover(1, 10, check);
                     estadoAnt = estadoAct;
                     estadoAct = colorSen.getColorID();
+                    printColor(estadoAct, estadoAnt);
                 }
                 if(movi) {
                     int cont = 0;
                     if((estadoAnt == colorToF2)) {
                         while((((movi && (estadoAct != colorToF2)) && ret) && (cont < 17))) {
-                            movi = girar(1, -10, check);
+                            movi = girar(1, -3, check);
                             cont = (cont + 1);
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColorID();
+                            printColor(estadoAct, estadoAnt);
                         }
                         if(((cont == 17) || !movi)) {
                             ret = false;
                         } else {
                             while((((movi && (estadoAct == colorToF2)) && ret) && (cont < 17))) {
-                                movi = girar(1, -10, check);
+                                movi = girar(1, -3, check);
                                 cont = (cont + 1);
                                 estadoAnt = estadoAct;
                                 estadoAct = colorSen.getColorID();
+                                printColor(estadoAct, estadoAnt);
                             }
                             if((((cont == 17) || !movi) || (estadoAct != colorToF1))) {
                                 ret = false;
@@ -222,19 +226,21 @@ public class piloto {
                         }
                     } else {
                         while((((movi && (estadoAct != colorToF1)) && ret) && (cont < 17))) {
-                            movi = girar(-1, -10, check);
+                            movi = girar(-1, -3, check);
                             cont = (cont + 1);
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColorID();
+                            printColor(estadoAct, estadoAnt);
                         }
                         if(((cont == 17) || !movi)) {
                             ret = false;
                         } else {
                             while((((movi && (estadoAct == colorToF1)) && ret) && (cont < 17))) {
-                                movi = girar(-1, -10, check);
+                                movi = girar(-1, -3, check);
                                 cont = (cont + 1);
                                 estadoAnt = estadoAct;
                                 estadoAct = colorSen.getColorID();
+                                printColor(estadoAct, estadoAnt);
                             }
                             if((((cont == 17) || !movi) || (estadoAct != colorToF2))) {
                                 ret = false;
@@ -316,5 +322,13 @@ public class piloto {
 
     public static void setColorSen(ColorSensor c) {
         colorSen = c;
+    }
+
+    public static void printColor(int estadoAct, int estadoAnt) {
+        System.out.println(estadoAct);
+        System.out.println(estadoAnt);
+        System.out.println(colorToF1);
+        System.out.println(colorToF2);
+        Button.waitForAnyPress();
     }
 }

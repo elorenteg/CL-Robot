@@ -227,10 +227,12 @@ bool followBiColor(bool check)
             estadoAct = colorSen.getColor();
             estadoAnt = -1;
             movi = (check and checkSensors()) or not check;
+            i = 0;
             while(movi and (estadoAct = colorToF1 or estadoAct = colorToF2) and ret) do
                 movi = mover(1,10,check);
                 estadoAnt = estadoAct;
                 estadoAct = colorSen.getColor();
+                printColor(estadoAct,estadoAnt);
             endwhile;
             if (movi) then
                 cont = 0;
@@ -238,10 +240,11 @@ bool followBiColor(bool check)
                 if (estadoAnt = colorToF2) then
                     //me tengo que recuperar a la izq
                     while (movi and estadoAct != colorToF2 and ret and cont<17) do
-                        movi = girar(1,-10,check);
+                        movi = girar(1,-3,check);
                         cont = cont+1;
                         estadoAnt = estadoAct;
                         estadoAct = colorSen.getColor();
+                        printColor(estadoAct,estadoAnt);
                     endwhile;
                     if ( (cont = 17) or (not movi )) then
                         // me he intentado recuperar a la izq y no he encontrado el color
@@ -253,10 +256,11 @@ bool followBiColor(bool check)
                         //sigo hasta justo cuando encuentre el color izq colorToF1 asi intento
                         //salirme menos
                         while (movi and estadoAct = colorToF2 and ret and cont < 17) do
-                            movi = girar(1,-10,check);
+                            movi = girar(1,-3,check);
                             cont = cont+1;
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColor();
+                            printColor(estadoAct,estadoAnt);
                         endwhile;
                         if ((cont = 17) or (not movi) or (estadoAct != colorToF1)) then
                             ret = false;
@@ -266,10 +270,11 @@ bool followBiColor(bool check)
                     // me tengo que recuperar a la derecha
                     //me tengo que recuperar a la izq
                     while (movi and estadoAct != colorToF1 and ret and cont<17) do
-                        movi = girar(-1,-10,check);
+                        movi = girar(-1,-3,check);
                         cont = cont+1;
                         estadoAnt = estadoAct;
                         estadoAct = colorSen.getColor();
+                        printColor(estadoAct,estadoAnt);
                     endwhile;
                     if ((cont = 17) or (not movi)) then
                         // me he intentado recuperar a la izq y no he encontrado el color
@@ -281,10 +286,11 @@ bool followBiColor(bool check)
                         //sigo hasta justo cuando encuentre el color der colorToF2 asi intento
                         //salirme menos
                         while (movi and estadoAct = colorToF1 and ret and cont<17) do
-                            movi = girar(-1,-10,check);
+                            movi = girar(-1,-3,check);
                             cont = cont+1;
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColor();
+                            printColor(estadoAct,estadoAnt);
                         endwhile;
                         if ((cont = 17) or (not movi) or (estadoAct != colorToF2)) then
                             ret = false;
@@ -401,3 +407,10 @@ bool barrido2(int maxAngle, bool check)
 endfunc
 
 
+void printColor(int estadoAct, int estadoAnt)
+    write estadoAct;
+    write estadoAnt;
+    write colorToF1;
+    write colorToF2;
+    sleep();
+endfunc

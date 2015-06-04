@@ -49,16 +49,11 @@ public class sigueBi {
         m1.setSpeed(180);
         m2.setSpeed(180);
         piloto p = new piloto();
-        p.init(m1, m2, 9, 12, 2);
+        p.init(m2, m1, 9, 12, 2);
         p.setSensors(new TouchSensor(SensorPort.S2), new TouchSensor(SensorPort.S3), new ColorSensor(SensorPort.S1), new UltrasonicSensor(SensorPort.S4));
-        boolean ret = baileCL(p);
-        if(ret) {
-            System.out.println("baile realizado con exito");
-        }
-
         System.out.println("pasamos a modo SEGUIMIENTO");
         p.readColorAndSet();
-        ret = p.followBiColor(true);
+        boolean ret = p.followBiColor(true);
         if(!ret) {
             System.out.println("linea acabada o no he podido recuperarme :S");
         }
