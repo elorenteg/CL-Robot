@@ -161,5 +161,6 @@ public class sonar {
 
     public static void girarUltra(int g) {
         M.rotate(g,false);
+        Delay.msDelay(100);
     }
 }

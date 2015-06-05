@@ -30,6 +30,7 @@ endfunc
 // gira g grados el motor del sensor ultrasonico
 void girarUltra(int g)
     M.avanzar(g,false);
+    sleep(100);
 endfunc
 
 // comprueba que no haya un obstaculo a tope cm por delante del sensor
