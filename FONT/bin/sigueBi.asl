@@ -18,11 +18,11 @@ void main()
     p.setSensors(TOUCH(2),TOUCH(3),COLOR(1),ULTRA(4));
     
     
-    //ret = baileCL(p);
+    ret = baileCL(p);
     
-    //if ret then
-    //    write "baile realizado con exito"
-    //endif;
+    if ret then
+        write "baile realizado con exito"
+    endif;
     
     write "pasamos a modo SEGUIMIENTO";
     
