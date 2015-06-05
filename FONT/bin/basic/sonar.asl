@@ -59,7 +59,7 @@ int grados()
             grad = i;
         endif;
         
-        if (d >= 30) then
+        if (d > 20) then
             cerca = false;
         endif;
         
@@ -91,7 +91,7 @@ int gradosObjeto()
             grad = i;
         endif;
         
-        if (d < 100) then
+        if (d < 150) then
             cerca = true;
         endif;
         
@@ -122,8 +122,8 @@ void laberintoRapido(int lim)
         g = grados();
         write "Girando";
         write g;
-        M1.retroceder(6 * g, true);
-        M2.avanzar(6 * g, false);
+        M1.avanzar(6 * g, true);
+        M2.retroceder(6 * g, false);
         
         i = i + 1;
     endwhile;
@@ -149,8 +149,8 @@ void seguirRapido(int lim)
         g = gradosObjeto();
         write "Girando";
         write g;
-        M1.retroceder(6 * g, true);
-        M2.avanzar(6 * g, false);
+        M1.avanzar(4 * g, true);
+        M2.retroceder(4 * g, false);
         
         i = i + 1;
     endwhile;

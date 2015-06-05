@@ -21,8 +21,8 @@ public class sonar {
             int g = grados();
             System.out.println("Girando");
             System.out.println(g);
-            M1.rotate(-(6 * g),true);
-            M2.rotate((6 * g),false);
+            M1.rotate((6 * g),true);
+            M2.rotate(-(6 * g),false);
             i = (i + 1);
         }
     }
@@ -56,7 +56,7 @@ public class sonar {
                 grad = i;
             }
 
-            if((d >= 30)) {
+            if((d > 20)) {
                 cerca = false;
             }
 
@@ -89,7 +89,7 @@ public class sonar {
                 grad = i;
             }
 
-            if((d < 100)) {
+            if((d < 150)) {
                 cerca = true;
             }
 
@@ -143,8 +143,8 @@ public class sonar {
             int g = gradosObjeto();
             System.out.println("Girando");
             System.out.println(g);
-            M1.rotate(-(6 * g),true);
-            M2.rotate((6 * g),false);
+            M1.rotate((4 * g),true);
+            M2.rotate(-(4 * g),false);
             i = (i + 1);
         }
     }

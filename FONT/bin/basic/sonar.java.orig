@@ -20,8 +20,8 @@ System.out.println("Tope encontrado");
 int g = grados();
 System.out.println("Girando");
 System.out.println(g);
-M1.rotate(-(6 * g),true);
-M2.rotate((6 * g),false);
+M1.rotate((6 * g),true);
+M2.rotate(-(6 * g),false);
 i = (i + 1);
 }
 }
@@ -55,7 +55,7 @@ dist = d;
 grad = i;
 }
 
-if((d >= 30)) {
+if((d > 20)) {
 cerca = false;
 }
 
@@ -88,7 +88,7 @@ dist = d;
 grad = i;
 }
 
-if((d < 100)) {
+if((d < 150)) {
 cerca = true;
 }
 
@@ -142,8 +142,8 @@ System.out.println("Objeto movido");
 int g = gradosObjeto();
 System.out.println("Girando");
 System.out.println(g);
-M1.rotate(-(6 * g),true);
-M2.rotate((6 * g),false);
+M1.rotate((4 * g),true);
+M2.rotate(-(4 * g),false);
 i = (i + 1);
 }
 }
