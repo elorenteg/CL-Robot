@@ -239,14 +239,15 @@ bool followBiColor(bool check)
                 //he salido por segunda clausula de colores
                 if (estadoAnt = colorToF2) then
                     //me tengo que recuperar a la izq
-                    while (movi and estadoAct != colorToF2 and ret and cont<17) do
+                    cont = 0;
+                    while (movi and estadoAct != colorToF2 and ret and cont<50) do
                         movi = girar(1,-3,check);
                         cont = cont+1;
                         estadoAnt = estadoAct;
                         estadoAct = colorSen.getColor();
                         printColor(estadoAct,estadoAnt);
                     endwhile;
-                    if ( (cont = 17) or (not movi )) then
+                    if ( (cont = 50) or (not movi )) then
                         // me he intentado recuperar a la izq y no he encontrado el color
                         // derecho de la linea colorToF2 o me he parado por sensores
                         // si check estaba activado
@@ -255,28 +256,30 @@ bool followBiColor(bool check)
                         //giro izq y he encontrado color derecho colorToF2 para corregir mejor
                         //sigo hasta justo cuando encuentre el color izq colorToF1 asi intento
                         //salirme menos
-                        while (movi and estadoAct = colorToF2 and ret and cont < 17) do
+                        cont = 0;
+                        while (movi and estadoAct = colorToF2 and ret and cont < 10) do
                             movi = girar(1,-3,check);
                             cont = cont+1;
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColor();
                             printColor(estadoAct,estadoAnt);
                         endwhile;
-                        if ((cont = 17) or (not movi) or (estadoAct != colorToF1)) then
+                        if ((cont = 10) or (not movi) or (estadoAct != colorToF1)) then
                             ret = false;
                         endif;
                     endif;
                 else
+                    cont = 0;
                     // me tengo que recuperar a la derecha
                     //me tengo que recuperar a la izq
-                    while (movi and estadoAct != colorToF1 and ret and cont<17) do
+                    while (movi and estadoAct != colorToF1 and ret and cont<50) do
                         movi = girar(-1,-3,check);
                         cont = cont+1;
                         estadoAnt = estadoAct;
                         estadoAct = colorSen.getColor();
                         printColor(estadoAct,estadoAnt);
                     endwhile;
-                    if ((cont = 17) or (not movi)) then
+                    if ((cont = 50) or (not movi)) then
                         // me he intentado recuperar a la izq y no he encontrado el color
                         // derecho de la linea colorToF2 o me he parado por sensores
                         // si check estaba activado
@@ -285,14 +288,15 @@ bool followBiColor(bool check)
                         //giro derecha y he encontrado color izq colorToF1 para corregir mejor
                         //sigo hasta justo cuando encuentre el color der colorToF2 asi intento
                         //salirme menos
-                        while (movi and estadoAct = colorToF1 and ret and cont<17) do
+                        cont = 0;
+                        while (movi and estadoAct = colorToF1 and ret and cont<10) do
                             movi = girar(-1,-3,check);
                             cont = cont+1;
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColor();
                             printColor(estadoAct,estadoAnt);
                         endwhile;
-                        if ((cont = 17) or (not movi) or (estadoAct != colorToF2)) then
+                        if ((cont = 10) or (not movi) or (estadoAct != colorToF2)) then
                             ret = false;
                         endif;
                     endif;
@@ -412,5 +416,5 @@ void printColor(int estadoAct, int estadoAnt)
     write estadoAnt;
     write colorToF1;
     write colorToF2;
-    sleep();
+    //sleep();
 endfunc

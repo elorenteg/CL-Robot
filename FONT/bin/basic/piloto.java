@@ -202,47 +202,51 @@ public class piloto {
                 if(movi) {
                     int cont = 0;
                     if((estadoAnt == colorToF2)) {
-                        while((((movi && (estadoAct != colorToF2)) && ret) && (cont < 17))) {
+                        cont = 0;
+                        while((((movi && (estadoAct != colorToF2)) && ret) && (cont < 50))) {
                             movi = girar(1, -3, check);
                             cont = (cont + 1);
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColorID();
                             printColor(estadoAct, estadoAnt);
                         }
-                        if(((cont == 17) || !movi)) {
+                        if(((cont == 50) || !movi)) {
                             ret = false;
                         } else {
-                            while((((movi && (estadoAct == colorToF2)) && ret) && (cont < 17))) {
+                            cont = 0;
+                            while((((movi && (estadoAct == colorToF2)) && ret) && (cont < 10))) {
                                 movi = girar(1, -3, check);
                                 cont = (cont + 1);
                                 estadoAnt = estadoAct;
                                 estadoAct = colorSen.getColorID();
                                 printColor(estadoAct, estadoAnt);
                             }
-                            if((((cont == 17) || !movi) || (estadoAct != colorToF1))) {
+                            if((((cont == 10) || !movi) || (estadoAct != colorToF1))) {
                                 ret = false;
                             }
 
                         }
                     } else {
-                        while((((movi && (estadoAct != colorToF1)) && ret) && (cont < 17))) {
+                        cont = 0;
+                        while((((movi && (estadoAct != colorToF1)) && ret) && (cont < 50))) {
                             movi = girar(-1, -3, check);
                             cont = (cont + 1);
                             estadoAnt = estadoAct;
                             estadoAct = colorSen.getColorID();
                             printColor(estadoAct, estadoAnt);
                         }
-                        if(((cont == 17) || !movi)) {
+                        if(((cont == 50) || !movi)) {
                             ret = false;
                         } else {
-                            while((((movi && (estadoAct == colorToF1)) && ret) && (cont < 17))) {
+                            cont = 0;
+                            while((((movi && (estadoAct == colorToF1)) && ret) && (cont < 10))) {
                                 movi = girar(-1, -3, check);
                                 cont = (cont + 1);
                                 estadoAnt = estadoAct;
                                 estadoAct = colorSen.getColorID();
                                 printColor(estadoAct, estadoAnt);
                             }
-                            if((((cont == 17) || !movi) || (estadoAct != colorToF2))) {
+                            if((((cont == 10) || !movi) || (estadoAct != colorToF2))) {
                                 ret = false;
                             }
 
@@ -329,6 +333,5 @@ public class piloto {
         System.out.println(estadoAnt);
         System.out.println(colorToF1);
         System.out.println(colorToF2);
-        Button.waitForAnyPress();
     }
 }
