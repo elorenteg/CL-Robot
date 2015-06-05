@@ -10,4 +10,8 @@ Ejecucion:
 
 Dentro del directorio FONT/bin
 
-    ./Asl <fichero_principal>
+    ./Asl <principal>.asl
+    
+    nxjc <principal>.java
+    nxjlink -o <principal>.nxj <principal>
+    nxjlink <principal>.nxj

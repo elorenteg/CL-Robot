@@ -107,7 +107,8 @@ int gradosObjeto()
 endfunc
 
 
-
+// funcion principal de resolucion de un laberinto (forma rapida)
+// lim: num. de movimientos maximo que puede realizar
 void laberintoRapido(int lim)
     i = 0;
     while i < lim do
@@ -129,6 +130,8 @@ void laberintoRapido(int lim)
     endwhile;
 endfunc
 
+// funcion principal para seguir un objeto cercano (forma lenta)
+// lim: num. de movimientos maximo que puede realizar
 void seguirRapido(int lim)
     i = 0;
     while i < lim do
